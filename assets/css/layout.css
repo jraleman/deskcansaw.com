@@ -1,0 +1,94 @@
+/* ==========================================================================
+   DeskCanSaw — site layout
+   The chrome of a full site page: side nav, content column, hero, footer
+   (style-guide.md §5, §6.4). Used by preview.html.
+   Requires tokens.css, base.css, components.css.
+   ========================================================================== */
+
+.layout { display: flex; min-height: 100vh; }
+
+/* --- side nav (§6.4), 230px ------------------------------------------- */
+.sidenav {
+  position: sticky; top: 0; align-self: flex-start;
+  flex: 0 0 230px; width: 230px; height: 100vh;
+  background: var(--dcs-nav-bg);
+  border-right: var(--line) solid var(--dcs-border);
+  padding: var(--sp-lg) var(--sp-md);
+  display: flex; flex-direction: column; gap: var(--sp-lg);
+}
+
+.brand {
+  font-family: var(--font-pixel);
+  font-size: 2.3rem; font-weight: 400; letter-spacing: 0;
+  color: var(--dcs-heading);
+  text-decoration: none; line-height: 1.2;
+}
+.brand:hover { color: var(--dcs-heading); }
+.brand small {
+  display: block;
+  font-family: var(--font-body); font-size: 1.2rem; font-weight: 400;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--dcs-muted);
+  margin-top: var(--sp-xs);
+}
+
+.navlist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.navlist a {
+  display: block;
+  padding: var(--sp-sm) var(--sp-md);
+  border-radius: var(--r-md);
+  color: var(--dcs-text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color var(--t-hover), color var(--t-hover);
+}
+.navlist a:hover { background: var(--dcs-nav-hover); color: var(--dcs-heading); }
+
+/* The hero CTA is this page's one peach thing (§2.3), so the active nav item
+   drops to the quiet raised background instead of peach. */
+.navlist a[aria-current="true"] {
+  background: var(--dcs-nav-hover);
+  color: var(--dcs-heading);
+  font-weight: 700;
+}
+body[data-color-scheme="dark"] .navlist a[aria-current="true"] { color: var(--dcs-sky-100); }
+
+.nav-foot { margin-top: auto; display: flex; flex-direction: column; gap: var(--sp-sm); }
+.nav-foot a { font-size: 1.4rem; }
+
+/* --- content column ---------------------------------------------------- */
+.main { flex: 1 1 auto; min-width: 0; padding: var(--sp-xl) var(--sp-lg) var(--sp-2xl); }
+.wrap { max-width: 800px; margin: 0 auto; }
+
+section.band { padding-top: var(--sp-xl); }
+section.band + section.band { margin-top: var(--sp-xl); }
+
+/* --- hero (§3.2) ------------------------------------------------------- */
+.hero { padding: var(--sp-2xl) 0 var(--sp-xl); }
+.hero h1 { font-size: 48px; margin: 0 0 var(--sp-sm); }
+.hero p.lede { font-size: 1.7rem; }
+@media (max-width: 700px) { .hero h1 { font-size: 32px; } }
+
+/* --- footer ------------------------------------------------------------ */
+.site-foot {
+  margin-top: var(--sp-2xl);
+  padding-top: var(--sp-lg);
+  border-top: var(--line) solid var(--dcs-border);
+  font-size: 1.4rem; color: var(--dcs-muted);
+}
+.site-foot p { margin-bottom: var(--sp-sm); }
+
+/* --- mobile: the nav becomes a top bar --------------------------------- */
+@media (max-width: 900px) {
+  .layout { display: block; }
+  .sidenav {
+    position: static; width: auto; height: auto; flex: none;
+    border-right: none; border-bottom: var(--line) solid var(--dcs-border);
+    flex-direction: row; flex-wrap: wrap; align-items: center;
+    gap: var(--sp-md);
+  }
+  .navlist { flex-direction: row; flex-wrap: wrap; gap: var(--sp-xs); }
+  .nav-foot { margin-top: 0; flex-direction: row; gap: var(--sp-md); }
+  .main { padding: var(--sp-lg) var(--sp-md) var(--sp-xl); }
+  .hero { padding-top: var(--sp-xl); }
+}

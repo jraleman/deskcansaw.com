@@ -1,0 +1,117 @@
+/* ==========================================================================
+   DeskCanSaw — design tokens
+   The single source for colour, type, spacing and motion. Everything in
+   style-guide.md §2, §3.1, §5 and §7 lands here and nowhere else.
+
+   Two layers:
+     raw      — the sampled palette (§2.1). Only for values that are identical
+                in both schemes: illustration fills, the peach accent.
+     semantic — what components actually use (§2.6). These are the ones that
+                flip; component CSS reads these and never a raw scheme token.
+   ========================================================================== */
+:root {
+  /* --- raw palette, light side (§2.1, §2.4) --------------------------- */
+  --dcs-sky:        #afdde9;
+  --dcs-sky-100:    #e9f5f9;
+  --dcs-sky-200:    #d3ecf3;
+  --dcs-sky-600:    #7a9ba3;
+  --dcs-deep-sky:   #205e6f;
+  --dcs-cream:      #f4eed7;
+  --dcs-paper:      #f9f9f9;
+  --dcs-ice:        #ecf0f1;
+  --dcs-peach:      #e9c6af;
+  --dcs-peach-100:  #f9efe9;
+  --dcs-peach-600:  #a38b7a;
+  --dcs-rust:       #8d5835;
+  --dcs-slate:      #495663;
+  --dcs-slate-400:  #9ba2a9;
+  --dcs-slate-200:  #ccd0d3;
+  --dcs-ink:        #21272d;
+  --dcs-ink-700:    #333c45;
+
+  /* --- raw palette, night side (§2.5) --------------------------------- */
+  --dcs-night:      #0e1519;
+  --dcs-deep:       #162128;
+  --dcs-deep-100:   #25343b;
+  --dcs-night-700:  #2b3841;
+  --dcs-mist:       #c9d3d8;
+  --dcs-slate-500:  #76808a;
+  --dcs-sky-dim:    #314147;
+  --dcs-peach-dim:  #433f3d;
+  --dcs-peach-tint: #f0d7c7;
+
+  /* --- semantic aliases, light values (§2.6) -------------------------- */
+  --dcs-bg: var(--dcs-sky);
+  --dcs-surface: var(--dcs-cream);
+  --dcs-surface-raised: var(--dcs-paper);
+  --dcs-well: var(--dcs-sky-200);
+  --dcs-text: var(--dcs-ink-700);
+  --dcs-heading: var(--dcs-ink);
+  --dcs-muted: var(--dcs-slate-400);
+  --dcs-border: var(--dcs-slate-200);
+  --dcs-border-strong: var(--dcs-slate);
+  --dcs-link: var(--dcs-deep-sky);
+  --dcs-link-hover: var(--dcs-ink);
+  --dcs-warm-text: var(--dcs-rust);
+  --dcs-stroke: var(--dcs-slate);
+  --dcs-tag-bg: var(--dcs-peach-100);
+  --dcs-tag-text: var(--dcs-rust);
+  --dcs-neutral-bg: var(--dcs-sky-200);
+  --dcs-neutral-text: var(--dcs-ink-700);
+  --dcs-nav-bg: var(--dcs-paper);
+  --dcs-nav-hover: var(--dcs-sky-100);
+  --dcs-code-bg: var(--dcs-sky-200);
+  --dcs-code-text: var(--dcs-ink);
+  --dcs-inline-code-bg: var(--dcs-sky-100);
+  --dcs-secondary-fill: var(--dcs-cream);
+  --dcs-secondary-text: var(--dcs-ink-700);
+
+  /* --- type (§3.1) ---------------------------------------------------- */
+  --font-body:  "Roboto", system-ui, sans-serif;
+  --font-pixel: "Silkscreen", "Roboto", sans-serif;
+  --font-num:   "VT323", ui-monospace, monospace;
+  --font-mono:  ui-monospace, "SFMono-Regular", Consolas, monospace;
+
+  /* --- spacing (§5) --------------------------------------------------- */
+  --sp-xs: 4px;  --sp-sm: 8px;  --sp-md: 16px;
+  --sp-lg: 24px; --sp-xl: 40px; --sp-2xl: 64px;
+
+  /* --- shape (§4) ----------------------------------------------------- */
+  --r-sm: 4px; --r-md: 8px; --r-lg: 12px;
+  --line: 1.5px;
+
+  /* --- motion (§7) ---------------------------------------------------- */
+  --t-hover: .16s ease-out;
+  --t-lift: .2s cubic-bezier(.2,.8,.3,1);
+}
+
+/* The night side. Light is the no-attribute state; only the semantic aliases
+   are re-pointed, plus the one raw token that needs a different hex (§2.6). */
+body[data-color-scheme="dark"] {
+  --dcs-slate-400: #929aa1;
+
+  --dcs-bg: var(--dcs-night);
+  --dcs-surface: var(--dcs-deep);
+  --dcs-surface-raised: var(--dcs-deep-100);
+  --dcs-well: var(--dcs-night);
+  --dcs-text: var(--dcs-mist);
+  --dcs-heading: var(--dcs-cream);
+  --dcs-muted: var(--dcs-slate-400);
+  --dcs-border: var(--dcs-night-700);
+  --dcs-border-strong: var(--dcs-slate-500);
+  --dcs-link: var(--dcs-sky);
+  --dcs-link-hover: var(--dcs-sky-100);
+  --dcs-warm-text: var(--dcs-peach);
+  --dcs-stroke: var(--dcs-slate-400);
+  --dcs-tag-bg: var(--dcs-peach-dim);
+  --dcs-tag-text: var(--dcs-peach);
+  --dcs-neutral-bg: var(--dcs-sky-dim);
+  --dcs-neutral-text: var(--dcs-mist);
+  --dcs-nav-bg: var(--dcs-deep);
+  --dcs-nav-hover: var(--dcs-deep-100);
+  --dcs-code-bg: var(--dcs-night);
+  --dcs-code-text: var(--dcs-mist);
+  --dcs-inline-code-bg: var(--dcs-deep-100);
+  --dcs-secondary-fill: var(--dcs-deep-100);
+  --dcs-secondary-text: var(--dcs-mist);
+}

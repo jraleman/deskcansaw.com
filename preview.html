@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeskCanSaw :: weird little games</title>
+<meta name="description" content="A retro video game lover's site and the shopfront for small indie game concepts. Games on itch.io, game files, and videos.">
+<meta name="color-scheme" content="light dark">
+
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#afdde9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1519" media="(prefers-color-scheme: dark)">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Silkscreen:wght@400&family=VT323&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/layout.css">
+</head>
+
+<body>
+<script>
+/* Set the scheme before first paint so dark users never see a light flash.
+   Everything else about the toggle lives in /assets/js/color-scheme.js. */
+(function () {
+  try {
+    var s = localStorage.getItem('dcs-color-scheme');
+    if (!s) { s = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+    if (s === 'dark') { document.body.setAttribute('data-color-scheme', 'dark'); }
+  } catch (e) {}
+})();
+</script>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="layout">
+
+  <!-- ====================================================================
+       Side nav (§6.4)
+       ==================================================================== -->
+  <nav class="sidenav" aria-label="Main">
+    <a class="brand" href="#home">DeskCanSaw<small>weird little games</small></a>
+
+    <ul class="navlist">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#profile">Profile</a></li>
+      <li><a href="#games">Games</a></li>
+      <li><a href="#files">Files</a></li>
+      <li><a href="#videos">Videos</a></li>
+    </ul>
+
+    <div class="nav-foot">
+      <a href="https://deskcansaw.itch.io" rel="me noopener">itch.io</a>
+      <a href="https://github.com/jraleman/DeskCanSaw.com" rel="noopener">GitHub</a>
+      <button class="toggle" type="button" id="scheme-toggle" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <span id="scheme-label">Night</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="main" id="main">
+    <div class="wrap">
+
+      <!-- ================================================================
+           Home
+           ================================================================ -->
+      <section id="home" class="hero">
+        <h1 class="display">DeskCanSaw</h1>
+        <p class="sub">Weird little games</p>
+        <p class="lede">
+          A retro video game lover's site and the shopfront for small indie game
+          concepts. I make things, I take old games apart, and I put both up here.
+        </p>
+        <p>
+          Three places to look: the <a href="#games">games</a> I've put on itch,
+          the <a href="#files">files</a> I've made while poking at other people's,
+          and the <a href="#videos">videos</a> where I show my work.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://deskcansaw.itch.io" rel="noopener">Play something on itch</a>
+          <a class="btn btn-ghost" href="#games">or read what they are</a>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           Gamer Profile — body generated from README.md "## Gamer Profile"
+           ================================================================ -->
+      <section id="profile" class="band">
+        <p class="eyebrow">the shelf</p>
+        <h2>Gamer Profile</h2>
+        <!-- generated:profile -->
+        <p>What I play on, and what I use to take things apart. The Files section is the output of this table — if something here changes, the tools I can write change with it.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Thing</th>
+                <th scope="col">What I run</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Consoles</td>
+                <td>TBD</td>
+              </tr>
+              <tr>
+                <td>Handhelds</td>
+                <td>TBD</td>
+              </tr>
+              <tr>
+                <td>Display</td>
+                <td>TBD</td>
+              </tr>
+              <tr>
+                <td>Emulation</td>
+                <td>TBD</td>
+              </tr>
+              <tr>
+                <td>Dump and flash</td>
+                <td>TBD</td>
+              </tr>
+              <tr>
+                <td>Patching</td>
+                <td>TBD</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>TBD — a paragraph on how it all actually gets used.</p>
+        <h3>Favorites</h3>
+        <ul>
+          <li>The Legend of Zelda: Ocarina of Time [SoH]</li>
+          <li>Super Mario 64: 16 Stars [Emu]</li>
+          <li>Super Mario Bros. [Emu]</li>
+          <li>Rocket League [Epic]</li>
+          <li>Phantasy Star Online: Blue Burst [Ephinea]</li>
+          <li>Old School Runescape [Mobile]</li>
+        </ul>
+        <!-- /generated:profile -->
+      </section>
+
+      <!-- ================================================================
+           Games — deskcansaw.itch.io
+           ================================================================ -->
+      <section id="games" class="band">
+        <p class="eyebrow">deskcansaw.itch.io</p>
+        <h2>Games</h2>
+        <p>
+          The playable things live on
+          <a href="https://deskcansaw.itch.io" rel="noopener">deskcansaw.itch.io</a> —
+          downloads and browser builds. This page keeps the notes that say what each
+          one actually is.
+        </p>
+
+        <!-- One .card per game, from README.md's "### List of games:".
+             Edit the list there, then run tools/build.py. -->
+        <div class="grid grid-2 mb-lg">
+          <!-- generated:games -->
+          <a class="card" href="https://deskcansaw.itch.io" rel="noopener">
+            <div class="card-head">
+              <h3>Desk Can Saw</h3>
+              <span class="badge badge-released">released</span>
+            </div>
+            <p>Takes place on a DESK. Watch out for the sliding CANs. Slice them with a shmooving electric SAW ;)</p>
+          </a>
+          <a class="card" href="https://deskcansaw.itch.io" rel="noopener">
+            <div class="card-head">
+              <h3>Triangle Rush</h3>
+              <span class="badge badge-released">released</span>
+            </div>
+            <p>Press the key that matches with the triangle, be quick and earn a high score!</p>
+          </a>
+          <a class="card" href="https://deskcansaw.itch.io" rel="noopener">
+            <div class="card-head">
+              <h3>Chicken Pit</h3>
+              <span class="badge badge-released">released</span>
+            </div>
+            <p>Don't fall into the chicken pit! Beat your opponent in this tug-o-war game.</p>
+          </a>
+          <a class="card" href="https://deskcansaw.itch.io" rel="noopener">
+            <div class="card-head">
+              <h3>Dead Metal Jam</h3>
+              <span class="badge badge-released">released</span>
+            </div>
+            <p>Play with your musical instrument, use your voice, or make some noise to destroy evil robots!</p>
+          </a>
+          <div class="card">
+            <div class="card-head">
+              <h3>Anti-Chess</h3>
+              <span class="tag">playable</span>
+            </div>
+            <p>A chess game, but you have to lose to win!</p>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h3>EkiZero</h3>
+              <span class="tag">playable</span>
+            </div>
+            <p>Play some tic-tac-toe with a small dinosaur.</p>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h3>Wolf3D</h3>
+              <span class="badge badge-neutral">prototype</span>
+            </div>
+            <p>Wolfenstein3D but there are portals and more vibes. Some ASCII art as well ;)</p>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h3>Crunchy Chests</h3>
+              <span class="badge badge-neutral">prototype</span>
+            </div>
+            <p>Move the chests, crunch them to unlock more chests. Get all the chests and win the chests game. You may need some chest hair.</p>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h3>Florida Men, Presents...</h3>
+              <span class="badge badge-neutral">prototype</span>
+            </div>
+            <p>Beat your opponents in this styled american-ware minigames based on "Florida Man" headlines.</p>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h3>Tuki-Tuki, Los Agentes</h3>
+              <span class="badge badge-neutral">concept</span>
+            </div>
+            <p>Dance for your life, beat your opponents and gain territory, conquer "Rojo Tinto"!</p>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h3>Anti-Checkers</h3>
+              <span class="badge badge-neutral">concept</span>
+            </div>
+            <p>You have to lose in this game of checkers to win!</p>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h3>Dulce's Adventures</h3>
+              <span class="badge badge-neutral">concept</span>
+            </div>
+            <p>(jumping/platformer) TBD</p>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h3>Julio's Walk</h3>
+              <span class="badge badge-neutral">concept</span>
+            </div>
+            <p>(physics/simulator) TBD</p>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h3>Baloo's Chase</h3>
+              <span class="badge badge-neutral">concept</span>
+            </div>
+            <p>(chase/stamina) TBD</p>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h3>Best Vaper</h3>
+              <span class="badge badge-neutral">concept</span>
+            </div>
+            <p>(mic) TBD</p>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h3>Glitchidle</h3>
+              <span class="badge badge-neutral">concept</span>
+            </div>
+            <p>(idle game) TBD</p>
+          </div>
+          <!-- /generated:games -->
+        </div>
+
+        <h3>Statuses</h3>
+        <p>Every project carries one, used plainly.</p>
+        <!-- generated:statuses -->
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Status</th>
+                <th scope="col">What it means</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge badge-neutral">concept</span></td>
+                <td>An idea and maybe some art. Nothing to play.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-neutral">prototype</span></td>
+                <td>Runs, proves one mechanic, ugly.</td>
+              </tr>
+              <tr>
+                <td><span class="tag">playable</span></td>
+                <td>You can finish it. Rough edges expected.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-released">released</span></td>
+                <td>Done and on itch.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /generated:statuses -->
+        <p class="mt-md">
+          Concept means an idea and nothing else. Most of this list is concept, and
+          saying so is more useful than pretending otherwise.
+        </p>
+      </section>
+
+      <!-- ================================================================
+           Files
+           ================================================================ -->
+      <section id="files" class="band">
+        <p class="eyebrow">the archive</p>
+        <h2>Files</h2>
+        <p>
+          Saves, tools, patches, romhacks and anything else I've made or collected
+          while poking at old games.
+        </p>
+
+        <!-- One .card per kind, from README.md's "## Files" bullets.
+             Edit them there, then run tools/build.py. -->
+        <div class="grid grid-3 mb-lg">
+          <!-- generated:file-kinds -->
+          <div class="card">
+            <h4>Save files</h4>
+            <p>Completed saves, useful mid-game states, testing saves.</p>
+          </div>
+          <div class="card">
+            <h4>Tools</h4>
+            <p>Small utilities for editing, extracting or converting game data.</p>
+          </div>
+          <div class="card">
+            <h4>Patches</h4>
+            <p>IPS/BPS patches. Patches only, never a patched ROM.</p>
+          </div>
+          <div class="card">
+            <h4>Romhacks</h4>
+            <p>My own hacks, and notes on hacks I like.</p>
+          </div>
+          <div class="card">
+            <h4>Notes</h4>
+            <p>Format documentation and teardowns from figuring the above out.</p>
+          </div>
+          <!-- /generated:file-kinds -->
+        </div>
+
+        <h3>Rules for this section</h3>
+        <!-- generated:file-rules -->
+        <div class="well">
+          <ol class="rules">
+            <li>No copyrighted ROMs or game assets. Patches and tools, bring your own copy.</li>
+            <li>Every file says what it's for, what it was made with, and what it runs on.</li>
+            <li>Nothing goes up untested. If it's known-broken, the page says so.</li>
+          </ol>
+        </div>
+        <!-- /generated:file-rules -->
+
+        <h3>Downloads</h3>
+        <!-- TEMPLATE: one row per file. -->
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">File</th><th scope="col">Kind</th>
+                <th scope="col">Runs on</th><th scope="col">Version</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>File name</td>
+                <td><span class="tag">patch</span></td>
+                <td>What it needs</td>
+                <td><span class="num">0.1</span></td>
+              </tr>
+              <tr>
+                <td>File name</td>
+                <td><span class="tag">tool</span></td>
+                <td>What it needs</td>
+                <td><span class="num">1.0</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           Videos
+           ================================================================ -->
+      <section id="videos" class="band">
+        <p class="eyebrow">youtube</p>
+        <h2>Videos</h2>
+        <p>
+          Playthroughs, build logs from whatever's on itch, and teardowns of the
+          files above.
+        </p>
+        <p>
+          Videos sit next to the thing they're about — a devlog on its project
+          page, a romhack demo with its patch. The channel is the feed; this is
+          where a video has context around it.
+        </p>
+
+        <!-- TEMPLATE: swap .placeholder for
+             <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+                     title="…" allowfullscreen loading="lazy"></iframe> -->
+        <div class="grid grid-2">
+          <figure class="frame">
+            <div class="ratio"><div class="placeholder">Video embed goes here</div></div>
+            <figcaption>What the video is about.</figcaption>
+          </figure>
+          <figure class="frame">
+            <div class="ratio"><div class="placeholder">Video embed goes here</div></div>
+            <figcaption>What the video is about.</figcaption>
+          </figure>
+        </div>
+
+        <!-- TODO: channel URL not set yet — link it here and in the side nav. -->
+        <p class="mt-lg">
+          <a class="btn btn-secondary" href="#videos">Channel link — to be added</a>
+        </p>
+      </section>
+
+      <footer class="site-foot">
+        <p>deskcansaw.com — one person, some games, a lot of old cartridges.</p>
+        <p>
+          <a href="https://deskcansaw.itch.io" rel="noopener">itch.io</a> ·
+          <a href="https://github.com/jraleman/DeskCanSaw.com" rel="noopener">source</a>
+        </p>
+      </footer>
+
+    </div>
+  </main>
+</div>
+
+<script src="/assets/js/color-scheme.js"></script>
+<script src="/assets/js/scroll-spy.js"></script>
+</body>
+</html>

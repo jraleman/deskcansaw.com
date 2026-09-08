@@ -1,0 +1,30 @@
+/* ==========================================================================
+   DeskCanSaw — holding page
+   The only page-specific stylesheet: one centred card on the ground colour.
+   Used by index.html. Requires tokens.css, base.css, components.css.
+   ========================================================================== */
+
+body {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: var(--sp-lg);
+  padding: var(--sp-xl) var(--sp-lg);
+  text-align: center;
+}
+
+/* A wider, roomier card than the grid ones — it is the whole page. */
+.card-holding {
+  width: 100%; max-width: 480px;
+  padding: var(--sp-xl) var(--sp-lg);
+}
+.card-holding h1 { font-size: 32px; margin: 0 0 var(--sp-sm); }
+.card-holding p:last-of-type { margin-bottom: 0; }
+@media (max-width: 420px) { .card-holding h1 { font-size: 24px; } }
+
+.card-holding .actions { justify-content: center; }
+
+/* Sits on the ground, not on a card, so it takes body text rather than
+   --dcs-muted, which would only be 1.76:1 there (§2.8). */
+.foot { font-size: 1.3rem; color: var(--dcs-text); }
+.foot a { font-size: 1.3rem; }
