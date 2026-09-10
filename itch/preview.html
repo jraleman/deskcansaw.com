@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeskCanSaw :: itch.io profile preview</title>
+<meta name="robots" content="noindex">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Silkscreen:wght@400&family=VT323&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   Stand-in for itch.io's own stylesheet.
+   Nothing in this block is ours to ship — it is a rough copy of what itch
+   serves, so that theme.css below can be previewed against the same class
+   names and the same cascade order it will meet on the real page.
+
+   The custom properties on #wrapper are exactly the values the theme editor
+   writes out for the settings listed in itch/README.md.
+   ========================================================================== */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Roboto", system-ui, sans-serif; }
+
+#wrapper {
+  /* theme editor → Colors */
+  --itchio_bg_color: #afdde9;        /* BG */
+  --itchio_bg2_color: #f4eed7;       /* BG2 */
+  --itchio_text_color: #333c45;      /* Text */
+  --itchio_link_color: #205e6f;      /* Link */
+  --itchio_button_color: #e9c6af;    /* Buttons */
+  --itchio_header_color: #21272d;    /* Headers */
+  /* itch's own defaults, before theme.css gets to them */
+  --itchio_button_fg_color: #fff;
+  --itchio_border_color: #dcdcdc;
+  --itchio_border_radius: 3px;
+
+  background: var(--itchio_bg_color);
+  color: var(--itchio_text_color);
+  min-height: 100vh;
+  padding: 40px 20px 80px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.inner_column { max-width: 960px; margin: 0 auto; }
+
+.user_profile { background: var(--itchio_bg2_color); border-radius: var(--itchio_border_radius); }
+.user_header { padding: 24px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.user_header img { width: 90px; height: 90px; border-radius: 8px; }
+.user_header h1 {
+  font-family: "Silkscreen", "Roboto", sans-serif;
+  font-size: 32px; font-weight: 400; margin: 0;
+  color: var(--itchio_header_color);
+}
+.user_header .user_tagline { margin: 6px 0 0; color: #6c757d; font-size: 16px; }
+.user_header .header_buttons { margin-left: auto; }
+
+.button {
+  display: inline-flex; align-items: center; height: 40px; padding: 0 20px;
+  background: var(--itchio_button_color);
+  color: var(--itchio_button_fg_color);
+  border: 1px solid var(--itchio_button_border_color, transparent);
+  border-radius: 8px;
+  font-size: 15px; font-weight: 500; text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
+}
+
+.columns { display: flex; gap: 24px; padding: 0 24px 32px; }
+.left_col.column { flex: 1 1 auto; min-width: 0; }
+
+h2 {
+  font-family: "Silkscreen", "Roboto", sans-serif;
+  font-size: 25px; font-weight: 400;
+  color: var(--itchio_header_color);
+  margin: 40px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e9c6af;   /* itch underlines section headers */
+}
+h3 {
+  font-family: "Silkscreen", "Roboto", sans-serif;
+  font-size: 20px; font-weight: 400;
+  color: var(--itchio_header_color);
+  margin: 32px 0 12px;
+}
+a { color: var(--itchio_link_color); }
+
+.formatted_description { max-width: 640px; }
+
+.user_game_grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+@media (max-width: 900px) { .user_game_grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) {
+  .user_game_grid { grid-template-columns: 1fr; }
+  .columns { padding: 0 16px 24px; }
+}
+.game_cell {
+  background: #fff;
+  border-radius: var(--itchio_border_radius);
+  padding: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  display: block; text-decoration: none;
+}
+.game_cell .game_thumb {
+  display: block; width: 100%; aspect-ratio: 315 / 250;
+  border-radius: 2px; margin-bottom: 8px;
+  /* No cover art lives in this repo — itch serves the real one here. */
+  background: #d3ecf3;
+  display: grid; place-items: center;
+  font-family: "Silkscreen", "Roboto", sans-serif;
+  font-size: 24px; color: #495663;
+}
+.game_cell .title { display: block; font-weight: 700; font-size: 16px; margin-bottom: 4px; color: #222; }
+.game_cell .game_text { font-size: 14px; margin: 0 0 8px; }
+.game_cell .game_genre { font-size: 13px; color: #858585; }
+.web_flag { background: #464646; color: #fff; font-size: 12px; padding: 2px 6px; border-radius: 2px; }
+
+/* Preview chrome — the strip at the top of this file only. Not itch, not us. */
+.preview_note {
+  font: 500 13px/1.5 "Roboto", system-ui, sans-serif;
+  background: #21272d; color: #f4eed7;
+  padding: 10px 20px; margin: 0;
+}
+.preview_note code { font-family: ui-monospace, Consolas, monospace; color: #afdde9; }
+</style>
+
+<!-- Ours. The one file that ships to itch. -->
+<link rel="stylesheet" href="theme.css">
+</head>
+
+<body>
+
+<p class="preview_note">
+  Local preview of <code>deskcansaw.itch.io</code> — itch's own layout is
+  approximated here so <code>theme.css</code> can be seen against the class
+  names it will actually meet. The real page serves cover art and its own
+  markup; check it there before calling it done.
+</p>
+
+<div id="wrapper">
+<div class="inner_column">
+
+  <div class="user_profile">
+
+    <div class="user_header">
+      <img src="/assets/img/avatar.png" width="90" height="90"
+           alt="A hand-drawn creature with a cream shell and a peach fin, swimming under a slate winged shape.">
+      <div>
+        <h1>DeskCanSaw</h1>
+        <p class="user_tagline">Weird little games</p>
+      </div>
+      <div class="header_buttons">
+        <a class="button" href="#">Follow</a>
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="left_col column">
+
+        <!-- The contents of itch/profile.html, pasted as itch will hold it. -->
+        <div class="formatted_description user_formatted">
+
+<p class="custom-lede">Weird little games. I make small things, I take old games apart, and I put both up where people can find them.</p>
+
+<p>Downloads and browser builds, all of them small. Some are finished; some prove one idea and then stop. The label on each one says which.</p>
+
+<h3>What the labels mean</h3>
+
+<ul class="custom-status-list">
+  <li><strong>released</strong> &mdash; done. Play it.</li>
+  <li><strong>playable</strong> &mdash; you can finish it. Rough edges expected.</li>
+  <li><strong>prototype</strong> &mdash; runs, proves one mechanic, ugly.</li>
+  <li><strong>concept</strong> &mdash; an idea and maybe some art. Nothing to play yet.</li>
+</ul>
+
+<p>I use them plainly. If a thing is a prototype I would rather say so than dress it up.</p>
+
+<h3>Start here</h3>
+
+<p><strong>Desk Can Saw</strong> takes place on a DESK. Watch out for the sliding CANs. Slice them with a shmooving electric SAW ;) It is the one the whole name came from, so it may as well be the one you play first.</p>
+
+<p>After that: <strong>Triangle Rush</strong> for a high score, <strong>Chicken Pit</strong> for tug-o-war against a friend, and <strong>Dead Metal Jam</strong> if you have an instrument, a voice, or anything else that makes noise.</p>
+
+<h3>Elsewhere</h3>
+
+<ul class="custom-links">
+  <li><a href="https://deskcansaw.com">deskcansaw.com</a> &mdash; what each game actually is, plus saves, patches, romhacks and notes</li>
+  <li><a href="https://youtube.com/@deskcansaw">youtube.com/@deskcansaw</a> &mdash; playthroughs, build logs and teardowns</li>
+  <li><a href="https://github.com/jraleman/DeskCanSaw.com">github.com/jraleman/DeskCanSaw.com</a> &mdash; the source of the site</li>
+  <li><a href="mailto:tas@deskcansaw.com">tas@deskcansaw.com</a></li>
+</ul>
+
+        </div>
+
+        <h2>Games</h2>
+
+        <!-- itch renders one .game_cell per project. These are the four
+             `released` games from README.md, in the same order. -->
+        <div class="user_game_grid">
+
+          <a class="game_cell" href="#">
+            <span class="game_thumb" aria-hidden="true">DCS</span>
+            <span class="title">Desk Can Saw</span>
+            <p class="game_text">Takes place on a DESK. Watch out for the sliding CANs. Slice them with a shmooving electric SAW ;)</p>
+            <span class="game_genre">Action</span> <span class="web_flag">Play in browser</span>
+          </a>
+
+          <a class="game_cell" href="#">
+            <span class="game_thumb" aria-hidden="true">TR</span>
+            <span class="title">Triangle Rush</span>
+            <p class="game_text">Press the key that matches with the triangle, be quick and earn a high score!</p>
+            <span class="game_genre">Rhythm</span> <span class="web_flag">Play in browser</span>
+          </a>
+
+          <a class="game_cell" href="#">
+            <span class="game_thumb" aria-hidden="true">CP</span>
+            <span class="title">Chicken Pit</span>
+            <p class="game_text">Don't fall into the chicken pit! Beat your opponent in this tug-o-war game.</p>
+            <span class="game_genre">Sports</span> <span class="web_flag">Play in browser</span>
+          </a>
+
+          <a class="game_cell" href="#">
+            <span class="game_thumb" aria-hidden="true">DMJ</span>
+            <span class="title">Dead Metal Jam</span>
+            <p class="game_text">Play with your musical instrument, use your voice, or make some noise to destroy evil robots!</p>
+            <span class="game_genre">Rhythm</span> <span class="web_flag">Play in browser</span>
+          </a>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+</body>
+</html>

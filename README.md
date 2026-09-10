@@ -27,6 +27,10 @@ apple-touch-icon.png
 tools/build.py        renders the parts of the page this README owns
                       (the game list, the statuses, Files, Gamer Profile)
 
+itch/                 the source for the deskcansaw.itch.io profile — the bio,
+                      the theme editor values and the custom CSS. Pasted by
+                      hand; itch has no API for it. See itch/README.md.
+
 assets/css/
   tokens.css          colour, type, spacing, shape, motion. Every value in the
                       style guide lands here and nowhere else.
