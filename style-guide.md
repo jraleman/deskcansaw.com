@@ -84,8 +84,8 @@ the site and the builds share a background:
 | Token | Hex | Source | Role |
 | --- | --- | --- | --- |
 | `--dcs-night` | `#0e1519` | game `INK` | Page ground |
-| `--dcs-deep` | `#162128` | game `DEEP` | Cards, panels, nav |
-| `--dcs-night-700` | `#2b3841` | game palette | Decorative panel edge |
+| `--dcs-deep` | `#172a33` | game `DEEP`, pushed toward sky | Cards, panels, nav |
+| `--dcs-night-700` | `#2f4753` | game palette | Decorative panel edge |
 
 ### 2.3 The 75/11/5/2 rule
 
@@ -162,20 +162,20 @@ Same operation, derived from the sampled six or from `--dcs-night` /
 | Token | Hex | Derivation | Use |
 | --- | --- | --- | --- |
 | `--dcs-night` | `#0e1519` | — | Page ground, recessed wells (code) |
-| `--dcs-deep` | `#162128` | — | Cards, panels, nav, footer |
-| `--dcs-deep-100` | `#25343b` | `mix(deep, sky, .10)` | Raised facet, inset, secondary button |
-| `--dcs-night-700` | `#2b3841` | — | Decorative edge — see the warning in §2.8 |
+| `--dcs-deep` | `#172a33` | game `DEEP`, pushed toward sky | Cards, panels, nav, footer |
+| `--dcs-deep-100` | `#233d48` | `mix(deep, sky, .08)`, lightened | Raised facet, inset, secondary button |
+| `--dcs-night-700` | `#2f4753` | — | Decorative edge — see the warning in §2.8 |
 
 **Mist scale** — the ink scale, run the other way. Note the symmetry: dark's
-body text `#c9d3d8` sits one step from light's *hairline* colour `#ccd0d3`. The
+body text `#cbd8de` sits one step from light's *hairline* colour `#ccd0d3`. The
 scale is the same scale; dark just reads it from the top.
 
 | Token | Hex | Derivation | Use |
 | --- | --- | --- | --- |
 | `--dcs-cream` | `#f4eed7` | — | Headings, maximum-emphasis text |
-| `--dcs-mist` | `#c9d3d8` | — | Body copy |
-| `--dcs-slate-400` | `#929aa1` | `mix(slate, #fff, .40)` | Muted text, captions, metadata, illustration strokes |
-| `--dcs-slate-500` | `#76808a` | `mix(slate, #fff, .25)` | Placeholder text; **functional** borders |
+| `--dcs-mist` | `#cbd8de` | — | Body copy |
+| `--dcs-slate-400` | `#9aabb3` | `mix(slate, sky, .45)` | Muted text, captions, metadata, illustration strokes |
+| `--dcs-slate-500` | `#768f9a` | `mix(slate, sky, .25)` | Placeholder text; **functional** borders |
 
 **Accent scale** — sky, promoted.
 
@@ -183,7 +183,7 @@ scale is the same scale; dark just reads it from the top.
 | --- | --- | --- | --- |
 | `--dcs-sky-100` | `#e9f5f9` | `mix(sky, #fff, .72)` | Link hover, active nav text |
 | `--dcs-sky` | `#afdde9` | — | Links, focus ring |
-| `--dcs-sky-dim` | `#314147` | `mix(sky, night, .78)` | Neutral badge ground, quiet band |
+| `--dcs-sky-dim` | `#25454f` | `mix(sky, night, .78)`, saturated | Neutral badge ground, quiet band |
 
 **Warm scale** — peach, unchanged in fill, promoted in text. The light rule
 "peach can never carry text" **inverts**: on night, peach is a 11.55:1 text
@@ -193,7 +193,7 @@ colour. `--dcs-rust` is retired (3.14:1 on night — fails).
 | --- | --- | --- | --- |
 | `--dcs-peach-tint` | `#f0d7c7` | `mix(peach, #fff, .30)` | Primary button hover fill |
 | `--dcs-peach` | `#e9c6af` | — | Primary fill, **and** warm text / "WIP" labels |
-| `--dcs-peach-dim` | `#433f3d` | `mix(peach, night, .76)` | Tag ground |
+| `--dcs-peach-dim` | `#46372f` | `mix(peach, night, .76)`, warmed | Tag ground |
 | `--dcs-ink` | `#21272d` | — | Text *on* peach, sky or cream fills |
 
 ### 2.6 Semantic mapping
@@ -201,14 +201,14 @@ colour. `--dcs-rust` is retired (3.14:1 on night — fails).
 | Purpose | Light token | Hex | Dark token | Hex |
 | --- | --- | --- | --- | --- |
 | Page background | `--dcs-sky` | `#afdde9` | `--dcs-night` | `#0e1519` |
-| Card / panel / post body | `--dcs-cream` | `#f4eed7` | `--dcs-deep` | `#162128` |
-| Nav, header, input surface | `--dcs-paper` | `#f9f9f9` | `--dcs-deep` | `#162128` |
-| Raised facet / inset | `--dcs-ice` | `#ecf0f1` | `--dcs-deep-100` | `#25343b` |
-| Body text | `--dcs-ink-700` | `#333c45` | `--dcs-mist` | `#c9d3d8` |
+| Card / panel / post body | `--dcs-cream` | `#f4eed7` | `--dcs-deep` | `#172a33` |
+| Nav, header, input surface | `--dcs-paper` | `#f9f9f9` | `--dcs-deep` | `#172a33` |
+| Raised facet / inset | `--dcs-ice` | `#ecf0f1` | `--dcs-deep-100` | `#233d48` |
+| Body text | `--dcs-ink-700` | `#333c45` | `--dcs-mist` | `#cbd8de` |
 | Headings | `--dcs-ink` | `#21272d` | `--dcs-cream` | `#f4eed7` |
-| Muted / metadata | `--dcs-slate-400` | `#9ba2a9` | `--dcs-slate-400` | `#929aa1` |
-| Decorative border, `<hr>` | `--dcs-slate-200` | `#ccd0d3` | `--dcs-night-700` | `#2b3841` |
-| Functional border (input, active) | `--dcs-slate` | `#495663` | `--dcs-slate-500` | `#76808a` |
+| Muted / metadata | `--dcs-slate-400` | `#9ba2a9` | `--dcs-slate-400` | `#9aabb3` |
+| Decorative border, `<hr>` | `--dcs-slate-200` | `#ccd0d3` | `--dcs-night-700` | `#2f4753` |
+| Functional border (input, active) | `--dcs-slate` | `#495663` | `--dcs-slate-500` | `#768f9a` |
 | Link | `--dcs-deep-sky` | `#205e6f` | `--dcs-sky` | `#afdde9` |
 | Link hover | `--dcs-ink` | `#21272d` | `--dcs-sky-100` | `#e9f5f9` |
 | Warm text | `--dcs-rust` | `#8d5835` | `--dcs-peach` | `#e9c6af` |
@@ -217,7 +217,7 @@ colour. `--dcs-rust` is retired (3.14:1 on night — fails).
 | Focus ring | `--dcs-deep-sky` | `#205e6f` | `--dcs-sky` | `#afdde9` |
 
 Note that `--dcs-slate-400` is a different hex per scheme: `#9ba2a9`
-(`mix(slate, #fff, .45)`) in light, `#929aa1` (`mix(slate, #fff, .40)`) in dark.
+(`mix(slate, #fff, .45)`) in light, `#9aabb3` (`mix(slate, sky, .45)`) in dark.
 
 ### 2.7 What does not flip
 
@@ -251,32 +251,32 @@ clears AA (4.5:1); everything listed clears it comfortably.
 
 | Foreground | Background | Ratio | Verdict |
 | --- | --- | --- | --- |
-| `#c9d3d8` mist | `#162128` deep | **10.76** | AAA — body on a card |
-| `#c9d3d8` mist | `#0e1519` night | **12.10** | AAA — body on the ground |
-| `#c9d3d8` mist | `#25343b` deep-100 | **8.45** | AAA |
-| `#f4eed7` cream | `#162128` deep | **14.08** | AAA — headings |
+| `#cbd8de` mist | `#172a33` deep | **10.19** | AAA — body on a card |
+| `#cbd8de` mist | `#0e1519` night | **12.65** | AAA — body on the ground |
+| `#cbd8de` mist | `#233d48` deep-100 | **7.87** | AAA |
+| `#f4eed7` cream | `#172a33` deep | **12.76** | AAA — headings |
 | `#f4eed7` cream | `#0e1519` night | **15.84** | AAA |
-| `#afdde9` sky | `#162128` deep | **11.18** | AAA — links |
+| `#afdde9` sky | `#172a33` deep | **10.13** | AAA — links |
 | `#afdde9` sky | `#0e1519` night | **12.58** | AAA |
-| `#e9f5f9` sky-100 | `#162128` deep | **14.73** | AAA — link hover |
-| `#e9c6af` peach | `#162128` deep | **10.26** | AAA — warm text |
+| `#e9f5f9` sky-100 | `#172a33` deep | **13.35** | AAA — link hover |
+| `#e9c6af` peach | `#172a33` deep | **9.30** | AAA — warm text |
 | `#e9c6af` peach | `#0e1519` night | **11.55** | AAA |
 | `#21272d` ink | `#e9c6af` peach | **9.45** | AAA — button label |
 | `#21272d` ink | `#f0d7c7` peach-tint | **10.95** | AAA — button label, hover |
-| `#929aa1` slate-400 | `#162128` deep | **5.74** | AA — metadata |
-| `#929aa1` slate-400 | `#25343b` deep-100 | **4.51** | AA — metadata on an inset |
-| `#76808a` slate-500 | `#162128` deep | **4.07** | AA large / placeholder only |
-| `#e9c6af` peach | `#433f3d` peach-dim | **6.53** | AA — tag text |
-| `#c9d3d8` mist | `#314147` sky-dim | **6.97** | AA — neutral badge |
+| `#9aabb3` slate-400 | `#172a33` deep | **6.25** | AA — metadata |
+| `#9aabb3` slate-400 | `#233d48` deep-100 | **4.83** | AA — metadata on an inset |
+| `#768f9a` slate-500 | `#172a33` deep | **4.36** | AA large / placeholder only |
+| `#e9c6af` peach | `#46372f` peach-dim | **7.12** | AA — tag text |
+| `#cbd8de` mist | `#25454f` sky-dim | **7.06** | AA — neutral badge |
 
 **Non-text contrast, dark (WCAG 1.4.11, needs 3:1).**
 
 | Element | Against | Ratio | Verdict |
 | --- | --- | --- | --- |
-| `#76808a` slate-500 border | `#162128` deep | **3.20**–4.07 | Passes on every surface |
+| `#768f9a` slate-500 border | `#233d48` deep-100 | **3.36**–5.41 | Passes on every surface |
 | `#afdde9` sky focus ring | `#0e1519` night | **12.58** | Passes |
-| `#afdde9` sky focus ring | `#25343b` deep-100 | **8.78** | Passes |
-| `#2b3841` night-700 border | `#162128` deep | **1.36** | ✗ Decorative only |
+| `#afdde9` sky focus ring | `#233d48` deep-100 | **7.83** | Passes |
+| `#2f4753` night-700 border | `#172a33` deep | **1.52** | ✗ Decorative only |
 
 > **The one dark-specific trap.** `--dcs-night-700` is a *mood* line, not a
 > boundary. It is fine as the hairline between rows in a table or the `<hr>` in
@@ -397,8 +397,8 @@ another card.
 | Level | Light | Dark surface | Dark border | Example |
 | --- | --- | --- | --- | --- |
 | 0 — ground | `--dcs-sky` | `--dcs-night` `#0e1519` | — | Page |
-| 1 — card | `--dcs-cream` | `--dcs-deep` `#162128` | `1.5px --dcs-night-700` | Post card, project tile |
-| 2 — raised | `--dcs-ice` / `--dcs-paper` | `--dcs-deep-100` `#25343b` | `1.5px --dcs-slate-500` | Dropdown, sliding message box, active tab |
+| 1 — card | `--dcs-cream` | `--dcs-deep` `#172a33` | `1.5px --dcs-night-700` | Post card, project tile |
+| 2 — raised | `--dcs-ice` / `--dcs-paper` | `--dcs-deep-100` `#233d48` | `1.5px --dcs-slate-500` | Dropdown, sliding message box, active tab |
 | −1 — well | `--dcs-sky-200` | `--dcs-night` `#0e1519` | `1.5px --dcs-night-700` | Code block, inset figure |
 
 The well is the one place a surface goes *back down* — a code block recessing to
@@ -406,7 +406,7 @@ the page ground is how dark says "this is not prose".
 
 **Illustration.** Anything hand-drawn (icons, dividers, 404 art, project
 thumbnails) uses 2–2.5px strokes with round caps and joins, filled from the
-palette. Strokes are `--dcs-slate` in light and `--dcs-slate-400` `#929aa1`
+palette. Strokes are `--dcs-slate` in light and `--dcs-slate-400` `#9aabb3`
 (6.46:1 on night) in dark; fills stay cream, peach and sky, with
 `--dcs-deep-100` in place of ice. Strokes may wobble; they must never be pure
 black. Author SVGs with `stroke="currentColor"` and set the colour on the
@@ -509,9 +509,9 @@ a quiet raised background (`--dcs-sky-100` light, `--dcs-deep-100` with
 
 | Kind | Light background | Light text | Dark background | Dark text |
 | --- | --- | --- | --- | --- |
-| Tag / category | `--dcs-peach-100` | `--dcs-rust` | `--dcs-peach-dim` `#433f3d` | `--dcs-peach` |
+| Tag / category | `--dcs-peach-100` | `--dcs-rust` | `--dcs-peach-dim` `#46372f` | `--dcs-peach` |
 | "New" / "WIP" | `--dcs-peach` | `--dcs-ink` | `--dcs-peach` | `--dcs-ink` |
-| Neutral / count | `--dcs-sky-200` | `--dcs-ink-700` | `--dcs-sky-dim` `#314147` | `--dcs-mist` |
+| Neutral / count | `--dcs-sky-200` | `--dcs-ink-700` | `--dcs-sky-dim` `#25454f` | `--dcs-mist` |
 | Released | `--dcs-cream` + `1.5px --dcs-slate-200` | `--dcs-ink-700` | `--dcs-deep-100` + `1.5px --dcs-night-700` | `--dcs-mist` |
 
 All: 8px radius, `1.2rem`, weight 700, padding `2px 8px`, uppercase.
@@ -676,11 +676,11 @@ Then in `%body-main-styles-colors-light`, set
 // dark color scheme definitions — DeskCanSaw night
 $brand-color-dark:            #afdde9;  // sky, promoted to accent
 $main-background-dark:        #0e1519;  // night
-$button-color-dark:           #929aa1;  // slate-400
-$menu-background-dark:        #162128;  // deep
+$button-color-dark:           #9aabb3;  // slate-400
+$menu-background-dark:        #172a33;  // deep
 $header-color-dark:           #f4eed7;  // cream, promoted to headings
-$container-background-dark:   #162128;  // deep
-$hr-color-dark:               #2b3841;  // night-700
+$container-background-dark:   #172a33;  // deep
+$hr-color-dark:               #2f4753;  // night-700
 $anchor-text-color-dark:      #afdde9;  // sky
 ```
 
@@ -688,7 +688,7 @@ Then in `%body-main-styles-colors-dark`:
 
 ```scss
 --body-anchor-hover-text-color: #e9f5f9;  // sky-100
---body-text-color: #c9d3d8;               // mist
+--body-text-color: #cbd8de;               // mist
 ```
 
 ### 10.3 Kill the theme's glows
@@ -746,13 +746,13 @@ of it:
 
   /* night side */
   --dcs-night:      #0e1519;
-  --dcs-deep:       #162128;
-  --dcs-deep-100:   #25343b;
-  --dcs-night-700:  #2b3841;
-  --dcs-mist:       #c9d3d8;
-  --dcs-slate-500:  #76808a;
-  --dcs-sky-dim:    #314147;
-  --dcs-peach-dim:  #433f3d;
+  --dcs-deep:       #172a33;
+  --dcs-deep-100:   #233d48;
+  --dcs-night-700:  #2f4753;
+  --dcs-mist:       #cbd8de;
+  --dcs-slate-500:  #768f9a;
+  --dcs-sky-dim:    #25454f;
+  --dcs-peach-dim:  #46372f;
   --dcs-peach-tint: #f0d7c7;
 
   /* semantic aliases — light values */
@@ -771,7 +771,7 @@ of it:
 }
 
 body[data-color-scheme="dark"] {
-  --dcs-slate-400: #929aa1;
+  --dcs-slate-400: #9aabb3;
 
   --dcs-bg: var(--dcs-night);
   --dcs-surface: var(--dcs-deep);

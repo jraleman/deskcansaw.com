@@ -31,13 +31,13 @@
 
   /* --- raw palette, night side (§2.5) --------------------------------- */
   --dcs-night:      #0e1519;
-  --dcs-deep:       #162128;
-  --dcs-deep-100:   #25343b;
-  --dcs-night-700:  #2b3841;
-  --dcs-mist:       #c9d3d8;
-  --dcs-slate-500:  #76808a;
-  --dcs-sky-dim:    #314147;
-  --dcs-peach-dim:  #433f3d;
+  --dcs-deep:       #172a33;
+  --dcs-deep-100:   #233d48;
+  --dcs-night-700:  #2f4753;
+  --dcs-mist:       #cbd8de;
+  --dcs-slate-500:  #768f9a;
+  --dcs-sky-dim:    #25454f;
+  --dcs-peach-dim:  #46372f;
   --dcs-peach-tint: #f0d7c7;
 
   /* --- semantic aliases, light values (§2.6) -------------------------- */
@@ -88,7 +88,7 @@
 /* The night side. Light is the no-attribute state; only the semantic aliases
    are re-pointed, plus the one raw token that needs a different hex (§2.6). */
 body[data-color-scheme="dark"] {
-  --dcs-slate-400: #929aa1;
+  --dcs-slate-400: #9aabb3;
 
   --dcs-bg: var(--dcs-night);
   --dcs-surface: var(--dcs-deep);
