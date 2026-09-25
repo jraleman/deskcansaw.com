@@ -1,0 +1,7 @@
+# Build output: the games, their desktop builds, the cache, and the deploy's
+# copy of the site.
+play/
+downloads/
+.cache/
+_site/
+__pycache__/

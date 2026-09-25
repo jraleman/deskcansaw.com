@@ -3,29 +3,48 @@
 The source for [deskcansaw.com](https://deskcansaw.com) — a retro video game
 lover's site and the shopfront for small indie game concepts.
 
-The visual identity lives in [`style-guide.md`](style-guide.md): one palette
-sampled from [`assets/img/avatar.png`](assets/img/avatar.png), light and dark,
-plus the type scale, components and voice the site is built to.
+The visual identity lives in [`docs/style-guide.md`](docs/style-guide.md): one
+palette sampled from [`assets/img/avatar.png`](assets/img/avatar.png), light and
+dark, plus the type scale, components and voice the site is built to.
 
 ---
 
 ## The repo
 
-Static HTML on GitHub Pages. No build step, no dependencies — what is in the
-repo is what gets served.
+Static HTML on GitHub Pages. The pages have no build step and no dependencies —
+what is in the repo is what gets served. The games are the one exception: the
+deploy exports them from the `dcs_games` submodule into `play/`. See
+[Hosting the games](#hosting-the-games).
 
 ```
-index.html            the holding page that is live now
-preview.html          the full site, one page, ahead of being split up
-style-guide.md        the visual identity — the source of truth for §-numbers
-                      referenced from the CSS comments
+index.html            the site, one page
+coming-soon.html      the holding page it replaced, kept but not linked
 CNAME                 deskcansaw.com
 .nojekyll             serve the files as they are; skip Jekyll
 favicon.*             site icons, which belong at the root
 apple-touch-icon.png
 
-tools/build.py        renders the parts of the page this README owns
-                      (the game list, the statuses, Files, Gamer Profile)
+content/
+  site.json           the site's own content — Gamer Profile, Files, Videos
+  README.md           what the file holds and how to render it
+
+docs/
+  style-guide.md      the visual identity — the source of truth for §-numbers
+                      referenced from the CSS comments
+
+dcs_games/            the games' Godot project, a git submodule
+play/                 the exported games — generated, never committed
+downloads/            the collection's desktop builds — generated too
+
+tools/
+  catalog.py          the games, read out of the Godot project
+  build.py            renders the generated blocks of index.html
+  export_games.py     exports the games for the web, into play/
+  play-shell.html     the page a game runs in
+  play-missing.html   the page a game gets until dcs_games has it
+
+.github/workflows/
+  pages.yml           exports the games and deploys the site
 
 itch/                 the source for the deskcansaw.itch.io profile — the bio,
                       the theme editor values and the custom CSS. Pasted by
@@ -37,7 +56,8 @@ assets/css/
   base.css            reset, the 10px root scale, elements, text roles
   components.css      buttons, cards, tags, tables, wells, frames, the toggle
   layout.css          side nav, content column, hero, footer — full site pages
-  holding.css         the one page-specific stylesheet, for index.html
+  holding.css         the holding page, coming-soon.html
+  play.css            the game pages, play/ and play/<slug>/
 assets/js/
   color-scheme.js     the day/night toggle
   scroll-spy.js       marks the nav item for the section in view
@@ -46,37 +66,37 @@ assets/img/
 ```
 
 Stylesheets are linked in dependency order — `tokens`, `base`, `components`,
-then whichever of `layout`/`holding` the page needs. Two rules keep it that
+then whichever of `layout`/`holding`/`play` the page needs. Two rules keep it that
 way: component CSS reads the semantic tokens (`var(--dcs-surface)`) and never a
 raw scheme colour, and markup carries classes rather than a `style` attribute.
 
-A new page is a copy of `preview.html`'s `<head>`, the same four `<link>` tags,
+A new page is a copy of `index.html`'s `<head>`, the same four `<link>` tags,
 and the four-line inline script that sets the colour scheme before first paint.
 
-## This README is the content
+## Where the content comes from
 
-Most of the site's content is written here and rendered into the page, so the
-game list can't drift out of sync with the one on the site:
+Nothing the site says is written down twice. The parts of the page that are a
+list or a table are generated into `<!-- generated:… -->` markers by
+`tools/build.py`, from whichever file actually owns them:
 
 | Block | Comes from |
 | --- | --- |
-| `profile` | everything under `## Gamer Profile` |
-| `games` | the list under `### List of games:` |
-| `statuses` | the status table under `## Games` |
-| `file-kinds` | the `**Kind** — description` bullets under `## Files` |
-| `file-rules` | the numbered rules under `## Files` |
+| `profile` | `content/site.json`, `"profile"` |
+| `games` | `dcs_games`, its `project.godot` |
+| `downloads` | `tools/catalog.py`, its `DESKTOPS` |
+| `file-kinds` | `content/site.json`, `"files.kinds"` |
+| `file-rules` | `content/site.json`, `"files.rules"` |
+| `videos` | `content/site.json`, `"videos.featured"` |
+| `streams` | `content/site.json`, `"videos.streams"` |
 
-Lists and tables are generated; the prose around them is written per medium,
-because a README paragraph and a page paragraph are not the same sentence.
-`## Gamer Profile` is the exception — that whole section is rendered as it is
-written here.
+[`content/site.json`](content/site.json) is the site's own content, and
+[`content/README.md`](content/README.md) says what shape it takes. The games
+are not in it: the Godot project is the list of games, so a game is on the site
+because it is in `dcs_games` — see [Hosting the games](#hosting-the-games).
 
-A game line is ``Name (`status`): description``, or
-``[Name](url) (`status`): description`` once it has its own page. Cards come out
-in status order — released first, concept last — and a `released` game without
-its own URL links to the itch profile.
-
-Edit this file, then:
+Everything outside the markers, including all the prose, is written by hand in
+the page and the script leaves it alone. This file is documentation, not
+content; editing it changes nothing on the site.
 
 ```sh
 python3 tools/build.py           # rewrite the generated blocks
@@ -84,17 +104,105 @@ python3 tools/build.py --check   # exit 1 if the pages are out of date
 ```
 
 The output is committed, so the site stays static files with nothing in front
-of them. Everything outside the `<!-- generated:… -->` markers is written by
-hand and the script leaves it alone.
+of them. The deploy runs `--check`, so a page that wasn't rebuilt fails the
+build rather than going out stale.
 
 ## Running it locally
 
 Paths are absolute from the site root, so open it over HTTP rather than from
-the filesystem:
+the filesystem. Export the games first if you want them to load:
 
 ```sh
-python3 -m http.server 8000   # then http://localhost:8000
+python3 tools/export_games.py --no-downloads   # the games, into play/ (needs Godot 4.7)
+python3 -m http.server 8000                    # then http://localhost:8000
 ```
+
+## Hosting the games
+
+The games run here in the browser. `/play/` is all of them at once, which opens
+on its own picker, and each one also has a page of its own at `/play/<slug>/`.
+Their source is [dcs_games](https://github.com/jraleman/dcs_games), a git
+submodule at `dcs_games/`. It's pinned to one commit, so what's on the site only
+changes when this repo says so. Clone with it, or fetch it after:
+
+```sh
+git clone --recurse-submodules https://github.com/jraleman/deskcansaw.com
+git submodule update --init --recursive   # in a clone made without it
+```
+
+To put newer games up, move the pin and commit it:
+
+```sh
+git submodule update --remote dcs_games
+git -C dcs_games submodule update --init --recursive
+git add dcs_games && git commit -m "Update the games"
+```
+
+`tools/catalog.py` is what reads the list. The project's `project.godot` names a
+feature tag per game — `dcs/build/single_game_id.<tag>` — and that tag is both
+what pins a build to that one game and what gives it its name. A slug is the
+game id with dashes for underscores, so `games/anti_chess/` is
+`/play/anti-chess/`. Add a game to the Godot project and it turns up on the
+site; nothing here has to be told about it.
+
+`tools/export_games.py` does the export. It copies the project out of the
+submodule into `.cache/project/` — nothing is ever written into `dcs_games/` —
+and makes one single-threaded web build per page: one per game, booted straight
+into it, and one for the collection, started with `--game=all`. Single-threaded
+builds need no cross-origin isolation headers, which GitHub Pages can't send.
+Every page shares one copy of the engine in `play/engine/`, so a browser only
+downloads it once.
+
+```sh
+python3 tools/export_games.py                     # everything, into play/
+python3 tools/export_games.py --only collection   # just /play/
+python3 tools/export_games.py --only anti-chess   # just that one game
+python3 tools/export_games.py --no-downloads      # skip the desktop builds
+```
+
+It needs Godot 4.7: `--godot`, `$GODOT`, or `godot` on the PATH. The export
+templates it needs are pulled into `.cache/` if Godot doesn't have them — the
+web one is about 10 MB, and a desktop one about 80 MB, out of a 1.2 GB bundle
+it never downloads whole. Each game is a submodule of its own, so a game the
+project names but the checkout can't read gets a "not up yet" page and a
+warning, not a failed deploy.
+
+### Off the web
+
+The collection is also a desktop build: the same every-game build, for a
+machine that runs it without a browser. The same script exports it for Windows
+and Linux, x86-64 and ARM64, and zips each one into `downloads/`, which is
+served at `/downloads/`:
+
+```
+downloads/DCSGames-<os>-<arch>.zip
+```
+
+A zip holds one folder: the binary, its `.pck` — which is the games, and has
+to stay beside the binary — and a short `README.txt`. The list of them is
+`DESKTOPS` in [`tools/catalog.py`](tools/catalog.py), and both the buttons
+under `/#games` and the ones on the `/play/` page are written from it, so a
+file is named in one place. They are built whenever the collection is;
+`--no-downloads` leaves them out, which is worth it locally, since a desktop
+build is a few hundred MB that the web pages don't need.
+
+### Deploying
+
+`.github/workflows/pages.yml` runs on every push to `main`, or by hand from the
+Actions tab. It checks out the submodules, runs `tools/build.py --check`,
+exports the games with Godot 4.7.2, and deploys the pages and `play/` to
+GitHub Pages. Set it up before the first push that has it. While Pages still
+deploys from the branch, it serves the pages without `play/`, and every game
+link is a 404.
+
+1. **A `DCS_GAMES_TOKEN` secret**, under Settings → Secrets and variables →
+   Actions. The game repos are private, so the checkout needs a fine-grained
+   token with *Contents: read-only* on this repo, `dcs_games` and every game
+   repo it pulls in. Tokens expire; when this one does, the deploy fails at
+   the checkout until the secret is replaced.
+2. **Settings → Pages → Source: GitHub Actions.** The custom domain is set on
+   that page too; a deploy from Actions doesn't read the `CNAME` file. Pages
+   on a private repo needs a paid plan.
 
 ---
 
@@ -114,89 +222,46 @@ palette, same person writing.
 ## Gamer Profile
 
 What I play on, and what I use to take things apart. The Files section is the
-output of this table — if something here changes, the tools I can write change
-with it.
+output of that table — if something there changes, the tools I can write change
+with it. The table itself, and the favourites under it, are in
+[`content/site.json`](content/site.json) under `"profile"`.
 
-| Thing | What I run |
-| --- | --- |
-| Consoles | TBD |
-| Handhelds | TBD |
-| Display | TBD |
-| Emulation | TBD |
-| Dump and flash | TBD |
-| Patching | TBD |
+## Games
 
-TBD — a paragraph on how it all actually gets used.
+Where the playable things live. They run right here in the browser: `/play/` is
+the whole collection, which opens on a rack of cartridges, and each game also
+has a page of its own. The collection comes off the web too — a Windows or
+Linux build of the same thing, which is what the buttons under the game list
+are. My older games, made without gen-AI, are on
+[itch.io](https://deskcansaw.itch.io).
 
-### Favorites
-
-- The Legend of Zelda: Ocarina of Time [SoH]
-- Super Mario 64: 16 Stars [Emu]
-- Super Mario Bros. [Emu]
-- Rocket League [Epic]
-- Phantasy Star Online: Blue Burst [Ephinea]
-- Old School Runescape [Mobile]
-- Duolingo [Mobile]
-- Cells to Singularity [Mobile]
-
-## Games — `deskcansaw.itch.io`
-
-Where the playable things live. Downloads and browser builds go up on
-[deskcansaw.itch.io](https://deskcansaw.itch.io); this site keeps the pages that
-say what each one actually is.
-
-Every project carries a status, used plainly:
-
-| Status | What it means |
-| --- | --- |
-| `concept` | An idea and maybe some art. Nothing to play. |
-| `prototype` | Runs, proves one mechanic, ugly. |
-| `playable` | You can finish it. Rough edges expected. |
-| `released` | Done and on itch. |
-
-### List of games:
-
-- Desk Can Saw (`released`): Takes place on a DESK. Watch out for the sliding CANs. Slice them with a shmooving electric SAW ;)
-- Triangle Rush (`released`): Press the key that matches with the triangle, be quick and earn a high score!
-- Chicken Pit (`released`): Don't fall into the chicken pit! Beat your opponent in this tug-o-war game.
-- Dead Metal Jam (`released`): Play with your musical instrument, use your voice, or make some noise to destroy evil robots!
-- Anti-Chess (`playable`): A chess game, but you have to lose to win!
-- EkiZero (`playable`): Play some tic-tac-toe with a small dinosaur.
-- Wolf3D (`prototype`): Wolfenstein3D but there are portals and more vibes. Some ASCII art as well ;)
-- Crunchy Chests (`prototype`): Move the chests, crunch them to unlock more chests. Get all the chests and win the chests game. You may need some chest hair.
-- Florida Men, Presents... (`prototype`): Beat your opponents in this styled american-ware minigames based on "Florida Man" headlines.
-- Tuki-Tuki, Los Agentes (`concept`): Dance for your life, beat your opponents and gain territory, conquer "Rojo Tinto"!
-- Anti-Checkers (`concept`): You have to lose in this game of checkers to win!
-- Dulce's Adventures (`concept`): (jumping/platformer) TBD
-- Julio's Walk (`concept`): (physics/simulator) TBD
-- Baloo's Chase (`concept`): (chase/stamina) TBD
-- Best Vaper (`concept`): (mic) TBD
-- Glitchidle (`concept`): (idle game) TBD
+The list is [dcs_games](https://github.com/jraleman/dcs_games) — the games the
+Godot project names, in the order it names them. There is no second list here
+to keep in step with it.
 
 ## Files
 
 The archive: saves, tools, patches, romhacks and anything else I've made or
-collected while poking at old games.
-
-- **Save files** — Completed saves, useful mid-game states, testing saves.
-- **Tools** — Small utilities for editing, extracting or converting game data.
-- **Patches** — IPS/BPS patches. Patches only, never a patched ROM.
-- **Romhacks** — My own hacks, and notes on hacks I like.
-- **Notes** — Format documentation and teardowns from figuring the above out.
-
-Rules for this section:
-
-1. No copyrighted ROMs or game assets. Patches and tools, bring your own copy.
-2. Every file says what it's for, what it was made with, and what it runs on.
-3. Nothing goes up untested. If it's known-broken, the page says so.
+collected while poking at old games. The kinds of file it takes, and the rules
+for what goes up, are in [`content/site.json`](content/site.json) under
+`"files"`.
 
 ## Videos
 
-The YouTube side of it: playthroughs, build logs from whatever's on itch, and
+The YouTube side of it: playthroughs, build logs from the games, and
 teardowns of the files above.
 
 Videos are embedded on the site next to the thing they're about — a devlog sits
 on its project page, a romhack demo sits with the patch. The channel is the
-feed; this site is where a video has context around it.
+feed; this site is where a video has context around it. The embeds are in
+[`content/site.json`](content/site.json) under `"videos.featured"`, and they go
+through `youtube-nocookie.com`.
+
+Under them is the live archive: every stream the channel has done, in a card
+per game, oldest first. They are links rather than embeds — a stream runs for
+hours, and seventy iframes is not a landing page. That list is
+[`content/site.json`](content/site.json) under `"videos.streams"`.
 
 https://youtube.com/@deskcansaw
+
+https://www.youtube.com/@DeskCanSaw/streams

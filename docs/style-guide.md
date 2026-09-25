@@ -638,12 +638,12 @@ say it plainly.
 
 > **Where this lives today.** The site is hand-written static HTML, and the
 > palette below is already declared as custom properties in
-> [`assets/css/tokens.css`](assets/css/tokens.css) — that file is the source of
+> [`assets/css/tokens.css`](../assets/css/tokens.css) — that file is the source of
 > truth, and §10.4 is the shape of it. The SCSS in §10.1–10.3 is the mapping to
 > apply *if* the site moves onto the Jekyll theme; it is not in the repo yet.
 
 The palette lives in one place, not in ad-hoc CSS. `data-color-scheme="dark"`
-is set **on `<body>`** (by [`assets/js/color-scheme.js`](assets/js/color-scheme.js),
+is set **on `<body>`** (by [`assets/js/color-scheme.js`](../assets/js/color-scheme.js),
 plus a copy of the read inlined in each page so the attribute lands before first
 paint), with precedence stored setting → site default → `prefers-color-scheme`.
 Light is the no-attribute state.
@@ -718,7 +718,7 @@ field's focus affordance.
 ### 10.4 Raw tokens and semantic aliases
 
 The tokens are declared once, in the `:root` block of
-[`assets/css/tokens.css`](assets/css/tokens.css), and the semantic aliases are
+[`assets/css/tokens.css`](../assets/css/tokens.css), and the semantic aliases are
 re-pointed under the dark attribute. That file also carries the type, spacing,
 shape and motion tokens (§3.1, §4, §5, §7); the excerpt below is the colour half
 of it:

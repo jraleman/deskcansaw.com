@@ -11,7 +11,7 @@ theme.css      the custom CSS, for "edit theme" — optional, see below
 preview.html   a local preview of the two above, on a stand-in of itch's layout
 ```
 
-Everything here is the **light scheme** of [`../style-guide.md`](../style-guide.md).
+Everything here is the **light scheme** of [`../docs/style-guide.md`](../docs/style-guide.md).
 An itch page has one scheme and no toggle, and light is the source of every
 rule (§1) — so this is the site with the lights on, not a third design.
 
@@ -82,8 +82,9 @@ labels are honest, which game to play first, and where else to look. Voice per
 §9 — short sentences, first person, unembarrassed about the jank.
 
 The status list is the part worth keeping in sync: it is the same four statuses
-as [`../README.md`](../README.md) and the site, worded the same way. If a
-status changes meaning there, change it here too — nothing generates this file.
+as [`../content/site.json`](../content/site.json) and the site, worded the same
+way. If a status changes meaning there, change it here too — nothing generates
+this file.
 
 itch's sanitiser strips any class that does not begin with `custom-`, so the
 three hooks in the markup (`custom-lede`, `custom-status-list`, `custom-links`)
@@ -132,5 +133,6 @@ lands in roughly the same place, so the page degrades correctly.
 Nothing in this directory is generated, and itch has no API here — the profile
 is updated by pasting. Two things to re-paste when they change:
 
-- the status list in `profile.html`, if the statuses change in `../README.md`
+- the status list in `profile.html`, if the statuses change in
+  `../content/site.json`
 - the "Start here" paragraph, if a different game becomes the one to open with

@@ -72,6 +72,9 @@ body:not([data-color-scheme="dark"]) .icon-sun { display: none; }
 @media (min-width: 1024px) {
   .grid-3 { grid-template-columns: repeat(3, 1fr); }
 }
+/* Cards of very different lengths: each keeps its own height rather than
+   being stretched to the tallest one in its row. */
+.grid-start { align-items: start; }
 
 /* --- cards (§6.3) ------------------------------------------------------
    Surface level 1: a border does the describing, never a shadow (§4). */
@@ -92,6 +95,20 @@ body[data-color-scheme="dark"] a.card:hover,
 body[data-color-scheme="dark"] .card-link:hover { background: var(--dcs-deep-100); }
 
 .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-sm); }
+/* The count beside a card's title is the short half of the pair; it keeps one
+   line and the title takes the wrapping. */
+.card-head .meta { white-space: nowrap; }
+
+/* --- link lists --------------------------------------------------------
+   A card's worth of links, one per line, each with its date pushed to the
+   far edge so the dates read as a column. */
+.linklist { list-style: none; margin: 0; padding: 0; font-size: 1.5rem; }
+.linklist li {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: var(--sp-sm);
+  margin-bottom: var(--sp-xs);
+}
+.linklist .meta { margin-left: auto; font-variant-numeric: tabular-nums; }
 
 /* --- tags, badges, status (§6.5) --------------------------------------- */
 .tag, .badge {

@@ -1,0 +1,503 @@
+{
+  "profile": [
+    {
+      "type": "paragraph",
+      "text": "What I play on, and what I use to take things apart. The Files section is the output of this table — if something here changes, the tools I can write change with it."
+    },
+    {
+      "type": "table",
+      "columns": ["Thing", "What I run"],
+      "rows": [
+        ["Consoles", "TBD"],
+        ["Handhelds", "TBD"],
+        ["Display", "TBD"],
+        ["Emulation", "TBD"],
+        ["Dump and flash", "TBD"],
+        ["Patching", "TBD"]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "TBD — a paragraph on how it all actually gets used."
+    },
+    {
+      "type": "heading",
+      "text": "Favorites"
+    },
+    {
+      "type": "list",
+      "items": [
+        "The Legend of Zelda: Ocarina of Time [SoH]",
+        "Super Mario 64: 16 Stars [Emu]",
+        "Super Mario Bros. [Emu]",
+        "Rocket League [Epic]",
+        "Phantasy Star Online: Blue Burst [Ephinea]",
+        "Old School Runescape [Mobile]",
+        "Duolingo [Mobile]",
+        "Cells to Singularity [Mobile]"
+      ]
+    }
+  ],
+
+  "files": {
+    "kinds": [
+      {
+        "name": "Save files",
+        "description": "Completed saves, useful mid-game states, testing saves."
+      },
+      {
+        "name": "Tools",
+        "description": "Small utilities for editing, extracting or converting game data."
+      },
+      {
+        "name": "Patches",
+        "description": "IPS/BPS patches. Patches only, never a patched ROM."
+      },
+      {
+        "name": "Romhacks",
+        "description": "My own hacks, and notes on hacks I like."
+      },
+      {
+        "name": "Notes",
+        "description": "Format documentation and teardowns from figuring the above out."
+      }
+    ],
+    "rules": [
+      "No copyrighted ROMs or game assets. Patches and tools, bring your own copy.",
+      "Every file says what it's for, what it was made with, and what it runs on.",
+      "Nothing goes up untested. If it's known-broken, the page says so."
+    ]
+  },
+
+  "videos": {
+    "featured": [
+      {
+        "id": "bISQqCFXA8k",
+        "title": "Rendered Particles in SM64 Start Screen",
+        "caption": "The particles the Super Mario 64 start screen draws, pulled out and rendered on their own."
+      },
+      {
+        "id": "WemABE-ne-w",
+        "title": "Camera Glitch in Dire Dire Docks SM64",
+        "caption": "What the Dire Dire Docks camera does when you push it somewhere the game never meant it to go."
+      },
+      {
+        "id": "QKwK-ZhTurg",
+        "title": "Binary Finary - 1998 (Original Mix)",
+        "caption": "Binary Finary's 1998, the original mix. What a lot of the tinkering above gets done to."
+      }
+    ],
+    "streams": [
+      {
+        "game": "Super Mario Bros.",
+        "sessions": [
+          {
+            "id": "5AQhrH6cULY",
+            "label": "Speedrun practice",
+            "date": "2024-01-07"
+          }
+        ]
+      },
+      {
+        "game": "Rocket League",
+        "sessions": [
+          {
+            "id": "ozTR0HrCrh8",
+            "label": "Streaming test",
+            "date": "2023-01-29"
+          },
+          {
+            "id": "9ZZiw5ZxcKI",
+            "label": "Streaming test",
+            "date": "2023-01-29"
+          },
+          {
+            "id": "6gKQjp_h6As",
+            "label": "Streaming test",
+            "date": "2023-01-29"
+          },
+          {
+            "id": "G1M2OKUX2Bw",
+            "label": "Streaming test",
+            "date": "2023-01-29"
+          },
+          {
+            "id": "vlWfAtNu9F0",
+            "label": "Casual practice",
+            "date": "2023-02-06"
+          },
+          {
+            "id": "lf_gH2WMGy0",
+            "label": "Casual practice",
+            "date": "2023-02-07"
+          },
+          {
+            "id": "-LNLZGf-8SU",
+            "label": "Casual play",
+            "date": "2023-02-09"
+          },
+          {
+            "id": "i1t8iBXN7aE",
+            "label": "Casual play",
+            "date": "2023-02-12"
+          },
+          {
+            "id": "Mm_ObDcTdj0",
+            "label": "Casual play",
+            "date": "2023-02-14"
+          },
+          {
+            "id": "IwtureOz06s",
+            "label": "Casual play",
+            "date": "2023-02-15"
+          },
+          {
+            "id": "rNJ7LrKE6Tg",
+            "label": "Casual play",
+            "date": "2023-04-15"
+          },
+          {
+            "id": "8O4TTvQaC34",
+            "label": "Casual play",
+            "date": "2023-04-19"
+          },
+          {
+            "id": "pX2GOwGDR0g",
+            "label": "Casual play",
+            "date": "2023-04-19"
+          },
+          {
+            "id": "ZndvJe8427M",
+            "label": "Casual play",
+            "date": "2023-04-19"
+          }
+        ]
+      },
+      {
+        "game": "New Super Mario Bros. U Deluxe",
+        "sessions": [
+          {
+            "id": "Bxl4OaZty00",
+            "label": "World 1",
+            "date": "2023-04-15"
+          },
+          {
+            "id": "Y0L19oHlnvk",
+            "label": "World 2",
+            "date": "2023-04-15"
+          },
+          {
+            "id": "nPSC2AOWoTc",
+            "label": "World 3",
+            "date": "2023-04-15"
+          },
+          {
+            "id": "7tXJuMGWuPw",
+            "label": "World 4",
+            "date": "2023-04-17"
+          },
+          {
+            "id": "Zbs453qMBpI",
+            "label": "World 4",
+            "date": "2023-04-18"
+          }
+        ]
+      },
+      {
+        "game": "Cat Quest II",
+        "sessions": [
+          {
+            "id": "Ph7jYw7gekE",
+            "label": "Ep. 1",
+            "date": "2023-02-20"
+          },
+          {
+            "id": "YTUkIt9OSvY",
+            "label": "Ep. 2",
+            "date": "2023-02-21"
+          },
+          {
+            "id": "AmatxA0mBOw",
+            "label": "Ep. 3",
+            "date": "2023-02-22"
+          },
+          {
+            "id": "4z7csweBEGg",
+            "label": "Ep. 4",
+            "date": "2023-02-23"
+          },
+          {
+            "id": "KWqrNPytEJI",
+            "label": "Ep. 5",
+            "date": "2023-02-24"
+          },
+          {
+            "id": "D1SPP7I8ha4",
+            "label": "Ep. 6",
+            "date": "2023-03-17"
+          },
+          {
+            "id": "yu-v-0I7E5E",
+            "label": "Ep. 7",
+            "date": "2023-03-22"
+          },
+          {
+            "id": "nvFZLHGLu5Q",
+            "label": "Ep. 8",
+            "date": "2023-03-22"
+          },
+          {
+            "id": "mmA5EkYG57E",
+            "label": "Ep. 9",
+            "date": "2023-04-13"
+          },
+          {
+            "id": "Pwqy0-Y3G4A",
+            "label": "Ep. 10",
+            "date": "2023-04-13"
+          },
+          {
+            "id": "lEs-nrKhvXw",
+            "label": "Ep. 11",
+            "date": "2023-04-13"
+          }
+        ]
+      },
+      {
+        "game": "Doki Doki Literature Club",
+        "sessions": [
+          {
+            "id": "4XaQgcAj4J4",
+            "label": "Ep. 1",
+            "date": "2023-04-13"
+          }
+        ]
+      },
+      {
+        "game": "The Legend of Zelda: Ocarina of Time",
+        "sessions": [
+          {
+            "id": "xBBdbX7MRnc",
+            "label": "Randomizer, seed 23403",
+            "date": "2023-02-15"
+          },
+          {
+            "id": "8Xg8Oa1a1hs",
+            "label": "Randomizer, seed 21223",
+            "date": "2023-02-19"
+          },
+          {
+            "id": "_iBPyIpICK8",
+            "label": "Randomizer, seed 15308",
+            "date": "2023-02-20"
+          },
+          {
+            "id": "Hyr3I25SmCQ",
+            "label": "Randomizer, seed 22449",
+            "date": "2023-02-23"
+          },
+          {
+            "id": "aBPcP911bFE",
+            "label": "Randomizer, seed 12870",
+            "date": "2023-02-24"
+          },
+          {
+            "id": "WDuy7UidGiw",
+            "label": "Randomizer, seed 30083",
+            "date": "2023-02-26"
+          }
+        ]
+      },
+      {
+        "game": "Dying Light",
+        "sessions": [
+          {
+            "id": "EN4re9DVGks",
+            "label": "Ep. 1",
+            "date": "2023-02-24"
+          },
+          {
+            "id": "cUZ6_NOZwdo",
+            "label": "Ep. 1",
+            "date": "2023-02-24"
+          },
+          {
+            "id": "Cc00uP7q5cg",
+            "label": "Ep. 2",
+            "date": "2023-02-26"
+          }
+        ]
+      },
+      {
+        "game": "Unravel Two",
+        "sessions": [
+          {
+            "id": "cqFnB5RH6GU",
+            "label": "Ep. 1",
+            "date": "2023-02-26"
+          }
+        ]
+      },
+      {
+        "game": "Cat Quest",
+        "sessions": [
+          {
+            "id": "mFA8ZhECckc",
+            "label": "Ep. 1",
+            "date": "2023-02-05"
+          },
+          {
+            "id": "VfCr0FB7oL8",
+            "label": "Ep. 2",
+            "date": "2023-02-06"
+          },
+          {
+            "id": "JP9uakwuYAw",
+            "label": "Ep. 3",
+            "date": "2023-02-06"
+          },
+          {
+            "id": "JF_06LKDizM",
+            "label": "Ep. 4",
+            "date": "2023-02-07"
+          },
+          {
+            "id": "DGVg4GnmUZ0",
+            "label": "Ep. 5",
+            "date": "2023-02-08"
+          },
+          {
+            "id": "6mQyrbS9l8k",
+            "label": "Ep. 6",
+            "date": "2023-02-08"
+          },
+          {
+            "id": "wE7p2nVI-8w",
+            "label": "Ep. 7",
+            "date": "2023-02-09"
+          },
+          {
+            "id": "mbLnp41VzMo",
+            "label": "Ep. 8",
+            "date": "2023-02-08"
+          },
+          {
+            "id": "mlKjw7cNzUQ",
+            "label": "Ep. 9, Mew Game",
+            "date": "2023-02-11"
+          },
+          {
+            "id": "_uGfknE4g4A",
+            "label": "Ep. 10, Mew Game 1",
+            "date": "2023-02-11"
+          },
+          {
+            "id": "V4JeYuE8XcU",
+            "label": "Ep. 11, Mew Game 1",
+            "date": "2023-02-11"
+          },
+          {
+            "id": "qnwU6RT2B4c",
+            "label": "Ep. 12, Mew Game 2",
+            "date": "2023-02-11"
+          },
+          {
+            "id": "cfof-iGezQU",
+            "label": "Ep. 13, Mew Game 2",
+            "date": "2023-02-12"
+          },
+          {
+            "id": "eMstMDdRg_E",
+            "label": "Ep. 14, Mew Game 2",
+            "date": "2023-02-12"
+          },
+          {
+            "id": "h4ODu5iHUcw",
+            "label": "Ep. 15, Mew Game 2",
+            "date": "2023-02-12"
+          },
+          {
+            "id": "4ZxmXRlXtW0",
+            "label": "Ep. 16, Mew Game 3",
+            "date": "2023-02-12"
+          },
+          {
+            "id": "816d_k5QOmM",
+            "label": "Ep. 17, Mew Game 3",
+            "date": "2023-02-13"
+          },
+          {
+            "id": "87HuSvdJXmM",
+            "label": "Ep. 18, Mew Game 3",
+            "date": "2023-02-13"
+          },
+          {
+            "id": "NAs-1GWZdXk",
+            "label": "Ep. 19, Mew Game 3",
+            "date": "2023-02-14"
+          }
+        ]
+      },
+      {
+        "game": "Stray",
+        "sessions": [
+          {
+            "id": "LfYnXon52KY",
+            "label": "Blind playthrough",
+            "date": "2022-07-27"
+          },
+          {
+            "id": "ujmNjV8hiTE",
+            "label": "Ep. 2",
+            "date": "2022-07-30"
+          },
+          {
+            "id": "zo9MhJj9RVw",
+            "label": "Ep. 2",
+            "date": "2022-07-31"
+          },
+          {
+            "id": "Z5IrIXWr1yY",
+            "label": "Ep. 2.1, welcome back",
+            "date": "2023-02-03"
+          }
+        ]
+      },
+      {
+        "game": "Super Mario All-Stars",
+        "sessions": [
+          {
+            "id": "-mdgfUjhOJg",
+            "label": "SMB1 speedrun practice",
+            "date": "2022-10-14"
+          },
+          {
+            "id": "n3gvCRBEVJk",
+            "label": "SMB1 speedrun practice",
+            "date": "2022-10-14"
+          }
+        ]
+      },
+      {
+        "game": "Super Mario 64",
+        "sessions": [
+          {
+            "id": "3lrC7QLznYA",
+            "label": "16 star practice",
+            "date": "2022-06-30"
+          },
+          {
+            "id": "aA7oYQ3BEEM",
+            "label": "16 star practice",
+            "date": "2022-07-01"
+          },
+          {
+            "id": "wgw-WxV31k0",
+            "label": "16 star practice",
+            "date": "2022-07-02"
+          }
+        ]
+      }
+    ]
+  }
+}

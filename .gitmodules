@@ -1,0 +1,4 @@
+[submodule "dcs_games"]
+	path = dcs_games
+	url = ../dcs_games.git
+	branch = main

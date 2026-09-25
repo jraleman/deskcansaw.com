@@ -1,0 +1,98 @@
+# Deploys the site to GitHub Pages, with the games exported from the
+# dcs_games submodule into play/, and the collection's desktop builds into
+# downloads/. Setting it up is under "Deploying" in README.md: Pages set to
+# deploy from Actions, and a DCS_GAMES_TOKEN secret that can read the private
+# game repos.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time. A newer push waits for the running one instead of
+# cancelling it halfway through a deploy.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      GODOT_VERSION: 4.7.2-stable
+    steps:
+      - name: Check for the games token
+        env:
+          DCS_GAMES_TOKEN: ${{ secrets.DCS_GAMES_TOKEN }}
+        run: |
+          if [ -z "$DCS_GAMES_TOKEN" ]; then
+            echo "::warning title=No DCS_GAMES_TOKEN secret::The checkout can't read private game repos without it. See Deploying in README.md."
+          fi
+
+      # The token is used for this repo too: checkout takes one for everything.
+      # The game repos' SSH URLs are fetched over HTTPS with it.
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+          token: ${{ secrets.DCS_GAMES_TOKEN || github.token }}
+          persist-credentials: false
+
+      - name: Check the pages match content/site.json
+        run: python3 tools/build.py --check
+
+      - name: Cache Godot and its export templates
+        uses: actions/cache@v6
+        with:
+          path: .cache/godot
+          key: godot-${{ env.GODOT_VERSION }}-linux-web-desktop
+          restore-keys: godot-${{ env.GODOT_VERSION }}-linux-
+
+      - name: Install Godot
+        run: |
+          dir=".cache/godot/editor/$GODOT_VERSION"
+          name="Godot_v${GODOT_VERSION}_linux.x86_64"
+          if [ ! -f "$dir/$name" ]; then
+            mkdir -p "$dir"
+            base="https://github.com/godotengine/godot-builds/releases/download/$GODOT_VERSION"
+            curl -fsSL --retry 3 -o "$dir/$name.zip" "$base/$name.zip"
+            curl -fsSL --retry 3 -o "$dir/SHA512-SUMS.txt" "$base/SHA512-SUMS.txt"
+            (cd "$dir" && grep "  $name.zip\$" SHA512-SUMS.txt | sha512sum -c -)
+            unzip -q -o "$dir/$name.zip" -d "$dir"
+            rm "$dir/$name.zip" "$dir/SHA512-SUMS.txt"
+          fi
+          chmod +x "$dir/$name"
+          echo "GODOT=$PWD/$dir/$name" >> "$GITHUB_ENV"
+
+      # The committed files, as a branch deploy would serve them. git archive
+      # leaves an empty folder where the submodule is.
+      - name: Put the site together
+        run: |
+          mkdir _site
+          git archive HEAD | tar -x -C _site
+          rm -rf _site/dcs_games
+
+      - name: Export the games
+        run: python3 tools/export_games.py --out _site/play --downloads _site/downloads
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
