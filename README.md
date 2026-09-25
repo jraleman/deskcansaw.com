@@ -13,8 +13,9 @@ dark, plus the type scale, components and voice the site is built to.
 
 Static HTML on GitHub Pages. The pages have no build step and no dependencies —
 what is in the repo is what gets served. The games are the one exception: the
-deploy exports them from the `dcs_games` submodule into `play/`. See
-[Hosting the games](#hosting-the-games).
+deploy exports them from the `dcs_games` submodule into `play/`. `main` is the
+source and `gh-pages` is the site, built from it on every push — see
+[Hosting the games](#hosting-the-games) and [Deploying](#deploying).
 
 ```
 index.html            the site, one page
@@ -33,7 +34,7 @@ docs/
                       referenced from the CSS comments
 
 dcs_games/            the games' Godot project, a git submodule
-play/                 the exported games — generated, never committed
+play/                 the exported games — generated, never committed to main
 downloads/            the collection's desktop builds — generated too
 
 tools/
@@ -44,7 +45,7 @@ tools/
   play-missing.html   the page a game gets until dcs_games has it
 
 .github/workflows/
-  pages.yml           exports the games and deploys the site
+  pages.yml           exports the games and builds the gh-pages branch
 
 itch/                 the source for the deskcansaw.itch.io profile — the bio,
                       the theme editor values and the custom CSS. Pasted by
@@ -188,21 +189,32 @@ build is a few hundred MB that the web pages don't need.
 
 ### Deploying
 
-`.github/workflows/pages.yml` runs on every push to `main`, or by hand from the
-Actions tab. It checks out the submodules, runs `tools/build.py --check`,
-exports the games with Godot 4.7.2, and deploys the pages and `play/` to
-GitHub Pages. Set it up before the first push that has it. While Pages still
-deploys from the branch, it serves the pages without `play/`, and every game
-link is a 404.
+`main` is the source; `gh-pages` is the site. Nothing on `gh-pages` is written
+by hand — `.github/workflows/pages.yml` builds it on every push to `main`, or
+by hand from the Actions tab. It checks out the submodules, runs
+`tools/build.py --check`, exports the games with Godot 4.7.2 into `play/` and
+the desktop builds into `downloads/`, and force-pushes the lot to `gh-pages` as
+one commit with no history behind it, so the builds it replaces don't pile up
+in the repo. Pages serves whatever lands there, games and all.
+
+Two things to set up, and the branch has to exist before the second one:
 
 1. **A `DCS_GAMES_TOKEN` secret**, under Settings → Secrets and variables →
    Actions. The game repos are private, so the checkout needs a fine-grained
    token with *Contents: read-only* on this repo, `dcs_games` and every game
    repo it pulls in. Tokens expire; when this one does, the deploy fails at
    the checkout until the secret is replaced.
-2. **Settings → Pages → Source: GitHub Actions.** The custom domain is set on
-   that page too; a deploy from Actions doesn't read the `CNAME` file. Pages
-   on a private repo needs a paid plan.
+2. **Settings → Pages → Source: Deploy from a branch → `gh-pages` / `(root)`.**
+   Run the workflow once first — the branch isn't there to pick until it has.
+   A branch deploy reads the `CNAME` file, so the custom domain comes off the
+   repo rather than being set by hand. Pages on a private repo needs a paid
+   plan.
+
+Serving a branch means every file goes through `git push`, which refuses one
+over 100 MiB. The game pages are well under it; a desktop build in `downloads/`
+can come close, and one that goes over is left off the site with a warning in
+the run's summary, rather than failing the push and taking the whole site with
+it. If that happens, the fix is on the build side — a smaller `.pck`.
 
 ---
 
