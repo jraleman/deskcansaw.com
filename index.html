@@ -191,10 +191,7 @@
 
         <h3 class="mt-lg">Take the whole collection with you</h3>
         <p>
-          <a href="/play/">All of them at once</a> is a desktop build too — the
-          same games, the same picker, no browser. Unzip it and run the file
-          inside; keep the <code>.pck</code> next to it, which is where the
-          games are.
+          Unzip it and run the file inside; keep the <code>.pck</code> next to it, which is where the games are.
         </p>
 
         <!-- One button per desktop build, from tools/catalog.py's DESKTOPS.
@@ -267,7 +264,7 @@
         <!-- /generated:file-rules -->
 
         <!-- TEMPLATE: one row per file. -->
-         <!-- 
+         <!--
         <h3>Downloads</h3>
         <div class="table-wrap">
           <table>
@@ -302,6 +299,14 @@
       <section id="videos" class="band">
         <p class="eyebrow">youtube</p>
         <h2>Videos</h2>
+        <div class="actions mb-lg">
+          <a class="btn btn-secondary" href="https://youtube.com/@deskcansaw" rel="me noopener">
+            The channel on YouTube
+          </a>
+          <a class="btn btn-secondary" href="https://www.youtube.com/@DeskCanSaw/streams" rel="noopener">
+            Every stream on YouTube
+          </a>
+        </div>
         <p>
           Playthroughs, build logs from the games, and teardowns of the
           files above.
@@ -332,15 +337,19 @@
             </div>
             <figcaption>Binary Finary's 1998, the original mix. What a lot of the tinkering above gets done to.</figcaption>
           </figure>
+          <figure class="frame">
+            <div class="ratio">
+              <iframe src="https://www.youtube-nocookie.com/embed/XrIFAR_aa44" title="My Wii Laptop/Portable - Wii Bawkz"
+                      allowfullscreen loading="lazy"></iframe>
+            </div>
+            <figcaption>The Wii Bawkz: my Wii rebuilt as a laptop-style portable. The channel's first video, from 2008.</figcaption>
+          </figure>
           <!-- /generated:videos -->
         </div>
 
         <h3 class="mt-lg">Live streams</h3>
         <p>
-          Everything the channel has streamed, by game, oldest first — long,
-          unedited sessions, so they stay on YouTube rather than in a box here.
-          A playthrough reads top to bottom; the date is what tells two goes at
-          the same episode apart.
+          Everything the channel has streamed, by game, oldest first... long, unedited sessions, so they stay on YouTube rather than in a box here.
         </p>
 
         <!-- One card per game, from content/site.json's "videos.streams". -->
@@ -348,11 +357,37 @@
           <!-- generated:streams -->
           <div class="card">
             <div class="card-head">
-              <h4>Super Mario Bros.</h4>
-              <span class="meta">1 stream</span>
+              <h4>Super Mario 64</h4>
+              <span class="meta">3 streams</span>
             </div>
             <ul class="linklist">
-              <li><a href="https://www.youtube.com/watch?v=5AQhrH6cULY" rel="noopener">Speedrun practice</a><span class="meta">2024-01-07</span></li>
+              <li><a href="https://www.youtube.com/watch?v=3lrC7QLznYA" rel="noopener">16 star practice</a><span class="meta">2022-06-30</span></li>
+              <li><a href="https://www.youtube.com/watch?v=aA7oYQ3BEEM" rel="noopener">16 star practice</a><span class="meta">2022-07-01</span></li>
+              <li><a href="https://www.youtube.com/watch?v=wgw-WxV31k0" rel="noopener">16 star practice</a><span class="meta">2022-07-02</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Super Mario All-Stars</h4>
+              <span class="meta">2 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=-mdgfUjhOJg" rel="noopener">SMB1 speedrun practice</a><span class="meta">2022-10-14</span></li>
+              <li><a href="https://www.youtube.com/watch?v=n3gvCRBEVJk" rel="noopener">SMB1 speedrun practice</a><span class="meta">2022-10-14</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>The Legend of Zelda: Ocarina of Time</h4>
+              <span class="meta">6 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=xBBdbX7MRnc" rel="noopener">Randomizer, seed 23403</a><span class="meta">2023-02-15</span></li>
+              <li><a href="https://www.youtube.com/watch?v=8Xg8Oa1a1hs" rel="noopener">Randomizer, seed 21223</a><span class="meta">2023-02-19</span></li>
+              <li><a href="https://www.youtube.com/watch?v=_iBPyIpICK8" rel="noopener">Randomizer, seed 15308</a><span class="meta">2023-02-20</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Hyr3I25SmCQ" rel="noopener">Randomizer, seed 22449</a><span class="meta">2023-02-23</span></li>
+              <li><a href="https://www.youtube.com/watch?v=aBPcP911bFE" rel="noopener">Randomizer, seed 12870</a><span class="meta">2023-02-24</span></li>
+              <li><a href="https://www.youtube.com/watch?v=WDuy7UidGiw" rel="noopener">Randomizer, seed 30083</a><span class="meta">2023-02-26</span></li>
             </ul>
           </div>
           <div class="card">
@@ -375,81 +410,6 @@
               <li><a href="https://www.youtube.com/watch?v=8O4TTvQaC34" rel="noopener">Casual play</a><span class="meta">2023-04-19</span></li>
               <li><a href="https://www.youtube.com/watch?v=pX2GOwGDR0g" rel="noopener">Casual play</a><span class="meta">2023-04-19</span></li>
               <li><a href="https://www.youtube.com/watch?v=ZndvJe8427M" rel="noopener">Casual play</a><span class="meta">2023-04-19</span></li>
-            </ul>
-          </div>
-          <div class="card">
-            <div class="card-head">
-              <h4>New Super Mario Bros. U Deluxe</h4>
-              <span class="meta">5 streams</span>
-            </div>
-            <ul class="linklist">
-              <li><a href="https://www.youtube.com/watch?v=Bxl4OaZty00" rel="noopener">World 1</a><span class="meta">2023-04-15</span></li>
-              <li><a href="https://www.youtube.com/watch?v=Y0L19oHlnvk" rel="noopener">World 2</a><span class="meta">2023-04-15</span></li>
-              <li><a href="https://www.youtube.com/watch?v=nPSC2AOWoTc" rel="noopener">World 3</a><span class="meta">2023-04-15</span></li>
-              <li><a href="https://www.youtube.com/watch?v=7tXJuMGWuPw" rel="noopener">World 4</a><span class="meta">2023-04-17</span></li>
-              <li><a href="https://www.youtube.com/watch?v=Zbs453qMBpI" rel="noopener">World 4</a><span class="meta">2023-04-18</span></li>
-            </ul>
-          </div>
-          <div class="card">
-            <div class="card-head">
-              <h4>Cat Quest II</h4>
-              <span class="meta">11 streams</span>
-            </div>
-            <ul class="linklist">
-              <li><a href="https://www.youtube.com/watch?v=Ph7jYw7gekE" rel="noopener">Ep. 1</a><span class="meta">2023-02-20</span></li>
-              <li><a href="https://www.youtube.com/watch?v=YTUkIt9OSvY" rel="noopener">Ep. 2</a><span class="meta">2023-02-21</span></li>
-              <li><a href="https://www.youtube.com/watch?v=AmatxA0mBOw" rel="noopener">Ep. 3</a><span class="meta">2023-02-22</span></li>
-              <li><a href="https://www.youtube.com/watch?v=4z7csweBEGg" rel="noopener">Ep. 4</a><span class="meta">2023-02-23</span></li>
-              <li><a href="https://www.youtube.com/watch?v=KWqrNPytEJI" rel="noopener">Ep. 5</a><span class="meta">2023-02-24</span></li>
-              <li><a href="https://www.youtube.com/watch?v=D1SPP7I8ha4" rel="noopener">Ep. 6</a><span class="meta">2023-03-17</span></li>
-              <li><a href="https://www.youtube.com/watch?v=yu-v-0I7E5E" rel="noopener">Ep. 7</a><span class="meta">2023-03-22</span></li>
-              <li><a href="https://www.youtube.com/watch?v=nvFZLHGLu5Q" rel="noopener">Ep. 8</a><span class="meta">2023-03-22</span></li>
-              <li><a href="https://www.youtube.com/watch?v=mmA5EkYG57E" rel="noopener">Ep. 9</a><span class="meta">2023-04-13</span></li>
-              <li><a href="https://www.youtube.com/watch?v=Pwqy0-Y3G4A" rel="noopener">Ep. 10</a><span class="meta">2023-04-13</span></li>
-              <li><a href="https://www.youtube.com/watch?v=lEs-nrKhvXw" rel="noopener">Ep. 11</a><span class="meta">2023-04-13</span></li>
-            </ul>
-          </div>
-          <div class="card">
-            <div class="card-head">
-              <h4>Doki Doki Literature Club</h4>
-              <span class="meta">1 stream</span>
-            </div>
-            <ul class="linklist">
-              <li><a href="https://www.youtube.com/watch?v=4XaQgcAj4J4" rel="noopener">Ep. 1</a><span class="meta">2023-04-13</span></li>
-            </ul>
-          </div>
-          <div class="card">
-            <div class="card-head">
-              <h4>The Legend of Zelda: Ocarina of Time</h4>
-              <span class="meta">6 streams</span>
-            </div>
-            <ul class="linklist">
-              <li><a href="https://www.youtube.com/watch?v=xBBdbX7MRnc" rel="noopener">Randomizer, seed 23403</a><span class="meta">2023-02-15</span></li>
-              <li><a href="https://www.youtube.com/watch?v=8Xg8Oa1a1hs" rel="noopener">Randomizer, seed 21223</a><span class="meta">2023-02-19</span></li>
-              <li><a href="https://www.youtube.com/watch?v=_iBPyIpICK8" rel="noopener">Randomizer, seed 15308</a><span class="meta">2023-02-20</span></li>
-              <li><a href="https://www.youtube.com/watch?v=Hyr3I25SmCQ" rel="noopener">Randomizer, seed 22449</a><span class="meta">2023-02-23</span></li>
-              <li><a href="https://www.youtube.com/watch?v=aBPcP911bFE" rel="noopener">Randomizer, seed 12870</a><span class="meta">2023-02-24</span></li>
-              <li><a href="https://www.youtube.com/watch?v=WDuy7UidGiw" rel="noopener">Randomizer, seed 30083</a><span class="meta">2023-02-26</span></li>
-            </ul>
-          </div>
-          <div class="card">
-            <div class="card-head">
-              <h4>Dying Light</h4>
-              <span class="meta">3 streams</span>
-            </div>
-            <ul class="linklist">
-              <li><a href="https://www.youtube.com/watch?v=EN4re9DVGks" rel="noopener">Ep. 1</a><span class="meta">2023-02-24</span></li>
-              <li><a href="https://www.youtube.com/watch?v=cUZ6_NOZwdo" rel="noopener">Ep. 1</a><span class="meta">2023-02-24</span></li>
-              <li><a href="https://www.youtube.com/watch?v=Cc00uP7q5cg" rel="noopener">Ep. 2</a><span class="meta">2023-02-26</span></li>
-            </ul>
-          </div>
-          <div class="card">
-            <div class="card-head">
-              <h4>Unravel Two</h4>
-              <span class="meta">1 stream</span>
-            </div>
-            <ul class="linklist">
-              <li><a href="https://www.youtube.com/watch?v=cqFnB5RH6GU" rel="noopener">Ep. 1</a><span class="meta">2023-02-26</span></li>
             </ul>
           </div>
           <div class="card">
@@ -481,6 +441,25 @@
           </div>
           <div class="card">
             <div class="card-head">
+              <h4>Cat Quest II</h4>
+              <span class="meta">11 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=Ph7jYw7gekE" rel="noopener">Ep. 1</a><span class="meta">2023-02-20</span></li>
+              <li><a href="https://www.youtube.com/watch?v=YTUkIt9OSvY" rel="noopener">Ep. 2</a><span class="meta">2023-02-21</span></li>
+              <li><a href="https://www.youtube.com/watch?v=AmatxA0mBOw" rel="noopener">Ep. 3</a><span class="meta">2023-02-22</span></li>
+              <li><a href="https://www.youtube.com/watch?v=4z7csweBEGg" rel="noopener">Ep. 4</a><span class="meta">2023-02-23</span></li>
+              <li><a href="https://www.youtube.com/watch?v=KWqrNPytEJI" rel="noopener">Ep. 5</a><span class="meta">2023-02-24</span></li>
+              <li><a href="https://www.youtube.com/watch?v=D1SPP7I8ha4" rel="noopener">Ep. 6</a><span class="meta">2023-03-17</span></li>
+              <li><a href="https://www.youtube.com/watch?v=yu-v-0I7E5E" rel="noopener">Ep. 7</a><span class="meta">2023-03-22</span></li>
+              <li><a href="https://www.youtube.com/watch?v=nvFZLHGLu5Q" rel="noopener">Ep. 8</a><span class="meta">2023-03-22</span></li>
+              <li><a href="https://www.youtube.com/watch?v=mmA5EkYG57E" rel="noopener">Ep. 9</a><span class="meta">2023-04-13</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Pwqy0-Y3G4A" rel="noopener">Ep. 10</a><span class="meta">2023-04-13</span></li>
+              <li><a href="https://www.youtube.com/watch?v=lEs-nrKhvXw" rel="noopener">Ep. 11</a><span class="meta">2023-04-13</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
               <h4>Stray</h4>
               <span class="meta">4 streams</span>
             </div>
@@ -493,35 +472,56 @@
           </div>
           <div class="card">
             <div class="card-head">
-              <h4>Super Mario All-Stars</h4>
-              <span class="meta">2 streams</span>
+              <h4>Dying Light</h4>
+              <span class="meta">3 streams</span>
             </div>
             <ul class="linklist">
-              <li><a href="https://www.youtube.com/watch?v=-mdgfUjhOJg" rel="noopener">SMB1 speedrun practice</a><span class="meta">2022-10-14</span></li>
-              <li><a href="https://www.youtube.com/watch?v=n3gvCRBEVJk" rel="noopener">SMB1 speedrun practice</a><span class="meta">2022-10-14</span></li>
+              <li><a href="https://www.youtube.com/watch?v=EN4re9DVGks" rel="noopener">Ep. 1</a><span class="meta">2023-02-24</span></li>
+              <li><a href="https://www.youtube.com/watch?v=cUZ6_NOZwdo" rel="noopener">Ep. 1</a><span class="meta">2023-02-24</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Cc00uP7q5cg" rel="noopener">Ep. 2</a><span class="meta">2023-02-26</span></li>
             </ul>
           </div>
           <div class="card">
             <div class="card-head">
-              <h4>Super Mario 64</h4>
-              <span class="meta">3 streams</span>
+              <h4>Unravel Two</h4>
+              <span class="meta">1 stream</span>
             </div>
             <ul class="linklist">
-              <li><a href="https://www.youtube.com/watch?v=3lrC7QLznYA" rel="noopener">16 star practice</a><span class="meta">2022-06-30</span></li>
-              <li><a href="https://www.youtube.com/watch?v=aA7oYQ3BEEM" rel="noopener">16 star practice</a><span class="meta">2022-07-01</span></li>
-              <li><a href="https://www.youtube.com/watch?v=wgw-WxV31k0" rel="noopener">16 star practice</a><span class="meta">2022-07-02</span></li>
+              <li><a href="https://www.youtube.com/watch?v=cqFnB5RH6GU" rel="noopener">Ep. 1</a><span class="meta">2023-02-26</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Doki Doki Literature Club</h4>
+              <span class="meta">1 stream</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=4XaQgcAj4J4" rel="noopener">Ep. 1</a><span class="meta">2023-04-13</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>New Super Mario Bros. U Deluxe</h4>
+              <span class="meta">5 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=Bxl4OaZty00" rel="noopener">World 1</a><span class="meta">2023-04-15</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Y0L19oHlnvk" rel="noopener">World 2</a><span class="meta">2023-04-15</span></li>
+              <li><a href="https://www.youtube.com/watch?v=nPSC2AOWoTc" rel="noopener">World 3</a><span class="meta">2023-04-15</span></li>
+              <li><a href="https://www.youtube.com/watch?v=7tXJuMGWuPw" rel="noopener">World 4</a><span class="meta">2023-04-17</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Zbs453qMBpI" rel="noopener">World 4</a><span class="meta">2023-04-18</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Super Mario Bros.</h4>
+              <span class="meta">1 stream</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=5AQhrH6cULY" rel="noopener">Speedrun practice</a><span class="meta">2024-01-07</span></li>
             </ul>
           </div>
           <!-- /generated:streams -->
-        </div>
-
-        <div class="actions">
-          <a class="btn btn-secondary" href="https://youtube.com/@deskcansaw" rel="me noopener">
-            The channel on YouTube
-          </a>
-          <a class="btn btn-secondary" href="https://www.youtube.com/@DeskCanSaw/streams" rel="noopener">
-            Every stream on YouTube
-          </a>
         </div>
       </section>
 

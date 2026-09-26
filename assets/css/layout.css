@@ -48,7 +48,7 @@
    drops to the quiet raised background instead of peach. */
 .navlist a[aria-current="true"] {
   background: var(--dcs-nav-hover);
-  color: var(--dcs-heading);
+  color: var(--dcs-link);
   font-weight: 700;
 }
 body[data-color-scheme="dark"] .navlist a[aria-current="true"] { color: var(--dcs-sky-100); }

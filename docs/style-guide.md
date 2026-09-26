@@ -150,7 +150,7 @@ warm, use `--dcs-rust`.
 | `--dcs-peach-100` | `#f9efe9` | `mix(peach, #fff, .72)` | Warm hover wash, tag background |
 | `--dcs-peach` | `#e9c6af` | — | Primary button fill, active tab, badges |
 | `--dcs-peach-600` | `#a38b7a` | `mix(peach, #000, .30)` | Border under a peach fill |
-| `--dcs-rust` | `#8d5835` | peach hue @ 38% L, 45% S | Warm text, "new"/"WIP" labels |
+| `--dcs-rust` | `#7e4f30` | peach hue @ 34% L, 45% S | Warm text, "new"/"WIP" labels |
 
 ### 2.5 Derived tokens — dark
 
@@ -202,22 +202,25 @@ colour. `--dcs-rust` is retired (3.14:1 on night — fails).
 | --- | --- | --- | --- | --- |
 | Page background | `--dcs-sky` | `#afdde9` | `--dcs-night` | `#0e1519` |
 | Card / panel / post body | `--dcs-cream` | `#f4eed7` | `--dcs-deep` | `#172a33` |
-| Nav, header, input surface | `--dcs-paper` | `#f9f9f9` | `--dcs-deep` | `#172a33` |
+| Nav, header | `--dcs-sky-100` | `#e9f5f9` | `--dcs-deep` | `#172a33` |
 | Raised facet / inset | `--dcs-ice` | `#ecf0f1` | `--dcs-deep-100` | `#233d48` |
 | Body text | `--dcs-ink-700` | `#333c45` | `--dcs-mist` | `#cbd8de` |
 | Headings | `--dcs-ink` | `#21272d` | `--dcs-cream` | `#f4eed7` |
-| Muted / metadata | `--dcs-slate-400` | `#9ba2a9` | `--dcs-slate-400` | `#9aabb3` |
-| Decorative border, `<hr>` | `--dcs-slate-200` | `#ccd0d3` | `--dcs-night-700` | `#2f4753` |
+| Muted / metadata | `--dcs-slate` | `#495663` | `--dcs-slate-400` | `#9aabb3` |
+| Decorative border, `<hr>` | `--dcs-sky-600` | `#7a9ba3` | `--dcs-night-700` | `#2f4753` |
 | Functional border (input, active) | `--dcs-slate` | `#495663` | `--dcs-slate-500` | `#768f9a` |
 | Link | `--dcs-deep-sky` | `#205e6f` | `--dcs-sky` | `#afdde9` |
 | Link hover | `--dcs-ink` | `#21272d` | `--dcs-sky-100` | `#e9f5f9` |
-| Warm text | `--dcs-rust` | `#8d5835` | `--dcs-peach` | `#e9c6af` |
+| Warm text | `--dcs-rust` | `#7e4f30` | `--dcs-peach` | `#e9c6af` |
 | Primary button fill | `--dcs-peach` | `#e9c6af` | `--dcs-peach` | `#e9c6af` |
 | Primary button text | `--dcs-ink` | `#21272d` | `--dcs-ink` | `#21272d` |
 | Focus ring | `--dcs-deep-sky` | `#205e6f` | `--dcs-sky` | `#afdde9` |
 
-Note that `--dcs-slate-400` is a different hex per scheme: `#9ba2a9`
-(`mix(slate, #fff, .45)`) in light, `#9aabb3` (`mix(slate, sky, .45)`) in dark.
+Light metadata reads in `--dcs-slate`, not `--dcs-slate-400`: slate-400 is
+1.76:1 on the sky ground, and the sky is where the hero subtitle, footer and
+captions sit. The light decorative border is `--dcs-sky-600`, because
+slate-200 is 1.06:1 against sky and cards lost their drawn outline. Dark's
+`--dcs-slate-400` is its own hex, `#9aabb3` (`mix(slate, sky, .45)`).
 
 ### 2.7 What does not flip
 
@@ -243,7 +246,10 @@ clears AA (4.5:1); everything listed clears it comfortably.
 | `#21272d` ink | `#e9c6af` peach | **9.45** | AAA — button label |
 | `#205e6f` deep-sky | `#f4eed7` cream | **6.24** | AAA (normal text) |
 | `#205e6f` deep-sky | `#afdde9` sky | **4.96** | AA |
-| `#8d5835` rust | `#f4eed7` cream | **5.04** | AA |
+| `#7e4f30` rust | `#f4eed7` cream | **5.92** | AA |
+| `#7e4f30` rust | `#afdde9` sky | **4.71** | AA — eyebrows, h2 stub |
+| `#495663` slate | `#afdde9` sky | **5.13** | AA — muted text on the ground |
+| `#7a9ba3` sky-600 border | `#afdde9` sky | **2.04** | Decorative outline (was slate-200, 1.06) |
 | `#495663` slate | `#f4eed7` cream | **6.46** | AA — lines/large text only, by role |
 | `#9ba2a9` slate-400 | `#f4eed7` cream | **2.22** | ✗ Large/decorative only |
 
@@ -289,7 +295,7 @@ clears AA (4.5:1); everything listed clears it comfortably.
 slate-400 on sky (1.76).
 
 **Never do — dark:** slate `#495663` as text or stroke on night (2.45), rust
-`#8d5835` on night (3.14), deep-sky `#205e6f` on night (2.54) — the light
+`#7e4f30` on night (2.7), deep-sky `#205e6f` on night (2.54) — the light
 scheme's link colour is invisible here, which is exactly why the schemes swap.
 And never pure white text: `#fff` on night is 18.42 and blooms.
 
@@ -737,7 +743,7 @@ of it:
   --dcs-peach:      #e9c6af;
   --dcs-peach-100:  #f9efe9;
   --dcs-peach-600:  #a38b7a;
-  --dcs-rust:       #8d5835;
+  --dcs-rust:       #7e4f30;
   --dcs-slate:      #495663;
   --dcs-slate-400:  #9ba2a9;
   --dcs-slate-200:  #ccd0d3;
@@ -761,8 +767,8 @@ of it:
   --dcs-surface-raised: var(--dcs-paper);
   --dcs-text: var(--dcs-ink-700);
   --dcs-heading: var(--dcs-ink);
-  --dcs-muted: var(--dcs-slate-400);
-  --dcs-border: var(--dcs-slate-200);
+  --dcs-muted: var(--dcs-slate);
+  --dcs-border: var(--dcs-sky-600);
   --dcs-border-strong: var(--dcs-slate);
   --dcs-link: var(--dcs-deep-sky);
   --dcs-link-hover: var(--dcs-ink);

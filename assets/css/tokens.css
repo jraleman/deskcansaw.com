@@ -22,7 +22,7 @@
   --dcs-peach:      #e9c6af;
   --dcs-peach-100:  #f9efe9;
   --dcs-peach-600:  #a38b7a;
-  --dcs-rust:       #8d5835;
+  --dcs-rust:       #7e4f30;
   --dcs-slate:      #495663;
   --dcs-slate-400:  #9ba2a9;
   --dcs-slate-200:  #ccd0d3;
@@ -47,8 +47,10 @@
   --dcs-well: var(--dcs-sky-200);
   --dcs-text: var(--dcs-ink-700);
   --dcs-heading: var(--dcs-ink);
-  --dcs-muted: var(--dcs-slate-400);
-  --dcs-border: var(--dcs-slate-200);
+  /* slate-400 is 1.76:1 on sky, so light metadata reads in slate (5.13). */
+  --dcs-muted: var(--dcs-slate);
+  /* slate-200 vanishes on sky (1.06); sky-600 is the drawn outline. */
+  --dcs-border: var(--dcs-sky-600);
   --dcs-border-strong: var(--dcs-slate);
   --dcs-link: var(--dcs-deep-sky);
   --dcs-link-hover: var(--dcs-ink);
@@ -58,8 +60,8 @@
   --dcs-tag-text: var(--dcs-rust);
   --dcs-neutral-bg: var(--dcs-sky-200);
   --dcs-neutral-text: var(--dcs-ink-700);
-  --dcs-nav-bg: var(--dcs-paper);
-  --dcs-nav-hover: var(--dcs-sky-100);
+  --dcs-nav-bg: var(--dcs-sky-100);
+  --dcs-nav-hover: var(--dcs-sky-200);
   --dcs-code-bg: var(--dcs-sky-200);
   --dcs-code-text: var(--dcs-ink);
   --dcs-inline-code-bg: var(--dcs-sky-100);

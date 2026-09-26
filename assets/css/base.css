@@ -33,12 +33,15 @@ h2 { font-size: 2.5rem; font-weight: 700; margin-top: 0; }
 h3 { font-size: 2.35rem; font-weight: 700; }
 h4 { font-size: 2.2rem; font-weight: 500; color: var(--dcs-text); }
 
-/* h2 keeps the peach rule from §3.2, but as a short stub so it reads as a
-   mark rather than a second accent competing with the page's one CTA. */
+/* h2 keeps the warm rule from §3.2, but as a short stub so it reads as a
+   mark rather than a second accent competing with the page's one CTA. It
+   takes the warm text colour: peach itself is 1.09:1 on sky and disappears
+   in light, while rust is 4.71 there and peach is the dark value anyway. */
 h2::after {
   content: ""; display: block;
-  width: 40px; height: 2px; margin-top: var(--sp-sm);
-  background: var(--dcs-peach);
+  width: 40px; height: 3px; margin-top: var(--sp-sm);
+  background: var(--dcs-warm-text);
+  border-radius: 2px;
 }
 
 /* Pixel type for the wordmark and page titles. Never a paragraph, never
