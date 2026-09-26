@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anti Checkers :: DeskCanSaw</title>
+<meta name="description" content="Anti Checkers runs right here in the browser, on DeskCanSaw.">
+<meta name="color-scheme" content="light dark">
+
+<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
+<link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
+
+<meta name="theme-color" content="#afdde9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1519" media="(prefers-color-scheme: dark)">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Silkscreen:wght@400&family=VT323&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/play.css">
+<noscript><style>.play-js { display: none; }</style></noscript>
+</head>
+
+<!-- One play page: tools/play-shell.html, filled in by tools/export_games.py
+     from the Godot project's own settings, then by Godot when it exports.
+     DOWNLOADS is the desktop builds of the collection, so only /play/ has it. -->
+<body class="play">
+<script>
+/* Set the scheme before first paint so dark users never see a light flash.
+   Everything else about the toggle lives in /assets/js/color-scheme.js. */
+(function () {
+  try {
+    var s = localStorage.getItem('dcs-color-scheme');
+    if (!s) { s = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+    if (s === 'dark') { document.body.setAttribute('data-color-scheme', 'dark'); }
+  } catch (e) {}
+})();
+</script>
+
+<header class="play-bar">
+  <a class="play-brand" href="/">DeskCanSaw</a>
+  <h1 class="play-title">
+    <span class="play-name">Anti Checkers</span>
+  </h1>
+  <button class="toggle" type="button" id="play-fullscreen" aria-label="Fullscreen" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg>
+    <span class="play-label">Fullscreen</span>
+  </button>
+</header>
+
+<main class="play-stage">
+  <canvas id="canvas" tabindex="0">Anti Checkers draws on a canvas, and this browser doesn't have one.</canvas>
+
+  <div class="play-status" id="status">
+    <div class="card play-card">
+      <p class="eyebrow play-js" id="status-eyebrow">loading</p>
+      <p class="display play-card-title">Anti Checkers</p>
+      <progress class="play-progress play-js" id="status-progress" max="1" value="0" aria-label="Loading Anti Checkers"></progress>
+      <p class="meta play-js" id="status-meter">Loading</p>
+      <div class="play-notice" id="status-notice" role="alert" hidden></div>
+      <noscript><p>It runs on JavaScript, and that's switched off here.</p></noscript>
+      <div class="actions" id="status-actions" hidden>
+        <a class="btn btn-primary" id="status-retry" href="">Try again</a>
+        <a class="btn btn-ghost" id="status-back" href="/play/">or pick another game</a>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script src="/assets/js/color-scheme.js"></script>
+<script src="../engine/4.7.2.stable/godot.js"></script>
+<script>
+/* Starts the game. Every game page loads the same engine from ENGINE, so the
+   browser only downloads it once; the page's own index.pck is the game. */
+(function () {
+  var ENGINE = '../engine/4.7.2.stable/godot';
+  var config = {"args":[],"canvasResizePolicy":0,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":4508112,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+  var threads = false;
+  var title = document.title;
+
+  var canvas = document.getElementById('canvas');
+  var status = document.getElementById('status');
+  var eyebrow = document.getElementById('status-eyebrow');
+  var progress = document.getElementById('status-progress');
+  var meter = document.getElementById('status-meter');
+  var notice = document.getElementById('status-notice');
+  var actions = document.getElementById('status-actions');
+  var retry = document.getElementById('status-retry');
+  var back = document.getElementById('status-back');
+  var fullscreen = document.getElementById('play-fullscreen');
+
+  /* Godot is told not to size the canvas (canvasResizePolicy 0) and follows
+     whatever size it has. Keep its drawing buffer at the device pixels it
+     covers, so the game is sharp and the bar above it stays put. */
+  function fit(width, height) {
+    width = Math.max(1, Math.round(width));
+    height = Math.max(1, Math.round(height));
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width;
+      canvas.height = height;
+    }
+  }
+  function measure() {
+    var box = canvas.getBoundingClientRect();
+    var ratio = window.devicePixelRatio || 1;
+    fit(box.width * ratio, box.height * ratio);
+  }
+  measure();
+  if (window.ResizeObserver) {
+    var observer = new ResizeObserver(function (entries) {
+      var entry = entries[entries.length - 1];
+      var device = entry.devicePixelContentBoxSize && entry.devicePixelContentBoxSize[0];
+      if (device) {
+        fit(device.inlineSize, device.blockSize);
+      } else {
+        var ratio = window.devicePixelRatio || 1;
+        fit(entry.contentRect.width * ratio, entry.contentRect.height * ratio);
+      }
+    });
+    try {
+      observer.observe(canvas, { box: 'device-pixel-content-box' });
+    } catch (e) {
+      observer.observe(canvas);
+    }
+  } else {
+    window.addEventListener('resize', measure);
+  }
+
+  function show(label, lines, again) {
+    eyebrow.textContent = label;
+    progress.hidden = true;
+    meter.hidden = true;
+    while (notice.firstChild) { notice.removeChild(notice.firstChild); }
+    for (var i = 0; i < lines.length; i++) {
+      var p = document.createElement('p');
+      p.textContent = lines[i];
+      notice.appendChild(p);
+    }
+    notice.hidden = false;
+    retry.hidden = !again;
+    if (again) { retry.textContent = again; }
+    back.className = again ? 'btn btn-ghost' : 'btn btn-primary';
+    back.textContent = again ? 'or pick another game' : 'Pick another game';
+    actions.hidden = false;
+    fullscreen.hidden = true;
+    status.hidden = false;
+  }
+
+  if (typeof Engine === 'undefined') {
+    show("didn't load", ["The engine didn't download. It's worth another go."], 'Try again');
+    return;
+  }
+  var missing = Engine.getMissingFeatures({ threads: threads });
+  if (missing.length) {
+    show("won't run here", ["This browser is missing something the game needs:"].concat(missing));
+    return;
+  }
+
+  var name = config.executable;
+  config.fileSizes[ENGINE + '.wasm'] = config.fileSizes[name + '.wasm'];
+  config.mainPack = name + '.pck';
+  config.executable = ENGINE;
+  config.canvas = canvas;
+  /* What the game is started with. Godot puts these in OS.get_cmdline_args(),
+     which is where scripts/game_catalog.gd looks for --game=<id>. */
+  config.args = ["--game=anti_checkers"];
+
+  function megabytes(n) { return (n / 1048576).toFixed(1); }
+
+  new Engine(config).startGame({
+    onProgress: function (current, total) {
+      if (total > 0) {
+        progress.max = total;
+        progress.value = current;
+        meter.textContent = current < total
+          ? 'Loading ' + megabytes(current) + ' of ' + megabytes(total) + ' MB'
+          : 'Starting';
+      }
+    },
+    onExit: function () {
+      show('stopped', ['The game quit.'], 'Play again');
+    }
+  }).then(function () {
+    document.title = title;   // Godot names the tab after the project on start
+    status.hidden = true;
+    if ((document.fullscreenEnabled || document.webkitFullscreenEnabled) &&
+        (canvas.requestFullscreen || canvas.webkitRequestFullscreen)) {
+      fullscreen.hidden = false;
+    }
+  }, function (err) {
+    console.error(err);
+    show("didn't start", ['Something broke while it was loading:',
+      (err && err.message) || String(err)], 'Try again');
+  });
+
+  fullscreen.addEventListener('click', function () {
+    var request = canvas.requestFullscreen || canvas.webkitRequestFullscreen;
+    var pending = request.call(canvas);
+    if (pending && pending.catch) { pending.catch(function () {}); }
+    canvas.focus();
+  });
+})();
+</script>
+</body>
+</html>
+

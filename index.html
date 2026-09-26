@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeskCanSaw :: weird little games</title>
+<meta name="description" content="A retro video game lover's site and the shopfront for small indie game concepts. Games you can play in the browser, game files, and videos.">
+<meta name="color-scheme" content="light dark">
+
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#afdde9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1519" media="(prefers-color-scheme: dark)">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Silkscreen:wght@400&family=VT323&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/layout.css">
+</head>
+
+<body>
+<script>
+/* Set the scheme before first paint so dark users never see a light flash.
+   Everything else about the toggle lives in /assets/js/color-scheme.js. */
+(function () {
+  try {
+    var s = localStorage.getItem('dcs-color-scheme');
+    if (!s) { s = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+    if (s === 'dark') { document.body.setAttribute('data-color-scheme', 'dark'); }
+  } catch (e) {}
+})();
+</script>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="layout">
+
+  <!-- ====================================================================
+       Side nav (§6.4)
+       ==================================================================== -->
+  <nav class="sidenav" aria-label="Main">
+    <a class="brand" href="#home">DeskCanSaw<small>weird little games</small></a>
+
+    <ul class="navlist">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#profile">Profile</a></li>
+      <li><a href="#games">Games</a></li>
+      <li><a href="#files">Files</a></li>
+      <li><a href="#videos">Videos</a></li>
+    </ul>
+
+    <div class="nav-foot">
+      <a href="https://youtube.com/@deskcansaw" rel="me noopener">YouTube</a>
+      <a href="https://github.com/jraleman/DeskCanSaw.com" rel="noopener">GitHub</a>
+      <button class="toggle" type="button" id="scheme-toggle" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <span id="scheme-label">Night</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="main" id="main">
+    <div class="wrap">
+
+      <!-- ================================================================
+           Home
+           ================================================================ -->
+      <section id="home" class="hero">
+        <h1 class="display">DeskCanSaw</h1>
+        <p class="sub">Weird little games</p>
+        <p class="lede">
+          A retro video game lover's site and the shopfront for small indie game
+          concepts. I like making things and learing about the inner-workings of old games.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="/play/">Play my Virtual Console!</a>
+          <a class="btn btn-ghost" href="#games">See all the games</a>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           Gamer Profile — body generated from content/site.json "profile"
+           ================================================================ -->
+      <section id="profile" class="band">
+        <p class="eyebrow">the shelf</p>
+        <h2>Gamer Profile</h2>
+        <!--
+        <p>What I play on, and what I use to take things apart.
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Thing</th>
+                <th scope="col">What I run</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Consoles</td>
+                <td>TBD</td>
+              </tr>
+              <tr>
+                <td>Handhelds</td>
+                <td>TBD</td>
+              </tr>
+              <tr>
+                <td>Display</td>
+                <td>TBD</td>
+              </tr>
+              <tr>
+                <td>Emulation</td>
+                <td>TBD</td>
+              </tr>
+              <tr>
+                <td>Dump and flash</td>
+                <td>TBD</td>
+              </tr>
+              <tr>
+                <td>Patching</td>
+                <td>TBD</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>TBD — a paragraph on how it all actually gets used.</p>
+      -->
+        <h3>Favorites</h3>
+        <ul>
+          <li>The Legend of Zelda: Ocarina of Time [SoH]</li>
+          <li>Super Mario 64: 16 Stars [Emu]</li>
+          <li>Super Mario Bros. [Emu]</li>
+          <li>Rocket League [Epic]</li>
+          <li>Phantasy Star Online: Blue Burst [Ephinea]</li>
+          <li>Old School Runescape [Mobile]</li>
+          <li>Duolingo [Mobile]</li>
+          <li>Cells to Singularity [Mobile]</li>
+        </ul>
+      </section>
+
+      <!-- ================================================================
+           Games — the list comes from dcs_games' project.godot, so a game
+           is here because it is in the Godot project.
+           ================================================================ -->
+      <section id="games" class="band">
+        <p class="eyebrow">in the browser</p>
+        <h2>Games</h2>
+        <p>
+          My older games, made without gen-AI, are on
+          <a href="https://deskcansaw.itch.io" rel="me noopener">itch.io</a>.
+        </p>
+
+        <!-- One .card per game, from dcs_games' project.godot.
+             Add a game there, then run tools/build.py. -->
+        <div class="grid grid-3">
+          <!-- generated:games -->
+          <a class="card" href="/play/dead-metal-jam/">
+            <h3>Dead Metal Jam</h3>
+          </a>
+          <a class="card" href="/play/triangle-rush/">
+            <h3>Triangle Rush</h3>
+          </a>
+          <a class="card" href="/play/desk-can-saw/">
+            <h3>Desk-Can-Saw</h3>
+          </a>
+          <a class="card" href="/play/chicken-pit/">
+            <h3>Chicken Pit</h3>
+          </a>
+          <a class="card" href="/play/lazer-nfc/">
+            <h3>LaZer NFC</h3>
+          </a>
+          <a class="card" href="/play/anti-chess/">
+            <h3>Anti-Chess</h3>
+          </a>
+          <a class="card" href="/play/anti-checkers/">
+            <h3>Anti Checkers</h3>
+          </a>
+          <a class="card" href="/play/creep-code/">
+            <h3>Creep Code</h3>
+          </a>
+          <a class="card" href="/play/cube-trials/">
+            <h3>Cube Trials</h3>
+          </a>
+          <!-- /generated:games -->
+        </div>
+
+        <h3 class="mt-lg">Take the whole collection with you</h3>
+        <p>
+          Unzip it and run the file inside; keep the <code>.pck</code> next to it, which is where the games are.
+        </p>
+
+        <!-- One button per desktop build, from tools/catalog.py's DESKTOPS.
+             tools/export_games.py is what puts the files under /downloads/. -->
+        <!-- generated:downloads -->
+        <div class="actions">
+          <a class="btn btn-secondary" href="/downloads/DCSGames-windows-x86_64.zip" download>
+            Windows <span class="tag">x86-64</span>
+          </a>
+          <a class="btn btn-secondary" href="/downloads/DCSGames-windows-arm64.zip" download>
+            Windows <span class="tag">ARM64</span>
+          </a>
+          <a class="btn btn-secondary" href="/downloads/DCSGames-linux-x86_64.zip" download>
+            Linux <span class="tag">x86-64</span>
+          </a>
+          <a class="btn btn-secondary" href="/downloads/DCSGames-linux-arm64.zip" download>
+            Linux <span class="tag">ARM64</span>
+          </a>
+        </div>
+        <!-- /generated:downloads -->
+      </section>
+
+      <!-- ================================================================
+           Files
+           ================================================================ -->
+      <section id="files" class="band">
+        <p class="eyebrow">the archive</p>
+        <h2>Files</h2>
+        <p>
+          Saves, tools, patches, romhacks and anything else I've made or collected
+          while tinkering with old games.
+        </p>
+
+        <!-- One .card per kind, from content/site.json's "files.kinds".
+             Edit them there, then run tools/build.py. -->
+        <div class="grid grid-3 mb-lg">
+          <!-- generated:file-kinds -->
+          <div class="card">
+            <h4>Save files</h4>
+            <p>Completed saves, useful mid-game states, testing saves.</p>
+          </div>
+          <div class="card">
+            <h4>Tools</h4>
+            <p>Small utilities for editing, extracting or converting game data.</p>
+          </div>
+          <div class="card">
+            <h4>Patches</h4>
+            <p>IPS/BPS patches. Patches only, never a patched ROM.</p>
+          </div>
+          <div class="card">
+            <h4>Romhacks</h4>
+            <p>My own hacks, and notes on hacks I like.</p>
+          </div>
+          <div class="card">
+            <h4>Notes</h4>
+            <p>Format documentation and teardowns from figuring the above out.</p>
+          </div>
+          <!-- /generated:file-kinds -->
+        </div>
+
+        <h3>Rules for this section</h3>
+        <!-- generated:file-rules -->
+        <div class="well">
+          <ol class="rules">
+            <li>No copyrighted ROMs or game assets. Patches and tools, bring your own copy.</li>
+            <li>Every file says what it's for, what it was made with, and what it runs on.</li>
+            <li>Nothing goes up untested. If it's known-broken, the page says so.</li>
+          </ol>
+        </div>
+        <!-- /generated:file-rules -->
+
+        <!-- TEMPLATE: one row per file. -->
+         <!--
+        <h3>Downloads</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">File</th><th scope="col">Kind</th>
+                <th scope="col">Runs on</th><th scope="col">Version</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>File name</td>
+                <td><span class="tag">patch</span></td>
+                <td>What it needs</td>
+                <td><span class="num">0.1</span></td>
+              </tr>
+              <tr>
+                <td>File name</td>
+                <td><span class="tag">tool</span></td>
+                <td>What it needs</td>
+                <td><span class="num">1.0</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      -->
+      </section>
+
+      <!-- ================================================================
+           Videos
+           ================================================================ -->
+      <section id="videos" class="band">
+        <p class="eyebrow">youtube</p>
+        <h2>Videos</h2>
+        <div class="actions mb-lg">
+          <a class="btn btn-secondary" href="https://youtube.com/@deskcansaw" rel="me noopener">
+            The channel on YouTube
+          </a>
+          <a class="btn btn-secondary" href="https://www.youtube.com/@DeskCanSaw/streams" rel="noopener">
+            Every stream on YouTube
+          </a>
+        </div>
+        <p>
+          Playthroughs, build logs from the games, and teardowns of the
+          files above.
+        </p>
+
+        <!-- One embed per video, from content/site.json's "videos.featured".
+             Edit them there, then run tools/build.py. -->
+        <div class="grid grid-2">
+          <!-- generated:videos -->
+          <figure class="frame">
+            <div class="ratio">
+              <iframe src="https://www.youtube-nocookie.com/embed/bISQqCFXA8k" title="Rendered Particles in SM64 Start Screen"
+                      allowfullscreen loading="lazy"></iframe>
+            </div>
+            <figcaption>The particles the Super Mario 64 start screen draws, pulled out and rendered on their own.</figcaption>
+          </figure>
+          <figure class="frame">
+            <div class="ratio">
+              <iframe src="https://www.youtube-nocookie.com/embed/WemABE-ne-w" title="Camera Glitch in Dire Dire Docks SM64"
+                      allowfullscreen loading="lazy"></iframe>
+            </div>
+            <figcaption>What the Dire Dire Docks camera does when you push it somewhere the game never meant it to go.</figcaption>
+          </figure>
+          <figure class="frame">
+            <div class="ratio">
+              <iframe src="https://www.youtube-nocookie.com/embed/QKwK-ZhTurg" title="Binary Finary - 1998 (Original Mix)"
+                      allowfullscreen loading="lazy"></iframe>
+            </div>
+            <figcaption>Binary Finary's 1998, the original mix. What a lot of the tinkering above gets done to.</figcaption>
+          </figure>
+          <figure class="frame">
+            <div class="ratio">
+              <iframe src="https://www.youtube-nocookie.com/embed/XrIFAR_aa44" title="My Wii Laptop/Portable - Wii Bawkz"
+                      allowfullscreen loading="lazy"></iframe>
+            </div>
+            <figcaption>The Wii Bawkz: my Wii rebuilt as a laptop-style portable. The channel's first video, from 2008.</figcaption>
+          </figure>
+          <!-- /generated:videos -->
+        </div>
+
+        <h3 class="mt-lg">Live streams</h3>
+        <p>
+          Everything the channel has streamed, by game, oldest first... long, unedited sessions, so they stay on YouTube rather than in a box here.
+        </p>
+
+        <!-- One card per game, from content/site.json's "videos.streams". -->
+        <div class="grid grid-2 grid-start">
+          <!-- generated:streams -->
+          <div class="card">
+            <div class="card-head">
+              <h4>Super Mario 64</h4>
+              <span class="meta">3 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=3lrC7QLznYA" rel="noopener">16 star practice</a><span class="meta">2022-06-30</span></li>
+              <li><a href="https://www.youtube.com/watch?v=aA7oYQ3BEEM" rel="noopener">16 star practice</a><span class="meta">2022-07-01</span></li>
+              <li><a href="https://www.youtube.com/watch?v=wgw-WxV31k0" rel="noopener">16 star practice</a><span class="meta">2022-07-02</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Super Mario All-Stars</h4>
+              <span class="meta">2 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=-mdgfUjhOJg" rel="noopener">SMB1 speedrun practice</a><span class="meta">2022-10-14</span></li>
+              <li><a href="https://www.youtube.com/watch?v=n3gvCRBEVJk" rel="noopener">SMB1 speedrun practice</a><span class="meta">2022-10-14</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>The Legend of Zelda: Ocarina of Time</h4>
+              <span class="meta">6 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=xBBdbX7MRnc" rel="noopener">Randomizer, seed 23403</a><span class="meta">2023-02-15</span></li>
+              <li><a href="https://www.youtube.com/watch?v=8Xg8Oa1a1hs" rel="noopener">Randomizer, seed 21223</a><span class="meta">2023-02-19</span></li>
+              <li><a href="https://www.youtube.com/watch?v=_iBPyIpICK8" rel="noopener">Randomizer, seed 15308</a><span class="meta">2023-02-20</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Hyr3I25SmCQ" rel="noopener">Randomizer, seed 22449</a><span class="meta">2023-02-23</span></li>
+              <li><a href="https://www.youtube.com/watch?v=aBPcP911bFE" rel="noopener">Randomizer, seed 12870</a><span class="meta">2023-02-24</span></li>
+              <li><a href="https://www.youtube.com/watch?v=WDuy7UidGiw" rel="noopener">Randomizer, seed 30083</a><span class="meta">2023-02-26</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Rocket League</h4>
+              <span class="meta">14 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=ozTR0HrCrh8" rel="noopener">Streaming test</a><span class="meta">2023-01-29</span></li>
+              <li><a href="https://www.youtube.com/watch?v=9ZZiw5ZxcKI" rel="noopener">Streaming test</a><span class="meta">2023-01-29</span></li>
+              <li><a href="https://www.youtube.com/watch?v=6gKQjp_h6As" rel="noopener">Streaming test</a><span class="meta">2023-01-29</span></li>
+              <li><a href="https://www.youtube.com/watch?v=G1M2OKUX2Bw" rel="noopener">Streaming test</a><span class="meta">2023-01-29</span></li>
+              <li><a href="https://www.youtube.com/watch?v=vlWfAtNu9F0" rel="noopener">Casual practice</a><span class="meta">2023-02-06</span></li>
+              <li><a href="https://www.youtube.com/watch?v=lf_gH2WMGy0" rel="noopener">Casual practice</a><span class="meta">2023-02-07</span></li>
+              <li><a href="https://www.youtube.com/watch?v=-LNLZGf-8SU" rel="noopener">Casual play</a><span class="meta">2023-02-09</span></li>
+              <li><a href="https://www.youtube.com/watch?v=i1t8iBXN7aE" rel="noopener">Casual play</a><span class="meta">2023-02-12</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Mm_ObDcTdj0" rel="noopener">Casual play</a><span class="meta">2023-02-14</span></li>
+              <li><a href="https://www.youtube.com/watch?v=IwtureOz06s" rel="noopener">Casual play</a><span class="meta">2023-02-15</span></li>
+              <li><a href="https://www.youtube.com/watch?v=rNJ7LrKE6Tg" rel="noopener">Casual play</a><span class="meta">2023-04-15</span></li>
+              <li><a href="https://www.youtube.com/watch?v=8O4TTvQaC34" rel="noopener">Casual play</a><span class="meta">2023-04-19</span></li>
+              <li><a href="https://www.youtube.com/watch?v=pX2GOwGDR0g" rel="noopener">Casual play</a><span class="meta">2023-04-19</span></li>
+              <li><a href="https://www.youtube.com/watch?v=ZndvJe8427M" rel="noopener">Casual play</a><span class="meta">2023-04-19</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Cat Quest</h4>
+              <span class="meta">19 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=mFA8ZhECckc" rel="noopener">Ep. 1</a><span class="meta">2023-02-05</span></li>
+              <li><a href="https://www.youtube.com/watch?v=VfCr0FB7oL8" rel="noopener">Ep. 2</a><span class="meta">2023-02-06</span></li>
+              <li><a href="https://www.youtube.com/watch?v=JP9uakwuYAw" rel="noopener">Ep. 3</a><span class="meta">2023-02-06</span></li>
+              <li><a href="https://www.youtube.com/watch?v=JF_06LKDizM" rel="noopener">Ep. 4</a><span class="meta">2023-02-07</span></li>
+              <li><a href="https://www.youtube.com/watch?v=DGVg4GnmUZ0" rel="noopener">Ep. 5</a><span class="meta">2023-02-08</span></li>
+              <li><a href="https://www.youtube.com/watch?v=6mQyrbS9l8k" rel="noopener">Ep. 6</a><span class="meta">2023-02-08</span></li>
+              <li><a href="https://www.youtube.com/watch?v=wE7p2nVI-8w" rel="noopener">Ep. 7</a><span class="meta">2023-02-09</span></li>
+              <li><a href="https://www.youtube.com/watch?v=mbLnp41VzMo" rel="noopener">Ep. 8</a><span class="meta">2023-02-08</span></li>
+              <li><a href="https://www.youtube.com/watch?v=mlKjw7cNzUQ" rel="noopener">Ep. 9, Mew Game</a><span class="meta">2023-02-11</span></li>
+              <li><a href="https://www.youtube.com/watch?v=_uGfknE4g4A" rel="noopener">Ep. 10, Mew Game 1</a><span class="meta">2023-02-11</span></li>
+              <li><a href="https://www.youtube.com/watch?v=V4JeYuE8XcU" rel="noopener">Ep. 11, Mew Game 1</a><span class="meta">2023-02-11</span></li>
+              <li><a href="https://www.youtube.com/watch?v=qnwU6RT2B4c" rel="noopener">Ep. 12, Mew Game 2</a><span class="meta">2023-02-11</span></li>
+              <li><a href="https://www.youtube.com/watch?v=cfof-iGezQU" rel="noopener">Ep. 13, Mew Game 2</a><span class="meta">2023-02-12</span></li>
+              <li><a href="https://www.youtube.com/watch?v=eMstMDdRg_E" rel="noopener">Ep. 14, Mew Game 2</a><span class="meta">2023-02-12</span></li>
+              <li><a href="https://www.youtube.com/watch?v=h4ODu5iHUcw" rel="noopener">Ep. 15, Mew Game 2</a><span class="meta">2023-02-12</span></li>
+              <li><a href="https://www.youtube.com/watch?v=4ZxmXRlXtW0" rel="noopener">Ep. 16, Mew Game 3</a><span class="meta">2023-02-12</span></li>
+              <li><a href="https://www.youtube.com/watch?v=816d_k5QOmM" rel="noopener">Ep. 17, Mew Game 3</a><span class="meta">2023-02-13</span></li>
+              <li><a href="https://www.youtube.com/watch?v=87HuSvdJXmM" rel="noopener">Ep. 18, Mew Game 3</a><span class="meta">2023-02-13</span></li>
+              <li><a href="https://www.youtube.com/watch?v=NAs-1GWZdXk" rel="noopener">Ep. 19, Mew Game 3</a><span class="meta">2023-02-14</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Cat Quest II</h4>
+              <span class="meta">11 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=Ph7jYw7gekE" rel="noopener">Ep. 1</a><span class="meta">2023-02-20</span></li>
+              <li><a href="https://www.youtube.com/watch?v=YTUkIt9OSvY" rel="noopener">Ep. 2</a><span class="meta">2023-02-21</span></li>
+              <li><a href="https://www.youtube.com/watch?v=AmatxA0mBOw" rel="noopener">Ep. 3</a><span class="meta">2023-02-22</span></li>
+              <li><a href="https://www.youtube.com/watch?v=4z7csweBEGg" rel="noopener">Ep. 4</a><span class="meta">2023-02-23</span></li>
+              <li><a href="https://www.youtube.com/watch?v=KWqrNPytEJI" rel="noopener">Ep. 5</a><span class="meta">2023-02-24</span></li>
+              <li><a href="https://www.youtube.com/watch?v=D1SPP7I8ha4" rel="noopener">Ep. 6</a><span class="meta">2023-03-17</span></li>
+              <li><a href="https://www.youtube.com/watch?v=yu-v-0I7E5E" rel="noopener">Ep. 7</a><span class="meta">2023-03-22</span></li>
+              <li><a href="https://www.youtube.com/watch?v=nvFZLHGLu5Q" rel="noopener">Ep. 8</a><span class="meta">2023-03-22</span></li>
+              <li><a href="https://www.youtube.com/watch?v=mmA5EkYG57E" rel="noopener">Ep. 9</a><span class="meta">2023-04-13</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Pwqy0-Y3G4A" rel="noopener">Ep. 10</a><span class="meta">2023-04-13</span></li>
+              <li><a href="https://www.youtube.com/watch?v=lEs-nrKhvXw" rel="noopener">Ep. 11</a><span class="meta">2023-04-13</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Stray</h4>
+              <span class="meta">4 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=LfYnXon52KY" rel="noopener">Blind playthrough</a><span class="meta">2022-07-27</span></li>
+              <li><a href="https://www.youtube.com/watch?v=ujmNjV8hiTE" rel="noopener">Ep. 2</a><span class="meta">2022-07-30</span></li>
+              <li><a href="https://www.youtube.com/watch?v=zo9MhJj9RVw" rel="noopener">Ep. 2</a><span class="meta">2022-07-31</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Z5IrIXWr1yY" rel="noopener">Ep. 2.1, welcome back</a><span class="meta">2023-02-03</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Dying Light</h4>
+              <span class="meta">3 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=EN4re9DVGks" rel="noopener">Ep. 1</a><span class="meta">2023-02-24</span></li>
+              <li><a href="https://www.youtube.com/watch?v=cUZ6_NOZwdo" rel="noopener">Ep. 1</a><span class="meta">2023-02-24</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Cc00uP7q5cg" rel="noopener">Ep. 2</a><span class="meta">2023-02-26</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Unravel Two</h4>
+              <span class="meta">1 stream</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=cqFnB5RH6GU" rel="noopener">Ep. 1</a><span class="meta">2023-02-26</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Doki Doki Literature Club</h4>
+              <span class="meta">1 stream</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=4XaQgcAj4J4" rel="noopener">Ep. 1</a><span class="meta">2023-04-13</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>New Super Mario Bros. U Deluxe</h4>
+              <span class="meta">5 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=Bxl4OaZty00" rel="noopener">World 1</a><span class="meta">2023-04-15</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Y0L19oHlnvk" rel="noopener">World 2</a><span class="meta">2023-04-15</span></li>
+              <li><a href="https://www.youtube.com/watch?v=nPSC2AOWoTc" rel="noopener">World 3</a><span class="meta">2023-04-15</span></li>
+              <li><a href="https://www.youtube.com/watch?v=7tXJuMGWuPw" rel="noopener">World 4</a><span class="meta">2023-04-17</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Zbs453qMBpI" rel="noopener">World 4</a><span class="meta">2023-04-18</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Super Mario Bros.</h4>
+              <span class="meta">1 stream</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=5AQhrH6cULY" rel="noopener">Speedrun practice</a><span class="meta">2024-01-07</span></li>
+            </ul>
+          </div>
+          <!-- /generated:streams -->
+        </div>
+      </section>
+
+      <footer class="site-foot">
+        <p>deskcansaw.com — one person, some games, a lot of old cartridges.</p>
+        <p>
+          <a href="https://github.com/jraleman/DeskCanSaw.com" rel="noopener">source</a>
+        </p>
+      </footer>
+
+    </div>
+  </main>
+</div>
+
+<script src="/assets/js/color-scheme.js"></script>
+<script src="/assets/js/scroll-spy.js"></script>
+</body>
+</html>

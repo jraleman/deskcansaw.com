@@ -1,0 +1,181 @@
+/* ==========================================================================
+   DeskCanSaw — components
+   The pieces both pages share (style-guide.md §6, §8). Everything here reads
+   semantic tokens only, so a component never knows which scheme it is in.
+   Requires tokens.css and base.css.
+   ========================================================================== */
+
+/* --- buttons (§6.1) ---------------------------------------------------
+   One peach thing per view (§2.3), and .btn-primary is it. It must not move,
+   resize or change colour between schemes — only its border does. */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-sm);
+  height: 40px; padding: 0 20px;
+  border-radius: var(--r-md);
+  font-size: 1.5rem; font-weight: 500;
+  text-decoration: none;
+  transition: background-color var(--t-hover), border-color var(--t-hover),
+              color var(--t-hover), transform var(--t-hover);
+}
+
+.btn-primary {
+  background: var(--dcs-peach);
+  color: var(--dcs-ink);
+  border: var(--line) solid var(--dcs-peach-600);
+}
+.btn-primary:hover { background: #f3e0d3; color: var(--dcs-ink); transform: translateY(-1px); }
+body[data-color-scheme="dark"] .btn-primary { border: none; }
+body[data-color-scheme="dark"] .btn-primary:hover { background: var(--dcs-peach-tint); }
+
+.btn-secondary {
+  background: var(--dcs-secondary-fill);
+  color: var(--dcs-secondary-text);
+  border: var(--line) solid var(--dcs-border);
+}
+.btn-secondary:hover { border-color: var(--dcs-border-strong); color: var(--dcs-heading); }
+body[data-color-scheme="dark"] .btn-secondary { border-color: var(--dcs-border-strong); }
+body[data-color-scheme="dark"] .btn-secondary:hover { border-color: var(--dcs-mist); }
+
+.btn-ghost { background: none; border: none; color: var(--dcs-link); padding: 0; height: auto; }
+.btn-ghost:hover { text-decoration: underline; color: var(--dcs-link-hover); }
+
+.actions { display: flex; flex-wrap: wrap; gap: var(--sp-md); align-items: center; margin-top: var(--sp-lg); }
+
+/* --- scheme toggle ----------------------------------------------------
+   Secondary-button shape, but a real <button>, so it needs font: inherit. */
+.toggle {
+  display: inline-flex; align-items: center; gap: var(--sp-sm);
+  height: 40px; padding: 0 var(--sp-md);
+  background: var(--dcs-secondary-fill);
+  color: var(--dcs-secondary-text);
+  border: var(--line) solid var(--dcs-border-strong);
+  border-radius: var(--r-md);
+  font: inherit; font-size: 1.4rem; font-weight: 500;
+  cursor: pointer;
+  transition: border-color var(--t-hover), color var(--t-hover);
+}
+.toggle:hover { color: var(--dcs-heading); }
+.toggle svg {
+  width: 16px; height: 16px;
+  stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+/* Show the scheme you would switch *to*. */
+body[data-color-scheme="dark"] .icon-moon { display: none; }
+body:not([data-color-scheme="dark"]) .icon-sun { display: none; }
+
+/* --- grids (§5) -------------------------------------------------------- */
+.grid { display: grid; gap: var(--sp-lg); grid-template-columns: 1fr; }
+@media (min-width: 640px) {
+  .grid-2, .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+}
+/* Cards of very different lengths: each keeps its own height rather than
+   being stretched to the tallest one in its row. */
+.grid-start { align-items: start; }
+
+/* --- cards (§6.3) ------------------------------------------------------
+   Surface level 1: a border does the describing, never a shadow (§4). */
+.card {
+  background: var(--dcs-surface);
+  border: var(--line) solid var(--dcs-border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-lg);
+  transition: border-color var(--t-hover), background-color var(--t-hover), transform var(--t-lift);
+}
+.card > :last-child { margin-bottom: 0; }
+.card h3, .card h4 { margin-bottom: var(--sp-sm); }
+.card p { font-size: 1.5rem; }
+
+a.card, .card-link { display: block; text-decoration: none; color: inherit; }
+a.card:hover, .card-link:hover { border-color: var(--dcs-border-strong); transform: translateY(-2px); color: inherit; }
+body[data-color-scheme="dark"] a.card:hover,
+body[data-color-scheme="dark"] .card-link:hover { background: var(--dcs-deep-100); }
+
+.card-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-sm); }
+/* The count beside a card's title is the short half of the pair; it keeps one
+   line and the title takes the wrapping. */
+.card-head .meta { white-space: nowrap; }
+
+/* --- link lists --------------------------------------------------------
+   A card's worth of links, one per line, each with its date pushed to the
+   far edge so the dates read as a column. */
+.linklist { list-style: none; margin: 0; padding: 0; font-size: 1.5rem; }
+.linklist li {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: var(--sp-sm);
+  margin-bottom: var(--sp-xs);
+}
+.linklist .meta { margin-left: auto; font-variant-numeric: tabular-nums; }
+
+/* --- tags, badges, status (§6.5) --------------------------------------- */
+.tag, .badge {
+  display: inline-block;
+  font-size: 1.2rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .04em;
+  padding: 2px var(--sp-sm); border-radius: var(--r-md);
+  line-height: 1.5;
+}
+.tag { background: var(--dcs-tag-bg); color: var(--dcs-tag-text); }
+.badge-neutral { background: var(--dcs-neutral-bg); color: var(--dcs-neutral-text); }
+.badge-released {
+  background: var(--dcs-surface-raised);
+  color: var(--dcs-neutral-text);
+  border: var(--line) solid var(--dcs-border);
+}
+body[data-color-scheme="dark"] .badge-released { background: var(--dcs-deep-100); border-color: var(--dcs-night-700); }
+
+/* --- tables ------------------------------------------------------------ */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 1.5rem; }
+th, td { text-align: left; padding: var(--sp-sm) var(--sp-md); border-bottom: var(--line) solid var(--dcs-border); }
+th { color: var(--dcs-heading); font-weight: 700; font-size: 1.3rem; text-transform: uppercase; letter-spacing: .08em; }
+tbody tr:last-child td { border-bottom: none; }
+
+/* --- well (§4) --------------------------------------------------------- */
+.well {
+  background: var(--dcs-well);
+  border: var(--line) solid var(--dcs-border);
+  border-radius: var(--r-md);
+  padding: var(--sp-md);
+}
+.rules { margin: 0; padding-left: 2.2rem; }
+.rules li { margin-bottom: var(--sp-sm); }
+.rules li:last-child { margin-bottom: 0; }
+
+/* --- imagery (§8) ------------------------------------------------------
+   Artwork sits in an album frame and is never dimmed to "fit" the dark
+   scheme; the frame changes, the picture does not. */
+figure { margin: 0; }
+
+.frame {
+  background: var(--dcs-surface);
+  border: var(--line) solid var(--dcs-border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-sm);
+}
+body[data-color-scheme="dark"] .frame { background: var(--dcs-deep-100); }
+
+.frame .ratio {
+  position: relative; width: 100%; padding-top: 56.25%;
+  border-radius: var(--r-md); overflow: hidden;
+  background: var(--dcs-well);
+  display: flex;
+}
+.frame .ratio > * { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.frame .placeholder {
+  display: flex; align-items: center; justify-content: center;
+  color: var(--dcs-muted); font-size: 1.3rem; text-align: center; padding: var(--sp-md);
+}
+.frame figcaption { margin-top: var(--sp-sm); font-size: 1.3rem; color: var(--dcs-muted); }
+
+/* A frame sized to a portrait rather than a 16:9 embed. */
+.portrait {
+  width: 200px; height: 200px;
+  margin: 0 auto var(--sp-lg);
+  background: var(--dcs-surface-raised);
+}
+body[data-color-scheme="dark"] .portrait { background: var(--dcs-deep-100); }
+.portrait img { display: block; width: 100%; height: auto; border-radius: var(--r-md); }
