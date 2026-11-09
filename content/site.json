@@ -39,6 +39,69 @@
     }
   ],
 
+  "game_cards": {
+    "dead_metal_jam": {
+      "description": "Match musical notes to stop a robot invasion in a metal-clad arena.",
+      "alt": "A robot in an industrial arena with a note-matching prompt."
+    },
+    "triangle_rush": {
+      "description": "Chase highlighted triangles and hit the right key before time runs out.",
+      "alt": "Numbered triangles mark targets on a dark blue playfield."
+    },
+    "desk_can_saw": {
+      "description": "Steer a tiny electric chainsaw and slice falling cans for points.",
+      "alt": "A small chainsaw slices falling cans against a wooden backdrop."
+    },
+    "chicken_pit": {
+      "description": "Two coops, one rope. Win a toy-farm tug-of-war against a CPU or a friend.",
+      "alt": "Two chicken coops face each other across a toy farm tug-of-war pit."
+    },
+    "lazer_nfc": {
+      "description": "Watch the robots play a melody, then repeat their colours in order.",
+      "alt": "Colourful toy robots line up in a miniature laboratory."
+    },
+    "anti_chess": {
+      "description": "Give away every piece in a chess variant where captures are compulsory.",
+      "alt": "White and black chess pieces stand on a rotatable 3D board."
+    },
+    "anti_checkers": {
+      "description": "Turn checkers upside down: forced jumps help you give all your pieces away.",
+      "alt": "Red and cream checkers sit on a wooden board."
+    },
+    "creep_code": {
+      "description": "Wake six enchanted relics through hands-on logic and algorithm puzzles.",
+      "alt": "Crystals stand on a round stone ritual platform beneath an arch."
+    },
+    "cube_trials": {
+      "description": "Drive three everyday cars across bumpy courses, collecting spark plugs along the way.",
+      "alt": "A brown car crosses a hilly woodland course beside a spark plug."
+    },
+    "dolces_adventure": {
+      "description": "Help a hungry little dog leap over pits, collect burgers, and stomp pests.",
+      "alt": "A little dog runs past houses toward a gap in a grassy platform."
+    },
+    "tifo_beato": {
+      "description": "Lead the football terrace through chants, rival sing-offs, and rhythm challenges.",
+      "alt": "A miniature football stand faces a pitch and a rhythm timeline."
+    },
+    "tuki_tuki": {
+      "description": "Follow the arrows and dance through five original songs, solo or with a friend.",
+      "alt": "Dancers stand on a stage above scrolling rhythm arrows."
+    },
+    "yacomio": {
+      "description": "Grow a tiny colony from microbes to civilization in an untimed evolution game.",
+      "alt": "A green microbe sits in a small colony beside evolution upgrades."
+    },
+    "florida_men": {
+      "description": "Take a very strange holiday: a four-player board party with six toy minigames.",
+      "alt": "A toy alligator minigame sits beneath four players' scores."
+    },
+    "rastro": {
+      "description": "Make three everyday cars your own with paint, wheels, and parts in a 3D garage.",
+      "alt": "A turquoise Nissan Cube sits on a workshop turntable beside paint choices."
+    }
+  },
+
   "files": {
     "kinds": [
       {

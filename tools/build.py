@@ -14,7 +14,7 @@ the deploy runs it. Run this after editing the content file:
 What it owns, by block name, and what each block reads:
 
     profile      content/site.json "profile"           the Gamer Profile body
-    games        dcs_games' project.godot              one card per game
+    games        dcs_games' project.godot + game_cards one card per game
     downloads    tools/catalog.py "DESKTOPS"           the collection, to keep
     file-kinds   content/site.json "files.kinds"       one card per kind of file
     file-rules   content/site.json "files.rules"       the numbered rules
@@ -27,14 +27,20 @@ page only gets the blocks it has markers for. The content file holds the
 lists and tables, which are the parts that would otherwise drift apart; the
 prose around them is written per page.
 
-The games are not in the content file: dcs_games is the list of games, and
-tools/catalog.py reads it straight out of the Godot project, so adding a game
-there puts it on the site.
+The list of games is not in the content file: tools/catalog.py reads it from
+dcs_games' project.godot, so adding a game there puts it on the site.
+"game_cards" adds optional website copy and artwork descriptions, keyed by game
+id; it never determines which games appear or their order. Artwork is a checked-in
+640x360 WebP at assets/img/games/<slug>.webp, copied from the game's tutorial
+poster. Building the page never needs to read a private game folder.
 
 The content file:
 
     {
       "profile": [<block>, ...],
+      "game_cards": {
+        "<game_id>": {"description": ..., "alt": ...}
+      },
       "files": {
         "kinds": [{"name": ..., "description": ...}, ...],
         "rules": [<rule>, ...]
@@ -63,6 +69,7 @@ written:
 
 Every piece of text takes the small inline markdown the site uses -- links,
 `code`, **bold** and bare URLs -- and everything else in it is escaped.
+Game card descriptions and alt text are plain text: a card is already a link.
 """
 
 import html
@@ -203,6 +210,29 @@ def check_profile(content):
             block['columns'], block['rows'] = want_table(at, block)
 
 
+def check_game_cards(content):
+    cards = want_key('the file', content, 'game_cards')
+    if not isinstance(cards, dict):
+        fail('game_cards', 'must be an object keyed by game id')
+    for game_id, card in cards.items():
+        at = 'game_cards.' + game_id
+        if not isinstance(card, dict):
+            fail(at, 'must be an object with "description" and "alt"')
+        card['description'] = want_text(at + '.description', card.get('description'))
+        card['alt'] = want_text(at + '.alt', card.get('alt'))
+
+    for game in content['games']:
+        game_id = game['id']
+        if game_id not in cards:
+            catalog.warn('{}: game_cards.{} is missing; rendering a title-only card'.format(
+                CONTENT_NAME, game_id))
+            continue
+        image = 'assets/img/games/{}.webp'.format(game['slug'])
+        if not (ROOT / image).is_file():
+            fail('game_cards.' + game_id, 'artwork is missing: ' + image)
+        game['card'] = dict(cards[game_id], image='/' + image)
+
+
 def check_files(content):
     files = want_key('the file', content, 'files')
     if not isinstance(files, dict):
@@ -255,11 +285,12 @@ def load():
     except json.JSONDecodeError as e:
         raise SystemExit('{}: line {}, column {}: {}'.format(CONTENT_NAME, e.lineno, e.colno, e.msg))
     if not isinstance(content, dict):
-        fail('the file', 'must be an object with "profile", "files" and "videos"')
+        fail('the file', 'must be an object with "profile", "game_cards", "files" and "videos"')
     check_profile(content)
     check_files(content)
     check_videos(content)
     content['games'] = catalog.games()
+    check_game_cards(content)
     return content
 
 
@@ -308,9 +339,25 @@ def render_games(content, pad):
     """One card per game, linking to the page it plays on."""
     out = []
     for g in content['games']:
+        slug = html.escape(g['slug'])
+        card = g.get('card')
+        out.append(
+            '<a class="card game-card" href="/play/{0}/" aria-labelledby="game-{0}">'.format(slug))
+        if card:
+            out += [
+                '  <img class="game-card-art" src="{}"'.format(html.escape(card['image'])),
+                '       alt="{}" width="640" height="360" loading="lazy" decoding="async">'.format(
+                    html.escape(card['alt'])),
+            ]
         out += [
-            '<a class="card" href="/play/{}/">'.format(html.escape(g['slug'])),
-            '  <h3>{}</h3>'.format(html.escape(g['name'])),
+            '  <div class="game-card-body">',
+            '    <h3 id="game-{}">{}</h3>'.format(slug, html.escape(g['name'])),
+        ]
+        if card:
+            out.append('    <p>{}</p>'.format(html.escape(card['description'], quote=False)))
+        out += [
+            '    <span class="game-card-action">Play in browser <span aria-hidden="true">&rarr;</span></span>',
+            '  </div>',
             '</a>',
         ]
     return indent(out, pad)

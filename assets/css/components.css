@@ -99,6 +99,33 @@ body[data-color-scheme="dark"] .card-link:hover { background: var(--dcs-deep-100
    line and the title takes the wrapping. */
 .card-head .meta { white-space: nowrap; }
 
+/* --- game cards (§6.3, §8) -------------------------------------------- */
+a.game-card { display: flex; flex-direction: column; min-width: 0; padding: 0; overflow: hidden; }
+.game-card-art {
+  display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
+  object-fit: cover; background: var(--dcs-well);
+  border-bottom: var(--line) solid var(--dcs-border);
+}
+.game-card-body {
+  display: flex; flex: 1; flex-direction: column; align-items: flex-start;
+  padding: var(--sp-lg);
+}
+.game-card h3 { font-size: 2rem; }
+.game-card p { margin-bottom: var(--sp-lg); }
+.game-card-action {
+  display: flex; align-items: center; justify-content: space-between;
+  align-self: stretch; gap: var(--sp-sm); margin-top: auto;
+  color: var(--dcs-link); font-size: 1.4rem; font-weight: 500;
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.game-card-action > span { font-size: 1.8rem; line-height: 1; }
+a.game-card:hover .game-card-action,
+a.game-card:focus-visible .game-card-action { color: var(--dcs-link-hover); }
+a.game-card:focus-visible { border-color: var(--dcs-border-strong); border-radius: var(--r-lg); }
+@media (prefers-reduced-motion: reduce) {
+  a.game-card:hover { transform: none; }
+}
+
 /* --- link lists --------------------------------------------------------
    A card's worth of links, one per line, each with its date pushed to the
    far edge so the dates read as a column. */
