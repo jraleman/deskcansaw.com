@@ -19,7 +19,6 @@ source and `gh-pages` is the site, built from it on every push — see
 
 ```
 index.html            the site, one page
-coming-soon.html      the holding page it replaced, kept but not linked
 CNAME                 deskcansaw.com
 .nojekyll             serve the files as they are; skip Jekyll
 favicon.*             site icons, which belong at the root
@@ -57,7 +56,6 @@ assets/css/
   base.css            reset, the 10px root scale, elements, text roles
   components.css      buttons, cards, tags, tables, wells, frames, the toggle
   layout.css          side nav, content column, hero, footer — full site pages
-  holding.css         the holding page, coming-soon.html
   play.css            the game pages, play/ and play/<slug>/
 assets/js/
   color-scheme.js     the day/night toggle
@@ -68,7 +66,7 @@ assets/img/
 ```
 
 Stylesheets are linked in dependency order — `tokens`, `base`, `components`,
-then whichever of `layout`/`holding`/`play` the page needs. Two rules keep it that
+then whichever of `layout`/`play` the page needs. Two rules keep it that
 way: component CSS reads the semantic tokens (`var(--dcs-surface)`) and never a
 raw scheme colour, and markup carries classes rather than a `style` attribute.
 
