@@ -1,0 +1,193 @@
+/* ==========================================================================
+   DeskCanSaw — deskcansaw.itch.io profile theme
+   The light scheme of style-guide.md, applied to an itch.io profile page.
+   Section numbers below point at that document.
+
+   This file only fixes what the theme editor cannot express. The colours the
+   editor *can* set are listed in itch/README.md and must be entered there —
+   custom CSS is opt-in on itch (you email support for it), so the page has to
+   look right without this file loaded at all.
+
+   Every rule is scoped to #wrapper, per itch's CSS guidelines.
+   ========================================================================== */
+
+#wrapper {
+  /* The palette (§2.1, §2.4). itch pages do not load assets/css/tokens.css,
+     so the handful of values used here are repeated by name. Light only —
+     an itch page has one scheme, and light is the source of every rule. */
+  --dcs-sky:       #afdde9;
+  --dcs-sky-100:   #e9f5f9;
+  --dcs-sky-200:   #d3ecf3;
+  --dcs-deep-sky:  #205e6f;
+  --dcs-cream:     #f4eed7;
+  --dcs-paper:     #f9f9f9;
+  --dcs-peach:     #e9c6af;
+  --dcs-peach-100: #f9efe9;
+  --dcs-peach-600: #a38b7a;
+  --dcs-rust:      #8d5835;
+  --dcs-slate:     #495663;
+  --dcs-slate-200: #ccd0d3;
+  --dcs-slate-400: #9ba2a9;
+  --dcs-ink:       #21272d;
+  --dcs-ink-700:   #333c45;
+
+  /* itch derives a button label colour from the button fill and gives the
+     page a border colour and radius. Peach wants ink on it (9.45:1, §2.8),
+     not the white itch may pick; cards and buttons want 12px/8px (§4). */
+  --itchio_button_fg_color: var(--dcs-ink);
+  --itchio_button_hover_color: #f3e0d3;
+  --itchio_button_active_color: #f3e0d3;
+  --itchio_button_border_color: var(--dcs-peach-600);
+  --itchio_button_shadow_color: transparent;
+  --itchio_border_color: var(--dcs-slate-200);
+  --itchio_border_radius: 12px;
+}
+
+/* --- no shadows, no glows (§4) -----------------------------------------
+   The sample has flat fills and a drawn outline. itch's defaults add soft
+   drop shadows to cells and buttons; they are the one thing that makes this
+   palette look like a template. */
+#wrapper .game_cell,
+#wrapper .collection_row,
+#wrapper .button,
+#wrapper button,
+#wrapper .footer { box-shadow: none; text-shadow: none; }
+
+/* --- type (§3.1, §3.2) -------------------------------------------------
+   Silkscreen comes from the theme editor's header font. Pixel faces carry
+   their own spacing, so nothing may add more, and none of them may fake a
+   weight they do not have. */
+#wrapper h1,
+#wrapper h2,
+#wrapper h3 { letter-spacing: 0; font-style: normal; }
+
+/* A section header carries a 2px peach rule (§3.2) — the one place peach is
+   allowed alongside the page's peach button. */
+#wrapper h2 { border-bottom: 2px solid var(--dcs-peach); }
+#wrapper .formatted_description { font-size: 16px; line-height: 1.7; }
+#wrapper .formatted_description p { max-width: 68ch; }
+
+/* --- links (§6.2) ------------------------------------------------------
+   Underlined always in body copy; hover darkens toward ink. */
+#wrapper .formatted_description a,
+#wrapper .collection_description a {
+  color: var(--dcs-deep-sky);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  transition: color .16s ease-out;
+}
+#wrapper .formatted_description a:hover,
+#wrapper .collection_description a:hover { color: var(--dcs-ink); }
+
+/* --- game cells (§6.3) -------------------------------------------------
+   A project tile: 12px radius, 1.5px line, no shadow. The hover is the whole
+   affordance — the border moves to slate and the card lifts.
+
+   The fill is the one place itch's layout forces a decision. On the site a
+   project tile is cream on the sky ground; here BG2 has already spent cream
+   on the content column, and §4 is explicit that a card never sits on another
+   card. So the tiles take the raised surface instead: sky ground → cream
+   column → paper tile is the three-level stack of §4, in order, with the
+   1.5px slate line still doing the describing. */
+#wrapper .game_cell {
+  background: var(--dcs-paper);
+  border: 1.5px solid var(--dcs-slate-200);
+  border-radius: 12px;
+  padding: 12px;
+  transition: border-color .16s ease-out, transform .16s ease-out;
+}
+#wrapper .game_cell:hover {
+  border-color: var(--dcs-slate);
+  transform: translateY(-2px);
+}
+#wrapper .game_cell .game_thumb {
+  border-radius: 8px;
+  /* Never dim gameplay media to make it fit the palette (§8). */
+  filter: none;
+  opacity: 1;
+}
+#wrapper .game_cell .title { color: var(--dcs-ink); }
+#wrapper .game_cell .game_text { color: var(--dcs-ink-700); }
+/* Metadata is quieter by size, not by colour. §3.2 puts small meta on
+   slate-400, but slate-400 on cream measures 2.22:1 — the one value §2.8
+   marks ✗, and itch's CSS guidelines require the page stay readable. 13px
+   ink-700 keeps the hierarchy and clears AAA. */
+#wrapper .game_cell .game_genre,
+#wrapper .game_cell .game_platform,
+#wrapper .game_cell .game_author { color: var(--dcs-ink-700); font-size: 13px; }
+
+/* Same reasoning for the tagline under the name, at the subtitle size (§3.2). */
+#wrapper .user_tagline { color: var(--dcs-ink-700); font-size: 18px; }
+
+/* A "web" flag is a neutral count badge, not a second accent (§2.3, §6.5). */
+#wrapper .web_flag {
+  background: var(--dcs-sky-200);
+  color: var(--dcs-ink-700);
+  border-radius: 8px;
+  font-size: 12px; font-weight: 700;
+  padding: 2px 8px;
+  text-transform: uppercase;
+}
+
+/* --- collections (§6.3) ------------------------------------------------ */
+#wrapper .collection_row {
+  background: var(--dcs-paper);
+  border: 1.5px solid var(--dcs-slate-200);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+/* --- the description, as written in itch/profile.html ------------------
+   itch strips class names that do not start with `custom-`, so those are the
+   only hooks this file has inside the bio. */
+#wrapper .formatted_description .custom-lede {
+  font-size: 18px;
+  color: var(--dcs-ink);
+  margin-bottom: 24px;
+}
+
+/* The four statuses read as a key, not as prose. Peach-100 pills with rust
+   text — a tag, which is inside the accent budget; solid peach would not be
+   (§6.5, §2.3). */
+#wrapper .formatted_description .custom-status-list { list-style: none; padding-left: 0; }
+#wrapper .formatted_description .custom-status-list li { margin-bottom: 8px; }
+#wrapper .formatted_description .custom-status-list strong {
+  display: inline-block;
+  min-width: 92px;
+  background: var(--dcs-peach-100);
+  color: var(--dcs-rust);
+  border-radius: 8px;
+  padding: 2px 8px;
+  margin-right: 8px;
+  font-size: 12px; font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+#wrapper .formatted_description .custom-links { list-style: none; padding-left: 0; }
+#wrapper .formatted_description .custom-links li {
+  margin-bottom: 8px;
+  padding-left: 16px;
+  border-left: 1.5px solid var(--dcs-slate-200);
+}
+
+/* --- focus (§6.8) ------------------------------------------------------
+   Never remove the ring. Offset keeps it off the fill it surrounds. */
+#wrapper :focus-visible {
+  outline: 2px solid var(--dcs-deep-sky);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* --- small screens -----------------------------------------------------
+   itch's guidelines ask for this to be checked. The only rule that needs a
+   break is the status key: the pills stop being column-aligned and shrink to
+   their own width, so the line still reads as "released — done. Play it."
+   rather than dropping the dash onto a line of its own. */
+@media (max-width: 480px) {
+  #wrapper .formatted_description .custom-status-list strong {
+    min-width: 0;
+    margin-right: 4px;
+  }
+}

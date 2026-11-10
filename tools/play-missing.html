@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}} :: DeskCanSaw</title>
+<meta name="description" content="{{TITLE}} isn't up yet on DeskCanSaw.">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#afdde9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1519" media="(prefers-color-scheme: dark)">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Silkscreen:wght@400&family=VT323&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/play.css">
+</head>
+
+<!-- A game the Godot project pins a feature tag to, but that the dcs_games
+     commit this site is pinned to has no folder for yet. Written by
+     tools/export_games.py from tools/play-missing.html; the next deploy after
+     it lands replaces it. -->
+<body class="play">
+<script>
+/* Set the scheme before first paint so dark users never see a light flash.
+   Everything else about the toggle lives in /assets/js/color-scheme.js. */
+(function () {
+  try {
+    var s = localStorage.getItem('dcs-color-scheme');
+    if (!s) { s = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+    if (s === 'dark') { document.body.setAttribute('data-color-scheme', 'dark'); }
+  } catch (e) {}
+})();
+</script>
+
+<header class="play-bar">
+  <a class="play-brand" href="/">DeskCanSaw</a>
+  <h1 class="play-title">
+    <span class="play-name">{{TITLE}}</span>
+  </h1>
+</header>
+
+<main class="play-stage">
+  <div class="play-status">
+    <div class="card play-card">
+      <p class="eyebrow">not up yet</p>
+      <p class="display play-card-title">{{TITLE}}</p>
+      <p>I haven't put this one up yet. It's still on the workbench.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="/play/">Pick another game</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="/assets/js/color-scheme.js"></script>
+</body>
+</html>
