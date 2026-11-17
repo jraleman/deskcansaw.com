@@ -1,104 +1,339 @@
 {
   "profile": [
     {
-      "type": "paragraph",
-      "text": "What I play on, and what I use to take things apart. The Files section is the output of this table — if something here changes, the tools I can write change with it."
+      "type": "intro",
+      "lead": "Glitch hunter, speedrunner, and professional fun-haver.",
+      "text": "I live for the moment a game breaks in just the right way, whether I'm clipping through a wall to save three seconds or stumbling on a bug nobody's documented yet.",
+      "image": {
+        "src": "/assets/img/avatar.png",
+        "alt": "The site's blue turtle avatar wearing sunglasses.",
+        "width": 281,
+        "height": 281
+      }
     },
     {
-      "type": "table",
-      "columns": ["Thing", "What I run"],
-      "rows": [
-        ["Consoles", "TBD"],
-        ["Handhelds", "TBD"],
-        ["Display", "TBD"],
-        ["Emulation", "TBD"],
-        ["Dump and flash", "TBD"],
-        ["Patching", "TBD"]
+      "type": "favorites",
+      "text": "The games that make my favorites list are the ones that hook me on the whole loop: the grinding, the progression, the discovery and the replayability.",
+      "items": [
+        {
+          "name": "[The Legend of Zelda: Ocarina of Time](https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Ocarina_of_Time)",
+          "platform": "Ship of Harkinian",
+          "image": {
+            "src": "/assets/img/profile/ocarina.svg",
+            "alt": "",
+            "width": 512,
+            "height": 512,
+            "credit": {
+              "title": "Ocarina icon",
+              "author": "Delapouite",
+              "source": "https://game-icons.net/1x1/delapouite/ocarina.html",
+              "license": "CC BY 3.0",
+              "license_url": "https://creativecommons.org/licenses/by/3.0/",
+              "changes": "Recolored to the site palette; used as a thematic illustration."
+            }
+          }
+        },
+        {
+          "name": "[Super Mario 64: 16 Stars](https://en.wikipedia.org/wiki/Super_Mario_64)",
+          "platform": "Emulation",
+          "image": {
+            "src": "/assets/img/profile/round-star.svg",
+            "alt": "",
+            "width": 512,
+            "height": 512,
+            "credit": {
+              "title": "Round star icon",
+              "author": "Delapouite",
+              "source": "https://game-icons.net/1x1/delapouite/round-star.html",
+              "license": "CC BY 3.0",
+              "license_url": "https://creativecommons.org/licenses/by/3.0/",
+              "changes": "Recolored to the site palette; used as a thematic illustration."
+            }
+          }
+        },
+        {
+          "name": "[Super Mario Bros.](https://en.wikipedia.org/wiki/Super_Mario_Bros.)",
+          "platform": "Emulation",
+          "image": {
+            "src": "/assets/img/profile/brick-wall.svg",
+            "alt": "",
+            "width": 512,
+            "height": 512,
+            "credit": {
+              "title": "Brick wall icon",
+              "author": "Delapouite",
+              "source": "https://game-icons.net/1x1/delapouite/brick-wall.html",
+              "license": "CC BY 3.0",
+              "license_url": "https://creativecommons.org/licenses/by/3.0/",
+              "changes": "Recolored to the site palette; used as a thematic illustration."
+            }
+          }
+        },
+        {
+          "name": "[Rocket League](https://en.wikipedia.org/wiki/Rocket_League)",
+          "platform": "Epic Games",
+          "image": {
+            "src": "/assets/img/profile/race-car.svg",
+            "alt": "",
+            "width": 512,
+            "height": 512,
+            "credit": {
+              "title": "Race car icon",
+              "author": "Skoll",
+              "source": "https://game-icons.net/1x1/skoll/race-car.html",
+              "license": "CC BY 3.0",
+              "license_url": "https://creativecommons.org/licenses/by/3.0/",
+              "changes": "Recolored to the site palette; used as a thematic illustration."
+            }
+          }
+        },
+        {
+          "name": "[Phantasy Star Online: Blue Burst](https://en.wikipedia.org/wiki/Phantasy_Star_Online)",
+          "platform": "Ephinea",
+          "image": {
+            "src": "/assets/img/profile/ray-gun.svg",
+            "alt": "",
+            "width": 512,
+            "height": 512,
+            "credit": {
+              "title": "Ray gun icon",
+              "author": "Lorc",
+              "source": "https://game-icons.net/1x1/lorc/ray-gun.html",
+              "license": "CC BY 3.0",
+              "license_url": "https://creativecommons.org/licenses/by/3.0/",
+              "changes": "Recolored to the site palette; used as a thematic illustration."
+            }
+          }
+        },
+        {
+          "name": "[Old School Runescape](https://en.wikipedia.org/wiki/Old_School_RuneScape)",
+          "platform": "Mobile",
+          "image": {
+            "src": "/assets/img/profile/crossed-swords.svg",
+            "alt": "",
+            "width": 512,
+            "height": 512,
+            "credit": {
+              "title": "Crossed swords icon",
+              "author": "Lorc",
+              "source": "https://game-icons.net/1x1/lorc/crossed-swords.html",
+              "license": "CC BY 3.0",
+              "license_url": "https://creativecommons.org/licenses/by/3.0/",
+              "changes": "Recolored to the site palette; used as a thematic illustration."
+            }
+          }
+        },
+        {
+          "name": "[Duolingo](https://en.wikipedia.org/wiki/Duolingo)",
+          "platform": "Mobile",
+          "image": {
+            "src": "/assets/img/profile/conversation.svg",
+            "alt": "",
+            "width": 512,
+            "height": 512,
+            "credit": {
+              "title": "Conversation icon",
+              "author": "Lorc",
+              "source": "https://game-icons.net/1x1/lorc/conversation.html",
+              "license": "CC BY 3.0",
+              "license_url": "https://creativecommons.org/licenses/by/3.0/",
+              "changes": "Recolored to the site palette; used as a thematic illustration."
+            }
+          }
+        },
+        {
+          "name": "[Cells to Singularity](https://en.wikipedia.org/wiki/Cell_to_Singularity)",
+          "platform": "Mobile",
+          "image": {
+            "src": "/assets/img/profile/dna.svg",
+            "alt": "",
+            "width": 512,
+            "height": 512,
+            "credit": {
+              "title": "DNA 1 icon",
+              "author": "Lorc",
+              "source": "https://game-icons.net/1x1/lorc/dna1.html",
+              "license": "CC BY 3.0",
+              "license_url": "https://creativecommons.org/licenses/by/3.0/",
+              "changes": "Recolored to the site palette; used as a thematic illustration."
+            }
+          }
+        }
       ]
     },
     {
-      "type": "paragraph",
-      "text": "TBD — a paragraph on how it all actually gets used."
-    },
-    {
-      "type": "heading",
-      "text": "Favorites"
-    },
-    {
-      "type": "list",
+      "type": "setup",
+      "text": "Emulation and physical hardware.",
       "items": [
-        "The Legend of Zelda: Ocarina of Time [SoH]",
-        "Super Mario 64: 16 Stars [Emu]",
-        "Super Mario Bros. [Emu]",
-        "Rocket League [Epic]",
-        "Phantasy Star Online: Blue Burst [Ephinea]",
-        "Old School Runescape [Mobile]",
-        "Duolingo [Mobile]",
-        "Cells to Singularity [Mobile]"
+        {
+          "name": "Game Boy",
+          "image": {
+            "src": "/assets/img/profile/game-boy.webp",
+            "alt": "An original gray Game Boy with its screen and controls visible.",
+            "width": 384,
+            "height": 256,
+            "credit": {
+              "title": "Game Boy photograph",
+              "author": "Evan-Amos (original photograph)",
+              "source": "https://commons.wikimedia.org/wiki/File:Game-Boy-FL.png",
+              "license": "Public domain",
+              "license_url": "https://commons.wikimedia.org/wiki/File:Game-Boy-FL.png#Licensing",
+              "changes": "Transparent version from Wikimedia Commons; resized onto a transparent canvas and converted to WebP. Representative hardware photograph."
+            }
+          }
+        },
+        {
+          "name": "Nintendo DS",
+          "image": {
+            "src": "/assets/img/profile/nintendo-ds.webp",
+            "alt": "An open blue Nintendo DS showing both screens and its controls.",
+            "width": 384,
+            "height": 256,
+            "credit": {
+              "title": "Nintendo DS photograph",
+              "author": "Evan-Amos",
+              "source": "https://commons.wikimedia.org/wiki/File:Nintendo-DS-Fat-Blue.png",
+              "license": "Public domain",
+              "license_url": "https://commons.wikimedia.org/wiki/File:Nintendo-DS-Fat-Blue.png#Licensing",
+              "changes": "Resized onto a transparent canvas and converted to WebP. Representative hardware photograph."
+            }
+          }
+        },
+        {
+          "name": "Nintendo Switch",
+          "image": {
+            "src": "/assets/img/profile/nintendo-switch.webp",
+            "alt": "A Nintendo Switch with blue and red Joy-Con controllers attached.",
+            "width": 384,
+            "height": 256,
+            "credit": {
+              "title": "Nintendo Switch photograph",
+              "author": "Evan-Amos, modified by Gunnar.offel",
+              "source": "https://commons.wikimedia.org/wiki/File:Nintendo-Switch-wJoyCons-BlRd-Standing-FL.png",
+              "license": "Public domain",
+              "license_url": "https://commons.wikimedia.org/wiki/File:Nintendo-Switch-wJoyCons-BlRd-Standing-FL.png#Licensing",
+              "changes": "Resized onto a transparent canvas and converted to WebP. Representative hardware photograph."
+            }
+          }
+        }
       ]
     }
   ],
 
   "game_cards": {
     "dead_metal_jam": {
-      "description": "Match musical notes to stop a robot invasion in a metal-clad arena.",
-      "alt": "A robot in an industrial arena with a note-matching prompt."
+      "genres": ["Action", "Rhythm"],
+      "modes": ["solo"],
+      "description": "Play the right notes to blast robots in a 3D, on-rails factory shootout.",
+      "alt": "An orange G robot and a black C robot pose against dark factory hazard stripes."
     },
     "triangle_rush": {
-      "description": "Chase highlighted triangles and hit the right key before time runs out.",
-      "alt": "Numbered triangles mark targets on a dark blue playfield."
+      "genres": ["Arcade"],
+      "modes": ["solo", "local"],
+      "description": "Chase highlighted triangles. Hit the matching key or tap each target before time runs out.",
+      "alt": "A glowing mint triangle numbered 1 leads two grey targets across diagonal blue and teal stripes."
     },
     "desk_can_saw": {
-      "description": "Steer a tiny electric chainsaw and slice falling cans for points.",
-      "alt": "A small chainsaw slices falling cans against a wooden backdrop."
+      "genres": ["Arcade"],
+      "modes": ["solo", "local"],
+      "description": "Steer a tiny electric chainsaw through falling cans and keep the sparks flying.",
+      "alt": "A blue toy chainsaw and tumbling cans on an orange and yellow hazard-striped cover."
     },
     "chicken_pit": {
-      "description": "Two coops, one rope. Win a toy-farm tug-of-war against a CPU or a friend.",
-      "alt": "Two chicken coops face each other across a toy farm tug-of-war pit."
+      "genres": ["Arcade", "Party"],
+      "modes": ["solo", "local"],
+      "description": "Pull for your coop in a 3D toy-farm tug-of-war, against a CPU or a friend.",
+      "alt": "Two toy chickens tug a rope above an open pit against a bright yellow sunburst."
     },
     "lazer_nfc": {
-      "description": "Watch the robots play a melody, then repeat their colours in order.",
-      "alt": "Colourful toy robots line up in a miniature laboratory."
+      "genres": ["Memory"],
+      "modes": ["solo"],
+      "description": "Watch the toy robots play a melody, then repeat their colours to fire the laboratory laser.",
+      "alt": "Three smiling toy robots in red, mint and yellow against a pale bubble pattern."
     },
     "anti_chess": {
-      "description": "Give away every piece in a chess variant where captures are compulsory.",
-      "alt": "White and black chess pieces stand on a rotatable 3D board."
+      "genres": ["Board", "Strategy"],
+      "modes": ["solo", "local"],
+      "description": "Give away every piece on a 3D chessboard. Captures are compulsory.",
+      "alt": "A dark knight and a white pawn flank a fallen white king on a cream chessboard."
     },
     "anti_checkers": {
-      "description": "Turn checkers upside down: forced jumps help you give all your pieces away.",
-      "alt": "Red and cream checkers sit on a wooden board."
+      "genres": ["Board", "Strategy"],
+      "modes": ["solo", "local"],
+      "description": "Give your opponent every checker. Forced jumps turn familiar moves upside down.",
+      "alt": "A crowned stack of red checkers and cream pieces stand out against a burgundy sunburst."
     },
     "creep_code": {
-      "description": "Wake six enchanted relics through hands-on logic and algorithm puzzles.",
-      "alt": "Crystals stand on a round stone ritual platform beneath an arch."
+      "genres": ["Puzzle"],
+      "modes": ["solo"],
+      "description": "Work six enchanted puzzle mechanisms on a shifting stone stage to light a constellation.",
+      "alt": "An owl-eyed keeper beside a stone portal and floating blue crystal against a star chart."
     },
     "cube_trials": {
-      "description": "Drive three everyday cars across bumpy courses, collecting spark plugs along the way.",
-      "alt": "A brown car crosses a hilly woodland course beside a spark plug."
+      "genres": ["Driving"],
+      "modes": ["solo", "local"],
+      "description": "Deliver spark plugs across bumpy 3D trails, free stranded cars, and build a trail of your own.",
+      "alt": "A brown Nissan Cube on an orange-and-cream cover with green stripes and chequered blocks."
     },
     "dolces_adventure": {
-      "description": "Help a hungry little dog leap over pits, collect burgers, and stomp pests.",
-      "alt": "A little dog runs past houses toward a gap in a grassy platform."
+      "genres": ["Platformer"],
+      "modes": ["solo", "local"],
+      "description": "Run a hungry little dog through toy-like worlds. Leap pits, collect burgers, and stomp pests.",
+      "alt": "A tan toy dog with a red collar faces a floating burger against a mint sky and yellow sun."
     },
     "tifo_beato": {
-      "description": "Lead the football terrace through chants, rival sing-offs, and rhythm challenges.",
-      "alt": "A miniature football stand faces a pitch and a rhythm timeline."
+      "genres": ["Rhythm"],
+      "modes": ["solo", "local"],
+      "description": "Lead a miniature football terrace through chants, held notes, and rival sing-offs.",
+      "alt": "A yellow-clad capo with a megaphone leads a row of supporters on a striped navy cover."
     },
     "tuki_tuki": {
-      "description": "Follow the arrows and dance through five original songs, solo or with a friend.",
-      "alt": "Dancers stand on a stage above scrolling rhythm arrows."
+      "genres": ["Rhythm"],
+      "modes": ["solo", "local"],
+      "description": "Follow the arrows through five original songs on a 3D dance stage, solo or with a friend.",
+      "alt": "A toy dancer in a rainbow-striped shirt is surrounded by bright directional arrows on a purple cover."
     },
     "yacomio": {
-      "description": "Grow a tiny colony from microbes to civilization in an untimed evolution game.",
-      "alt": "A green microbe sits in a small colony beside evolution upgrades."
+      "genres": ["Incremental"],
+      "modes": ["solo"],
+      "description": "Grow a 3D colony from a single microbe to civilization in an untimed evolution game.",
+      "alt": "A mint-green toy microbe with colourful beads and a tiny companion against a pale bubble pattern."
     },
     "florida_men": {
-      "description": "Take a very strange holiday: a four-player board party with six toy minigames.",
-      "alt": "A toy alligator minigame sits beneath four players' scores."
+      "genres": ["Board", "Party"],
+      "modes": ["solo", "local"],
+      "description": "Roll into a four-player board party, then chase toy gators and tackle six 3D minigames.",
+      "alt": "A green toy alligator, pink flamingo and blue ride-on mower against a mint confetti background."
     },
     "rastro": {
-      "description": "Make three everyday cars your own with paint, wheels, and parts in a 3D garage.",
-      "alt": "A turquoise Nissan Cube sits on a workshop turntable beside paint choices."
+      "genres": ["Sandbox"],
+      "modes": ["solo"],
+      "description": "Paint, fit, and fine-tune three everyday cars in a 3D garage. No races, no unlocks.",
+      "alt": "A turquoise Nissan Cube sits inside a blueprint-style frame on a dark teal cover."
+    },
+    "sailor_man": {
+      "genres": ["Rhythm"],
+      "modes": ["solo", "local"],
+      "description": "Trade musical calls in a toy-canal practice prototype, using buttons or an opt-in microphone.",
+      "alt": "Blue P1 and red P2 toy launches on teal waves beneath a gold sun."
+    },
+    "capitans_walk": {
+      "genres": ["Arcade"],
+      "modes": ["solo"],
+      "description": "Balance a walker and an eager dog on a springy leash through a seeded park in this physics prototype.",
+      "alt": "A walker and a black-and-white dog cross a green park with a long leash between them."
+    },
+    "puppy_kraft": {
+      "genres": ["Sandbox"],
+      "modes": ["solo"],
+      "description": "Explore, sniff, dig and build as a tiny dog in a saved block-world prototype. Keyboard and mouse.",
+      "alt": "A blocky tan-and-white puppy stands on a tiny grass-topped platform in warm sunlight."
+    },
+    "baloos_chase": {
+      "genres": ["Arcade"],
+      "modes": ["solo"],
+      "description": "Throw a ball, then chase Baloo through three 3D courses. A solo prototype with bouncy throws, obstacles and recovery medals.",
+      "alt": "A speckled white dog with dark ears and a red harness carries a golden ball against a sunny green garden."
     }
   },
 

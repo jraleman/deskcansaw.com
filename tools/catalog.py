@@ -185,8 +185,16 @@ def download_links(pad=''):
     out = []
     for d in desktops():
         out += [
-            '<a class="btn btn-secondary" href="{}{}" download>'.format(
-                DOWNLOAD_PATH, html.escape(d['file'])),
+            '<a class="btn btn-secondary" href="{}{}" download '
+            'aria-label="Download collection for {} {}">'.format(
+                DOWNLOAD_PATH, html.escape(d['file']),
+                html.escape(d['label']), html.escape(d['arch_label'])),
+            '  <svg class="icon-download" viewBox="0 0 24 24" width="18" height="18" '
+            'aria-hidden="true" focusable="false"',
+            '       fill="none" stroke="currentColor" stroke-width="2" '
+            'stroke-linecap="round" stroke-linejoin="round">',
+            '    <path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>',
+            '  </svg>',
             '  {} <span class="tag">{}</span>'.format(
                 html.escape(d['label']), html.escape(d['arch_label'])),
             '</a>',

@@ -99,32 +99,137 @@ body[data-color-scheme="dark"] .card-link:hover { background: var(--dcs-deep-100
    line and the title takes the wrapping. */
 .card-head .meta { white-space: nowrap; }
 
+/* --- game filters (§6.7) ---------------------------------------------- */
+.game-filters {
+  margin-bottom: var(--sp-lg); padding: var(--sp-md);
+  border: var(--line) solid var(--dcs-border); border-radius: var(--r-lg);
+  background: var(--dcs-surface); color-scheme: light;
+}
+body[data-color-scheme="dark"] .game-filters { color-scheme: dark; }
+.game-filter-fields { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-md); }
+.game-filters label {
+  display: flex; flex-direction: column; gap: var(--sp-xs); min-width: 0;
+  color: var(--dcs-heading); font-size: 1.3rem; font-weight: 500;
+}
+.game-filters input, .game-filters select {
+  width: 100%; min-width: 0; height: 40px; padding: 0 var(--sp-sm);
+  border: var(--line) solid var(--dcs-border-strong); border-radius: var(--r-md);
+  background: var(--dcs-surface-raised); color: var(--dcs-text);
+  font: inherit; font-size: 1.5rem; font-weight: 400;
+}
+.game-filters input::placeholder { color: var(--dcs-muted); opacity: 1; }
+.game-filters input:focus-visible, .game-filters select:focus-visible {
+  border-color: var(--dcs-link); border-radius: var(--r-md);
+}
+.game-filter-help { margin: var(--sp-md) 0 0; }
+.game-filter-summary {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--sp-sm); margin-top: var(--sp-md);
+}
+.game-filter-summary p { margin: 0; }
+.game-filters .btn { font-family: inherit; cursor: pointer; }
+.game-empty { max-width: none; }
+.game-filters[hidden], .game-card[hidden], .game-empty[hidden] { display: none; }
+@media (min-width: 640px) {
+  .game-filter-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .game-filter-search { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) {
+  .game-filter-fields { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .game-filter-search { grid-column: auto; }
+}
+
 /* --- game cards (§6.3, §8) -------------------------------------------- */
-a.game-card { display: flex; flex-direction: column; min-width: 0; padding: 0; overflow: hidden; }
+.game-card { display: flex; flex-direction: column; min-width: 0; padding: 0; overflow: hidden; }
 .game-card-art {
-  display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
-  object-fit: cover; background: var(--dcs-well);
+  display: block; width: 100%; height: auto; aspect-ratio: 1 / 1;
+  object-fit: contain; background: var(--dcs-well);
   border-bottom: var(--line) solid var(--dcs-border);
 }
 .game-card-body {
   display: flex; flex: 1; flex-direction: column; align-items: flex-start;
   padding: var(--sp-lg);
 }
-.game-card h3 { font-size: 2rem; }
-.game-card p { margin-bottom: var(--sp-lg); }
-.game-card-action {
-  display: flex; align-items: center; justify-content: space-between;
-  align-self: stretch; gap: var(--sp-sm); margin-top: auto;
-  color: var(--dcs-link); font-size: 1.4rem; font-weight: 500;
-  text-decoration: underline; text-underline-offset: 3px;
+.game-card h3 { font-size: 2.4rem; overflow-wrap: anywhere; }
+.game-card p { margin: 0; }
+.game-card-tags { display: flex; flex-wrap: wrap; gap: var(--sp-xs); margin-bottom: var(--sp-md); }
+.game-card p.game-card-modes {
+  margin-top: var(--sp-md); color: var(--dcs-muted); font-size: 1.2rem; line-height: 1.5;
 }
-.game-card-action > span { font-size: 1.8rem; line-height: 1; }
-a.game-card:hover .game-card-action,
-a.game-card:focus-visible .game-card-action { color: var(--dcs-link-hover); }
-a.game-card:focus-visible { border-color: var(--dcs-border-strong); border-radius: var(--r-lg); }
-@media (prefers-reduced-motion: reduce) {
-  a.game-card:hover { transform: none; }
+.game-card-action { padding: 0 var(--sp-lg) var(--sp-lg); }
+.game-card-launch {
+  width: 100%; height: auto; min-height: 44px; padding: var(--sp-sm) var(--sp-md);
+  border: var(--line) solid transparent;
+  /* Invert the page/link colour pair for a filled action in both schemes. */
+  background: var(--dcs-link); color: var(--dcs-bg);
 }
+.game-card-launch:hover { background: var(--dcs-link-hover); color: var(--dcs-bg); }
+.game-card-launch svg { flex: 0 0 auto; }
+
+/* --- personal gaming shelf (§6.9) ------------------------------------- */
+.profile-content { display: grid; gap: var(--sp-xl); }
+.profile-intro p, .profile-setup .profile-section-note { font-size: 1.6rem; }
+.profile-intro .profile-lead {
+  margin-bottom: var(--sp-md); text-wrap: balance;
+  color: var(--dcs-heading); font-size: 2.4rem; font-weight: 500; line-height: 1.4;
+}
+.profile-media {
+  display: block; object-fit: contain;
+  background: var(--dcs-surface-raised);
+  border: var(--line) solid var(--dcs-border); border-radius: var(--r-md);
+}
+.profile-intro-with-image {
+  display: grid; grid-template-columns: 80px minmax(0, 1fr);
+  gap: var(--sp-md); align-items: center;
+}
+.profile-avatar { width: 80px; height: 80px; border-radius: var(--r-lg); }
+.profile-intro-with-image .profile-lead { margin: 0; }
+.profile-intro-with-image > p:last-child { grid-column: 1 / -1; margin: 0; }
+@media (min-width: 640px) {
+  .profile-intro-with-image { grid-template-columns: 112px minmax(0, 1fr); column-gap: var(--sp-lg); }
+  .profile-avatar { width: 112px; height: 112px; grid-row: 1 / span 2; }
+  .profile-intro-with-image > p:last-child { grid-column: 2; }
+}
+.profile-favorites > h3, .profile-setup > h3 { margin-bottom: var(--sp-sm); }
+.profile-section-note { margin-bottom: var(--sp-lg); }
+.profile-favorite-list, .profile-device-list {
+  list-style: none; margin: 0; padding: 0; gap: var(--sp-md);
+}
+.profile-favorite, .profile-device { min-width: 0; margin: 0; }
+.profile-favorite {
+  display: flex; align-items: flex-start; gap: var(--sp-md);
+  padding: var(--sp-md);
+}
+.profile-thumbnail { flex: 0 0 64px; width: 64px; height: 64px; }
+.profile-item-copy {
+  display: flex; flex: 1; flex-direction: column; align-items: flex-start;
+  min-width: 0; gap: var(--sp-sm);
+}
+.profile-favorite h4 {
+  margin: 0; color: var(--dcs-heading); font-size: 1.8rem; line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.profile-favorite .badge { max-width: 100%; overflow-wrap: anywhere; }
+.profile-favorite p, .profile-device p { margin: 0; overflow-wrap: anywhere; }
+.profile-device {
+  padding-left: var(--sp-md); border-left: var(--line) solid var(--dcs-border-strong);
+}
+.profile-device h4 { margin: 0; font-size: 1.6rem; overflow-wrap: anywhere; }
+.profile-device-with-image {
+  display: flex; align-items: center; gap: var(--sp-md); padding-left: 0; border-left: none;
+}
+.profile-hardware-image { flex: 0 0 96px; width: 96px; height: 64px; }
+.profile-image-credits {
+  padding-top: var(--sp-md); border-top: var(--line) solid var(--dcs-border);
+  color: var(--dcs-muted); font-size: 1.3rem; overflow-wrap: anywhere;
+}
+.profile-image-credits summary {
+  padding: var(--sp-sm) 0; color: var(--dcs-link); font-size: 1.4rem;
+  font-weight: 500; cursor: pointer;
+}
+.profile-image-credits ul { margin: var(--sp-md) 0 0; }
+.profile-image-credits li { margin-bottom: var(--sp-sm); }
+.profile-image-credits li:last-child { margin-bottom: 0; }
 
 /* --- link lists --------------------------------------------------------
    A card's worth of links, one per line, each with its date pushed to the

@@ -59,10 +59,11 @@ assets/css/
   play.css            the game pages, play/ and play/<slug>/
 assets/js/
   color-scheme.js     the day/night toggle
+  game-filters.js     search, genre and play-mode filters for the game catalog
   scroll-spy.js       marks the nav item for the section in view
 assets/img/
   avatar.png
-  games/<slug>.webp   existing game posters, copied into the site
+  games/<slug>.webp   square game covers, resized for the site
 ```
 
 Stylesheets are linked in dependency order — `tokens`, `base`, `components`,
@@ -82,6 +83,7 @@ list or a table are generated into `<!-- generated:… -->` markers by
 | Block | Comes from |
 | --- | --- |
 | `profile` | `content/site.json`, `"profile"` |
+| `game-filters` | The active catalog's `"game_cards"` genres and play modes |
 | `games` | `dcs_games`, its `project.godot`, with `content/site.json`'s `"game_cards"` |
 | `downloads` | `tools/catalog.py`, its `DESKTOPS` |
 | `file-kinds` | `content/site.json`, `"files.kinds"` |
@@ -93,9 +95,13 @@ list or a table are generated into `<!-- generated:… -->` markers by
 [`content/README.md`](content/README.md) says what shape it takes. The Godot
 project remains the list of games, so a game is on the site because it is in
 `dcs_games` — see [Hosting the games](#hosting-the-games). `game_cards` only
-adds descriptions and artwork alt text; it cannot change the list or order.
-The artwork is copied into `assets/img/games/`, so generating cards does not
+adds descriptions, artwork alt text, genres and play modes; it cannot change the list or order.
+The square covers are resized from each game's `assets/cover.png` into
+640×640 WebP files in `assets/img/games/`. The complete designs stay visible,
+without cropping. These copies are checked in, so generating cards does not
 depend on private game folders being checked out.
+Cards open games only through their full-width **Launch game** button; their
+artwork, titles and descriptions are not links.
 
 Everything outside the markers, including all the prose, is written by hand in
 the page and the script leaves it alone. This file is documentation, not
@@ -105,6 +111,7 @@ content; editing it changes nothing on the site.
 python3 tools/build.py           # rewrite the generated blocks
 python3 tools/build.py --check   # exit 1 if the pages are out of date
 python3 -m unittest discover -s tools -p 'test_*.py'
+node --test tools/test_game_filters.cjs
 ```
 
 The output is committed, so the site stays static files with nothing in front
@@ -148,6 +155,14 @@ what pins a build to that one game and what gives it its name. A slug is the
 game id with dashes for underscores, so `games/anti_chess/` is
 `/play/anti-chess/`. Add a game to the Godot project and it turns up on the
 site; nothing here has to be told about it.
+
+Every registered game, including playable prototypes, needs a feature-tag pin,
+matching `application/config/name.<tag>` and unique
+`application/config/custom_user_dir_name.<tag>` in `project.godot`. A game
+folder alone does not reserve that identity. The Godot project's
+`tests/single_game_test.gd` checks these declarations against its discovered
+manifests, so missing website entries are caught alongside standalone checks.
+README-only placeholder folders are not registered games.
 
 `tools/export_games.py` does the export. It copies the project out of the
 submodule into `.cache/project/` — nothing is ever written into `dcs_games/` —
@@ -236,10 +251,13 @@ palette, same person writing.
 
 ## Gamer Profile
 
-What I play on, and what I use to take things apart. The Files section is the
-output of that table — if something there changes, the tools I can write change
-with it. The table itself, and the favourites under it, are in
-[`content/site.json`](content/site.json) under `"profile"`.
+A personal gaming shelf below Games: a short introduction, favorites with
+platform badges, and the hardware I play on. The copy and lists live in
+[`content/site.json`](content/site.json) under `"profile"`. Per-game notes and
+device details are optional; nothing is filled in with guessed facts or specs.
+The existing avatar, licensed themed illustrations and representative hardware
+photos add imagery without hotlinking. Sources and reuse terms appear in the
+expandable image credits beneath the profile.
 
 ## Games
 

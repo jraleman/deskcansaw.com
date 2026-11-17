@@ -14,6 +14,7 @@ the deploy runs it. Run this after editing the content file:
 What it owns, by block name, and what each block reads:
 
     profile      content/site.json "profile"           the Gamer Profile body
+    game-filters catalog games + game_cards            genres, modes and count
     games        dcs_games' project.godot + game_cards one card per game
     downloads    tools/catalog.py "DESKTOPS"           the collection, to keep
     file-kinds   content/site.json "files.kinds"       one card per kind of file
@@ -29,17 +30,21 @@ prose around them is written per page.
 
 The list of games is not in the content file: tools/catalog.py reads it from
 dcs_games' project.godot, so adding a game there puts it on the site.
-"game_cards" adds optional website copy and artwork descriptions, keyed by game
-id; it never determines which games appear or their order. Artwork is a checked-in
-640x360 WebP at assets/img/games/<slug>.webp, copied from the game's tutorial
-poster. Building the page never needs to read a private game folder.
+"game_cards" adds website copy, artwork descriptions, genres and play modes,
+keyed by game id; it never determines which games appear or their order.
+Artwork is a checked-in 640x640 WebP at assets/img/games/<slug>.webp, resized
+from the game's assets/cover.png without cropping. Building the page never
+needs to read a private game folder.
 
 The content file:
 
     {
       "profile": [<block>, ...],
       "game_cards": {
-        "<game_id>": {"description": ..., "alt": ...}
+        "<game_id>": {
+          "description": ..., "alt": ...,
+          "genres": ["Arcade"], "modes": ["solo", "local"]
+        }
       },
       "files": {
         "kinds": [{"name": ..., "description": ...}, ...],
@@ -66,10 +71,32 @@ written:
     {"type": "list",      "items": [...]}                      a <ul>
     {"type": "olist",     "items": [...]}                      an <ol>
     {"type": "table",     "columns": [...], "rows": [[...]]}
+    {"type": "intro",     "lead": ..., "text": ...}
+    {"type": "favorites", "text": ...,
+     "items": [{"name": ..., "platform": ..., "note": ...}]}
+    {"type": "setup",     "text": ..., "items": [{"name": ..., "note": ...}]}
 
-Every piece of text takes the small inline markdown the site uses -- links,
-`code`, **bold** and bare URLs -- and everything else in it is escaped.
-Game card descriptions and alt text are plain text: a card is already a link.
+Favorites and setup items have optional notes; omit the key when no personal
+note or device detail is supplied. Their shared "text" introduces the list.
+Leave out the setup block entirely when there is no hardware to publish.
+An intro or favorites/setup item can also have an optional "image":
+
+    {"src": "/assets/img/...", "alt": ..., "width": 512, "height": 512,
+     "credit": {"title": ..., "author": ..., "source": "https://...",
+                "license": ..., "license_url": "https://...", "changes": ...}}
+
+Images must be checked-in local files; dimensions are positive integers.
+The alt field is required but can be empty for a decorative illustration.
+Third-party images carry a credit, with optional modification notes in
+"changes". Credits are collected below the profile, without network access.
+Platform labels are plain text. Other profile text takes the small inline
+markdown the site uses -- links, `code`, **bold** and bare URLs -- and
+everything else in it is escaped.
+Game card titles, descriptions and alt text are plain text; only the launch
+control is a link.
+Genres are non-empty labels; the filter choices come from the active catalog.
+Modes are solo (one human, including vs CPU), local (shared-device multiplayer)
+or online (networked multiplayer, not simply running in a browser).
 """
 
 import html
@@ -77,6 +104,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from urllib.parse import urlsplit
 
 TOOLS = Path(__file__).resolve().parent
 sys.path.insert(0, str(TOOLS))
@@ -132,13 +160,20 @@ def inline(md):
 # points at the line to fix instead of at a traceback.
 # --------------------------------------------------------------------------
 
-PROFILE_BLOCKS = ('paragraph', 'heading', 'list', 'olist', 'table')
+PROFILE_BLOCKS = ('paragraph', 'heading', 'list', 'olist', 'table',
+                  'intro', 'favorites', 'setup')
 
 # A YouTube id, and the two URLs the page builds out of one.
 VIDEO_ID = re.compile(r'[A-Za-z0-9_-]{11}\Z')
 DATE = re.compile(r'[0-9]{4}-[0-9]{2}-[0-9]{2}\Z')
 EMBED_URL = 'https://www.youtube-nocookie.com/embed/{}'
 WATCH_URL = 'https://www.youtube.com/watch?v={}'
+
+PLAY_MODES = {
+    'solo': 'Single-player',
+    'local': 'Local multiplayer',
+    'online': 'Online multiplayer',
+}
 
 
 def fail(where, message):
@@ -195,6 +230,51 @@ def want_video_id(where, value):
     return vid
 
 
+def check_profile_image(where, owner):
+    if 'image' not in owner:
+        return
+    at = where + '.image'
+    image = owner['image']
+    if not isinstance(image, dict):
+        fail(at, 'must be an object with "src", "alt", "width" and "height"')
+    src = image['src'] = want_text(at + '.src', image.get('src'))
+    if (not re.fullmatch(r'/assets/img/[A-Za-z0-9_./-]+\.(?:png|jpe?g|webp|svg)', src)
+            or '..' in src.split('/')):
+        fail(at + '.src', 'must name a local image under /assets/img/, without traversal or query strings')
+    path = ROOT.joinpath(*src.lstrip('/').split('/')).resolve()
+    try:
+        path.relative_to((ROOT / 'assets' / 'img').resolve())
+    except ValueError:
+        fail(at + '.src', 'must stay inside assets/img')
+    if not path.is_file():
+        fail(at + '.src', 'image is missing: ' + src)
+    if not isinstance(image.get('alt'), str):
+        fail(at + '.alt', 'must be a string; use "" for a decorative image')
+    image['alt'] = image['alt'].strip()
+    for field in ('width', 'height'):
+        if type(image.get(field)) is not int or image[field] <= 0:
+            fail(at + '.' + field, 'must be a positive integer')
+    if 'credit' not in image:
+        return
+    credit = image['credit']
+    at += '.credit'
+    if not isinstance(credit, dict):
+        fail(at, 'must be an object with the title, author, source and license')
+    for field in ('title', 'author', 'source', 'license', 'license_url'):
+        credit[field] = want_text(at + '.' + field, credit.get(field))
+    for field in ('source', 'license_url'):
+        value = credit[field]
+        try:
+            url = urlsplit(value)
+        except ValueError:
+            fail(at + '.' + field, 'must be an absolute HTTP or HTTPS URL')
+        if (url.scheme not in ('http', 'https') or not url.netloc
+                or any(c.isspace() for c in value)):
+            fail(at + '.' + field, 'must be an absolute HTTP or HTTPS URL')
+    if 'changes' in credit:
+        credit['changes'] = want_text(at + '.changes', credit['changes'])
+
+
 def check_profile(content):
     for i, block in enumerate(want_list('profile', want_key('the file', content, 'profile'))):
         at = 'profile[{}]'.format(i)
@@ -203,9 +283,23 @@ def check_profile(content):
             fail(at, 'unknown type "{}"; one of {}'.format(kind, ', '.join(PROFILE_BLOCKS)))
         if kind in ('paragraph', 'heading'):
             block['text'] = want_text(at + '.text', block.get('text'))
+        elif kind == 'intro':
+            for field in ('lead', 'text'):
+                block[field] = want_text(at + '.' + field, block.get(field))
+            check_profile_image(at, block)
         elif kind in ('list', 'olist'):
             block['items'] = [want_text('{}.items[{}]'.format(at, j), item) for j, item
                               in enumerate(want_list(at + '.items', block.get('items'), of=str))]
+        elif kind in ('favorites', 'setup'):
+            block['text'] = want_text(at + '.text', block.get('text'))
+            for j, item in enumerate(want_list(at + '.items', block.get('items'))):
+                item_at = '{}.items[{}]'.format(at, j)
+                fields = ('name', 'platform') if kind == 'favorites' else ('name',)
+                for field in fields:
+                    item[field] = want_text(item_at + '.' + field, item.get(field))
+                if 'note' in item:
+                    item['note'] = want_text(item_at + '.note', item['note'])
+                check_profile_image(item_at, item)
         else:
             block['columns'], block['rows'] = want_table(at, block)
 
@@ -217,9 +311,21 @@ def check_game_cards(content):
     for game_id, card in cards.items():
         at = 'game_cards.' + game_id
         if not isinstance(card, dict):
-            fail(at, 'must be an object with "description" and "alt"')
+            fail(at, 'must be an object with "description", "alt", "genres" and "modes"')
         card['description'] = want_text(at + '.description', card.get('description'))
         card['alt'] = want_text(at + '.alt', card.get('alt'))
+        for field in ('genres', 'modes'):
+            where = at + '.' + field
+            values = [want_text('{}[{}]'.format(where, i), value) for i, value
+                      in enumerate(want_list(where, card.get(field), of=str))]
+            if len({value.casefold() for value in values}) != len(values):
+                fail(where, 'must not contain duplicate values')
+            if field == 'modes':
+                for value in values:
+                    if value not in PLAY_MODES:
+                        fail(where, 'unknown mode {!r}; one of {}'.format(
+                            value, ', '.join(PLAY_MODES)))
+            card[field] = values
 
     for game in content['games']:
         game_id = game['id']
@@ -317,8 +423,22 @@ def render_table(rows, pad):
 
 
 def render_profile(content, pad):
-    """The Gamer Profile section body: paragraphs, the setup table, the list."""
+    """The personal gaming shelf, plus any additional prose or tables."""
     out = []
+    credits = []
+
+    def add_image(owner, css_class, padding):
+        if 'image' not in owner:
+            return
+        image = owner['image']
+        out.append(
+            '{}<img class="{}" src="{}" alt="{}" width="{}" height="{}" '
+            'loading="lazy" decoding="async">'.format(
+                padding, css_class, html.escape(image['src']), html.escape(image['alt']),
+                image['width'], image['height']))
+        if 'credit' in image and image['credit'] not in credits:
+            credits.append(image['credit'])
+
     for block in content['profile']:
         kind = block['type']
         if kind == 'paragraph':
@@ -332,33 +452,161 @@ def render_profile(content, pad):
             out.append('</{}>'.format(tag))
         elif kind == 'table':
             out.append(render_table([block['columns']] + block['rows'], '').lstrip())
+        elif kind == 'intro':
+            css_class = 'card profile-intro'
+            if 'image' in block:
+                css_class += ' profile-intro-with-image'
+            out.append('<div class="{}">'.format(css_class))
+            add_image(block, 'profile-media profile-avatar', '  ')
+            out += [
+                '  <p class="profile-lead">{}</p>'.format(inline(block['lead'])),
+                '  <p>{}</p>'.format(inline(block['text'])),
+                '</div>',
+            ]
+        elif kind in ('favorites', 'setup'):
+            favorites = kind == 'favorites'
+            wrapper = 'profile-favorites' if favorites else 'card profile-setup'
+            title = 'Favorites' if favorites else 'What I play on'
+            grid = ('grid grid-2 profile-favorite-list' if favorites
+                    else 'grid grid-3 profile-device-list')
+            item_class = 'card profile-favorite' if favorites else 'profile-device'
+            out += [
+                '<div class="{}">'.format(wrapper),
+                '  <h3>{}</h3>'.format(title),
+                '  <p class="profile-section-note">{}</p>'.format(inline(block['text'])),
+                '  <ul class="{}" role="list">'.format(grid),
+            ]
+            for item in block['items']:
+                css_class = item_class
+                if not favorites and 'image' in item:
+                    css_class += ' profile-device-with-image'
+                out.append('    <li class="{}">'.format(css_class))
+                add_image(item, 'profile-media ' + (
+                    'profile-thumbnail' if favorites else 'profile-hardware-image'), '      ')
+                out += [
+                    '      <div class="profile-item-copy">',
+                    '        <h4>{}</h4>'.format(inline(item['name'])),
+                ]
+                if favorites:
+                    out.append('        <span class="badge badge-neutral">{}</span>'.format(
+                        html.escape(item['platform'])))
+                if 'note' in item:
+                    out.append('        <p class="profile-note">{}</p>'.format(inline(item['note'])))
+                out += ['      </div>', '    </li>']
+            out += ['  </ul>', '</div>']
+    if credits:
+        out += [
+            '<details class="profile-image-credits">',
+            '  <summary>Image credits</summary>',
+            '  <ul>',
+        ]
+        for credit in credits:
+            line = '    <li><a href="{}" rel="noopener">{}</a> by {}; '.format(
+                html.escape(credit['source']), html.escape(credit['title']),
+                html.escape(credit['author']))
+            line += '<a href="{}" rel="noopener">{}</a>.'.format(
+                html.escape(credit['license_url']), html.escape(credit['license']))
+            if 'changes' in credit:
+                line += ' ' + html.escape(credit['changes'])
+            out.append(line + '</li>')
+        out += ['  </ul>', '</details>']
     return indent('\n'.join(out).splitlines(), pad)
 
 
+def render_game_filters(content, pad):
+    """Filter choices follow the catalog, not unused card metadata."""
+    genres = sorted({genre for g in content['games'] if g.get('card')
+                     for genre in g['card']['genres']}, key=str.casefold)
+    modes = [('solo', PLAY_MODES['solo']), ('multiplayer', 'Any multiplayer')]
+    modes += [(key, label) for key, label in PLAY_MODES.items() if key != 'solo']
+    total = len(content['games'])
+    out = [
+        '<form id="game-filters" class="game-filters" aria-label="Filter games" hidden>',
+        '  <div class="game-filter-fields">',
+        '    <label class="game-filter-search" for="game-query">Search games',
+        '      <input id="game-query" name="q" type="search" placeholder="Title or keyword"',
+        '             autocomplete="off" aria-controls="game-grid">',
+        '    </label>',
+        '    <label for="game-genre">Genre',
+        '      <select id="game-genre" name="genre" aria-controls="game-grid">',
+        '        <option value="">All genres</option>',
+    ]
+    out += ['        <option value="{0}">{0}</option>'.format(html.escape(genre))
+            for genre in genres]
+    out += [
+        '      </select>',
+        '    </label>',
+        '    <label for="game-mode">Play mode',
+        '      <select id="game-mode" name="mode" aria-controls="game-grid" aria-describedby="game-mode-help">',
+        '        <option value="">All play modes</option>',
+    ]
+    out += ['        <option value="{}">{}</option>'.format(key, html.escape(label))
+            for key, label in modes]
+    out += [
+        '      </select>',
+        '    </label>',
+        '  </div>',
+        '  <p id="game-mode-help" class="meta game-filter-help">Local shares one device. '
+        'Online means multiplayer over the internet.</p>',
+        '  <div class="game-filter-summary">',
+        '    <p id="game-results" class="meta" role="status" aria-live="polite" aria-atomic="true">{} game{}</p>'.format(
+            total, '' if total == 1 else 's'),
+        '    <button class="btn btn-secondary" type="reset">Clear filters</button>',
+        '  </div>',
+        '</form>',
+    ]
+    return indent(out, pad)
+
+
 def render_games(content, pad):
-    """One card per game, linking to the page it plays on."""
+    """One non-interactive card per game, with a dedicated launch link."""
     out = []
     for g in content['games']:
         slug = html.escape(g['slug'])
+        name = html.escape(g['name'])
         card = g.get('card')
-        out.append(
-            '<a class="card game-card" href="/play/{0}/" aria-labelledby="game-{0}">'.format(slug))
+        describedby = ' aria-describedby="game-{}-description"'.format(slug) if card else ''
+        genres = card['genres'] if card else []
+        modes = card['modes'] if card else []
+        out += [
+            '<article class="card game-card" data-genres="{}" data-modes="{}"'.format(
+                html.escape(json.dumps(genres)), ' '.join(modes)),
+            '         aria-labelledby="game-{}">'.format(slug),
+        ]
         if card:
             out += [
                 '  <img class="game-card-art" src="{}"'.format(html.escape(card['image'])),
-                '       alt="{}" width="640" height="360" loading="lazy" decoding="async">'.format(
+                '       alt="{}" width="640" height="640" loading="lazy" decoding="async">'.format(
                     html.escape(card['alt'])),
             ]
         out += [
             '  <div class="game-card-body">',
-            '    <h3 id="game-{}">{}</h3>'.format(slug, html.escape(g['name'])),
+            '    <h3 id="game-{}">{}</h3>'.format(slug, name),
         ]
         if card:
-            out.append('    <p>{}</p>'.format(html.escape(card['description'], quote=False)))
+            out.append('    <div class="game-card-tags">')
+            out += ['      <span class="tag">{}</span>'.format(html.escape(genre))
+                    for genre in genres]
+            out += [
+                '    </div>',
+                '    <p id="game-{}-description">{}</p>'.format(
+                    slug, html.escape(card['description'], quote=False)),
+                '    <p class="game-card-modes">{}</p>'.format(
+                    ' &middot; '.join(PLAY_MODES[mode] for mode in modes)),
+            ]
         out += [
-            '    <span class="game-card-action">Play in browser <span aria-hidden="true">&rarr;</span></span>',
             '  </div>',
-            '</a>',
+            '  <div class="game-card-action">',
+            '    <a class="btn game-card-launch" href="/play/{}/"'.format(slug),
+            '       aria-label="Launch game: {}"{}>'.format(name, describedby),
+            '      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" '
+            'aria-hidden="true" focusable="false">',
+            '        <path d="M8 5v14l11-7z"/>',
+            '      </svg>',
+            '      <span>Launch game</span>',
+            '    </a>',
+            '  </div>',
+            '</article>',
         ]
     return indent(out, pad)
 
@@ -445,6 +693,7 @@ def render_streams(content, pad):
 
 BLOCKS = {
     'profile': render_profile,
+    'game-filters': render_game_filters,
     'games': render_games,
     'downloads': render_downloads,
     'file-kinds': render_file_kinds,

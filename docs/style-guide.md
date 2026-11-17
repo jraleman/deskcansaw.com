@@ -437,6 +437,10 @@ and `--main-container-margin` handle the page gutters already.
 Grid: content column max 800px (theme default). Project and post-list cards run
 in a responsive grid — 3 up ≥1024px, 2 up ≥640px, 1 up below, `24px` gap.
 
+The game archive uses the same three-/two-/one-column grid, with unlimited
+rows. Filtering removes non-matching cards from the flow rather than leaving
+empty slots.
+
 ---
 
 ## 6. Components
@@ -494,6 +498,18 @@ Thumbnail sits flush to the card's top edge with matching top corners.
 Metadata line is `1.3rem --dcs-slate-400`. Tags are peach-100 pills with rust
 text in light, `--dcs-peach-dim` pills with `--dcs-peach` text in dark.
 
+Game cards preserve the full square cover design, with 2.4rem titles and
+unclipped descriptions. They are non-interactive articles: the artwork, title
+and body do not navigate, lift or change fill on hover. Only the full-width,
+filled **Launch game** button at the bottom opens the game. It has a play icon,
+a minimum 44px height, and the usual visible keyboard-focus outline. Its fill
+uses the link colour, with page-background colour for contrasting text, so
+repeated game actions stay distinct from the single peach primary action.
+Each launch link includes the game title in its accessible name and uses the
+game's copy as its description; the icon is decorative.
+Genre tags and a muted play-mode line make the classifications visible without
+opening a game. Local multiplayer and online multiplayer are distinct.
+
 ### 6.4 Navigation
 
 Side nav (`230px`, theme default) sits on `--dcs-paper` over sky in light and on
@@ -545,6 +561,11 @@ the component that needs real work: `--dcs-deep-100` surface,
 legal here), `--dcs-mist` text, `--dcs-slate-500` placeholder. Focus adds the
 ring below *and* moves the border to the scheme's link colour.
 
+The game filter panel uses labelled native search/select controls, a secondary
+clear button and a polite live result count. Search, genre and play mode
+combine. Controls stay hidden without JavaScript; the full catalog remains
+readable and playable. An empty result has an explicit message, not a blank grid.
+
 ### 6.8 Focus
 
 ```css
@@ -564,6 +585,25 @@ ring holds 4.55:1 against the button — visible enough. In dark, `outline-offse
 2px` puts the ring on the surface *behind* the control, so the ratio that
 matters is sky against night (12.58) or deep (11.18) — not against the peach
 fill it surrounds (1.09, which is why the ring must never sit flush).
+
+### 6.9 Gamer Profile
+
+A personal gaming shelf, lighter than the playable catalog above it. A
+full-width introduction uses a 2.4rem lead and normal body copy, with the
+existing avatar beside the lead. Favorites use compact cards with 64px themed
+illustrations, 16px padding, 1.8rem titles, and neutral platform badges; two
+columns from 640px, one below. All entries remain visible, without filtering
+or an implied play button. Illustrations are not official game screenshots.
+
+One shared paragraph explains the selection. Individual notes appear only
+when supplied. A separate setup panel lists real hardware and optional usage
+notes, with small representative device photos and no empty specs. Preserve
+whole images with `object-fit: contain`, explicit dimensions and lazy loading.
+Only frames change with the theme; never dim or invert the artwork. Image
+credits and license links live in a native expandable disclosure below the
+profile. Use the existing surface, heading, border and
+neutral-badge tokens in both schemes. Keep cards on the page ground, not
+nested inside another card, and reserve hover lifts for actual links.
 
 ---
 
