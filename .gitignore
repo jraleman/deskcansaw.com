@@ -1,7 +1,8 @@
-# Build output: the games, their desktop builds, the cache, and the deploy's
-# copy of the site.
+# Build output: the games, their desktop builds, ReactBoy, the cache, and the
+# deploy's copy of the site.
 play/
 downloads/
+reactboy/
 .cache/
 _site/
 __pycache__/

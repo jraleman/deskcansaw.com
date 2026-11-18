@@ -12,10 +12,12 @@ dark, plus the type scale, components and voice the site is built to.
 ## The repo
 
 Static HTML on GitHub Pages. The pages have no build step and no dependencies —
-what is in the repo is what gets served. The games are the one exception: the
-deploy exports them from the `dcs_games` submodule into `play/`. `main` is the
-source and `gh-pages` is the site, built from it on every push — see
-[Hosting the games](#hosting-the-games) and [Deploying](#deploying).
+what is in the repo is what gets served. The playable apps are the exceptions:
+the deploy exports the games from `dcs_games` into `play/` and builds ReactBoy
+from `reactboy_src` into `reactboy/`. Both sources are pinned git submodules.
+`main` is the source and `gh-pages` is the site, built from it on every push —
+see [Hosting the games](#hosting-the-games), [Hosting ReactBoy](#hosting-reactboy)
+and [Deploying](#deploying).
 
 ```
 index.html            the site, one page
@@ -33,8 +35,10 @@ docs/
                       referenced from the CSS comments
 
 dcs_games/            the games' Godot project, a git submodule
+reactboy_src/         ReactBoy's React/TypeScript workspace, a git submodule
 play/                 the exported games — generated, never committed to main
 downloads/            the collection's desktop builds — generated too
+reactboy/             the built emulator — generated too
 
 tools/
   catalog.py          the games, read out of the Godot project
@@ -44,7 +48,7 @@ tools/
   play-missing.html   the page a game gets until dcs_games has it
 
 .github/workflows/
-  pages.yml           exports the games and builds the gh-pages branch
+  pages.yml           exports the games, builds ReactBoy and publishes gh-pages
 
 itch/                 the source for the deskcansaw.itch.io profile — the bio,
                       the theme editor values and the custom CSS. Pasted by
@@ -121,7 +125,8 @@ build rather than going out stale.
 ## Running it locally
 
 Paths are absolute from the site root, so open it over HTTP rather than from
-the filesystem. Export the games first if you want them to load:
+the filesystem. Export the games and [build ReactBoy](#hosting-reactboy) first
+if you want their launch buttons to work locally:
 
 ```sh
 python3 tools/export_games.py --no-downloads   # the games, into play/ (needs Godot 4.7)
@@ -205,15 +210,48 @@ file is named in one place. They are built whenever the collection is;
 `--no-downloads` leaves them out, which is worth it locally, since a desktop
 build is a few hundred MB that the web pages don't need.
 
-### Deploying
+## Hosting ReactBoy
+
+[ReactBoy](https://github.com/jraleman/ReactBoy) is the Game Boy and Game Boy
+Color emulator under `/#emulators`. It runs here at `/reactboy/`, with its
+original React interface, keyboard/gamepad/touch controls, and local saves.
+Players supply their own `.gb` or `.gbc` ROMs; none are bundled or uploaded.
+
+Its source is a sibling submodule at `reactboy_src/`, separate from the
+generated public `reactboy/` directory. The same recursive clone/update
+commands above fetch it. The pin determines what gets deployed; to bring in a
+newer version, run `git submodule update --remote reactboy_src` and review the
+updated pin.
+
+The build needs Node 24 and pnpm; ReactBoy's `package.json` pins the pnpm
+version and its lockfile pins the dependencies. From the site root in
+PowerShell:
+
+```powershell
+pnpm --dir .\reactboy_src install --frozen-lockfile
+$env:BASE_PATH = '/reactboy/'
+pnpm --dir .\reactboy_src --filter @reactboy/web build --outDir ..\..\..\reactboy --emptyOutDir
+```
+
+In Bash, use `BASE_PATH=/reactboy/` before the build command instead of setting
+`$env:BASE_PATH`, and forward slashes in `--outDir ../../../reactboy`.
+Then the same HTTP server above serves both the site and the emulator.
+
+`BASE_PATH` keeps the app's assets, worker, manifest and offline service worker
+under `/reactboy/`; the service worker cannot take over the rest of the site.
+The deploy builds the pinned source with the frozen lockfile and copies only
+the compiled app into the published branch, not the source or `node_modules`.
+
+## Deploying
 
 `main` is the source; `gh-pages` is the site. Nothing on `gh-pages` is written
 by hand — `.github/workflows/pages.yml` builds it on every push to `main`, or
 by hand from the Actions tab. It checks out the submodules, runs
-`tools/build.py --check`, exports the games with Godot 4.7.2 into `play/` and
-the desktop builds into `downloads/`, and force-pushes the lot to `gh-pages` as
-one commit with no history behind it, so the builds it replaces don't pile up
-in the repo. Pages serves whatever lands there, games and all.
+`tools/build.py --check`, builds ReactBoy into `reactboy/`, exports the games
+with Godot 4.7.2 into `play/` and the desktop builds into `downloads/`, and
+force-pushes the lot to `gh-pages` as one commit with no history behind it, so
+the builds it replaces don't pile up in the repo. Pages serves whatever lands
+there, games and emulator included.
 
 Two things to set up, and the branch has to exist before the second one:
 

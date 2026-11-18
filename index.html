@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DeskCanSaw :: weird little games</title>
-<meta name="description" content="A retro video game lover's site and the shopfront for small indie game concepts. Games you can play in the browser, game files, and videos.">
+<meta name="description" content="A retro video game lover's site and the shopfront for small indie game concepts. Games and a Game Boy emulator you can play in the browser, game files, and videos.">
 <meta name="color-scheme" content="light dark">
 
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
@@ -50,6 +50,7 @@
       <li><a href="#home">Home</a></li>
       <li><a href="#games">Games</a></li>
       <li><a href="#profile">Profile</a></li>
+      <li><a href="#emulators">Emulators</a></li>
       <li><a href="#files">Files</a></li>
       <li><a href="#videos">Videos</a></li>
     </ul>
@@ -729,6 +730,34 @@
           </details>
           <!-- /generated:profile -->
         </div>
+      </section>
+
+      <!-- ================================================================
+           Emulators
+           ================================================================ -->
+      <section id="emulators" class="band">
+        <p class="eyebrow">old hardware, new tricks</p>
+        <h2>Emulators</h2>
+        <article class="card emulator-card" aria-labelledby="emulator-reactboy">
+          <img class="emulator-preview" src="/assets/img/emulators/reactboy.webp"
+               alt="ReactBoy's gray handheld interface with its welcome screen, D-pad, A/B buttons and Start/Select controls."
+               width="640" height="992" loading="lazy" decoding="async">
+          <div>
+            <h3 id="emulator-reactboy">ReactBoy</h3>
+            <p>
+              A Game Boy and Game Boy Color emulator I built with React and
+              TypeScript. Play in your browser with keyboard, gamepad or touch controls.
+            </p>
+            <p>
+              Bring your own <code>.gb</code> or <code>.gbc</code> ROMs.
+              Your games and saves stay on your device; no ROMs are included.
+            </p>
+            <div class="actions">
+              <a class="btn btn-primary" href="/reactboy/">Launch ReactBoy</a>
+              <a class="btn btn-ghost" href="https://github.com/jraleman/ReactBoy" rel="noopener">View source</a>
+            </div>
+          </div>
+        </article>
       </section>
 
       <!-- ================================================================

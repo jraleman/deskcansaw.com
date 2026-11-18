@@ -1,8 +1,9 @@
 # Deploys the site to GitHub Pages by building the branch it is served from:
 # the committed files, the games exported from the dcs_games submodule into
-# play/, and the collection's desktop builds into downloads/. Setting it up is
-# under "Deploying" in README.md: Pages set to deploy from the gh-pages branch,
-# and a DCS_GAMES_TOKEN secret that can read the private game repos.
+# play/, the collection's desktop builds into downloads/, and ReactBoy built
+# from its submodule into reactboy/. Setting it up is under "Deploying" in
+# README.md: Pages set to deploy from the gh-pages branch, and a DCS_GAMES_TOKEN
+# secret that can read the private game repos.
 name: Deploy
 
 on:
@@ -52,6 +53,24 @@ jobs:
       - name: Check the pages match content/site.json
         run: python3 tools/build.py --check
 
+      - name: Set up pnpm for ReactBoy
+        uses: pnpm/action-setup@v4
+        with:
+          package_json_file: reactboy_src/package.json
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: reactboy_src/pnpm-lock.yaml
+
+      - name: Build ReactBoy
+        env:
+          BASE_PATH: /reactboy/
+        run: |
+          pnpm --dir reactboy_src install --frozen-lockfile
+          pnpm --dir reactboy_src --filter @reactboy/web build --outDir ../../../reactboy --emptyOutDir
+
       - name: Cache Godot and its export templates
         uses: actions/cache@v6
         with:
@@ -75,9 +94,9 @@ jobs:
           chmod +x "$dir/$name"
           echo "GODOT=$PWD/$dir/$name" >> "$GITHUB_ENV"
 
-      # The committed files, as the branch serves them. git archive leaves an
-      # empty folder where the submodule is. What is git's rather than the
-      # site's comes off too: .gitignore names play/ and downloads/, which are
+      # The committed files, as the branch serves them. git archive leaves
+      # empty folders where the submodules are. What is git's rather than the
+      # site's comes off too: .gitignore names the generated builds, which are
       # exactly what the branch has to commit, and the workflows belong on main.
       # .nojekyll is committed, but a branch without it is served through Jekyll,
       # so it isn't left to chance.
@@ -86,9 +105,10 @@ jobs:
           rm -rf _site
           mkdir _site
           git archive HEAD | tar -x -C _site
-          rm -rf _site/dcs_games _site/.github
+          rm -rf _site/dcs_games _site/reactboy_src _site/.github
           rm -f _site/.gitignore _site/.gitmodules
           touch _site/.nojekyll
+          cp -a reactboy _site/reactboy
 
       - name: Export the games
         run: python3 tools/export_games.py --out _site/play --downloads _site/downloads

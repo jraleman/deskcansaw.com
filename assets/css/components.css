@@ -231,6 +231,20 @@ body[data-color-scheme="dark"] .game-filters { color-scheme: dark; }
 .profile-image-credits li { margin-bottom: var(--sp-sm); }
 .profile-image-credits li:last-child { margin-bottom: 0; }
 
+/* --- emulator cards ---------------------------------------------------- */
+.emulator-card {
+  display: grid; grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-lg); align-items: center;
+}
+.emulator-preview {
+  display: block; width: 120px; max-width: 100%; height: auto; margin: 0 auto;
+  border: var(--line) solid var(--dcs-border); border-radius: var(--r-md);
+}
+@media (min-width: 640px) {
+  .emulator-card { grid-template-columns: 160px minmax(0, 1fr); }
+  .emulator-preview { width: 160px; }
+}
+
 /* --- link lists --------------------------------------------------------
    A card's worth of links, one per line, each with its date pushed to the
    far edge so the dates read as a column. */
