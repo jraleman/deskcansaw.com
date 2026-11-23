@@ -1,8 +1,8 @@
 [submodule "dcs_games"]
 	path = dcs_games
-	url = ../dcs_games.git
+	url = git@github.com:jraleman/dcs_games.git
 	branch = main
 [submodule "reactboy_src"]
 	path = reactboy_src
-	url = ../ReactBoy.git
+	url = git@github.com:jraleman/ReactBoy.git
 	branch = master
