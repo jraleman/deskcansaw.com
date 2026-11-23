@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeskCanSaw :: weird little games</title>
+<meta name="description" content="A retro video game lover's site and the shopfront for small indie game concepts. Games and a Game Boy emulator you can play in the browser, game files, and videos.">
+<meta name="color-scheme" content="light dark">
+
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#afdde9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1519" media="(prefers-color-scheme: dark)">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Silkscreen:wght@400&family=VT323&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/layout.css">
+</head>
+
+<body>
+<script>
+/* Set the scheme before first paint so dark users never see a light flash.
+   Everything else about the toggle lives in /assets/js/color-scheme.js. */
+(function () {
+  try {
+    var s = localStorage.getItem('dcs-color-scheme');
+    if (!s) { s = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+    if (s === 'dark') { document.body.setAttribute('data-color-scheme', 'dark'); }
+  } catch (e) {}
+})();
+</script>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="layout">
+
+  <!-- ====================================================================
+       Side nav (§6.4)
+       ==================================================================== -->
+  <nav class="sidenav" aria-label="Main">
+    <a class="brand" href="#home">DeskCanSaw<small>weird little games</small></a>
+
+    <ul class="navlist">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#games">Games</a></li>
+      <li><a href="#profile">Profile</a></li>
+      <li><a href="#emulators">Emulators</a></li>
+      <li><a href="#files">Files</a></li>
+      <li><a href="#videos">Videos</a></li>
+    </ul>
+
+    <div class="nav-foot">
+      <a href="https://youtube.com/@deskcansaw" rel="me noopener">YouTube</a>
+      <a href="https://github.com/jraleman/DeskCanSaw.com" rel="noopener">GitHub</a>
+      <button class="toggle" type="button" id="scheme-toggle" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <span id="scheme-label">Night</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="main" id="main">
+    <div class="wrap">
+
+      <!-- ================================================================
+           Home
+           ================================================================ -->
+      <section id="home" class="hero">
+        <h1 class="display">DeskCanSaw</h1>
+        <p class="sub">Weird little games</p>
+        <p class="lede">
+          A retro video game lover's site and the shopfront for small indie game
+          concepts. I like making things and learing about the inner-workings of old games.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="/play/">Play my Virtual Console!</a>
+          <a class="btn btn-ghost" href="#games">See all the games</a>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           Games — the list comes from dcs_games' project.godot, so a game
+           is here because it is in the Godot project.
+           ================================================================ -->
+      <section id="games" class="band">
+        <p class="eyebrow">in the browser</p>
+        <h2>Games</h2>
+        <p>
+          My older games, made without gen-AI, are on
+          <a href="https://deskcansaw.itch.io" rel="me noopener">itch.io</a>.
+        </p>
+
+        <!-- generated:game-filters -->
+        <form id="game-filters" class="game-filters" aria-label="Filter games" hidden>
+          <div class="game-filter-fields">
+            <label class="game-filter-search" for="game-query">Search games
+              <input id="game-query" name="q" type="search" placeholder="Title or keyword"
+                     autocomplete="off" aria-controls="game-grid">
+            </label>
+            <label for="game-genre">Genre
+              <select id="game-genre" name="genre" aria-controls="game-grid">
+                <option value="">All genres</option>
+                <option value="Action">Action</option>
+                <option value="Arcade">Arcade</option>
+                <option value="Board">Board</option>
+                <option value="Driving">Driving</option>
+                <option value="Incremental">Incremental</option>
+                <option value="Memory">Memory</option>
+                <option value="Party">Party</option>
+                <option value="Platformer">Platformer</option>
+                <option value="Puzzle">Puzzle</option>
+                <option value="Rhythm">Rhythm</option>
+                <option value="Sandbox">Sandbox</option>
+                <option value="Strategy">Strategy</option>
+              </select>
+            </label>
+            <label for="game-mode">Play mode
+              <select id="game-mode" name="mode" aria-controls="game-grid" aria-describedby="game-mode-help">
+                <option value="">All play modes</option>
+                <option value="solo">Single-player</option>
+                <option value="multiplayer">Any multiplayer</option>
+                <option value="local">Local multiplayer</option>
+                <option value="online">Online multiplayer</option>
+              </select>
+            </label>
+          </div>
+          <p id="game-mode-help" class="meta game-filter-help">Local shares one device. Online means multiplayer over the internet.</p>
+          <div class="game-filter-summary">
+            <p id="game-results" class="meta" role="status" aria-live="polite" aria-atomic="true">19 games</p>
+            <button class="btn btn-secondary" type="reset">Clear filters</button>
+          </div>
+        </form>
+        <!-- /generated:game-filters -->
+
+        <!-- One .card per game, from dcs_games' project.godot.
+             Add a game there, then run tools/build.py. -->
+        <div id="game-grid" class="grid grid-3 game-grid">
+          <!-- generated:games -->
+          <article class="card game-card" data-genres="[&quot;Action&quot;, &quot;Rhythm&quot;]" data-modes="solo"
+                   aria-labelledby="game-dead-metal-jam">
+            <img class="game-card-art" src="/assets/img/games/dead-metal-jam.webp"
+                 alt="An orange G robot and a black C robot pose against dark factory hazard stripes." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-dead-metal-jam">Dead Metal Jam</h3>
+              <div class="game-card-tags">
+                <span class="tag">Action</span>
+                <span class="tag">Rhythm</span>
+              </div>
+              <p id="game-dead-metal-jam-description">Play the right notes to blast robots in a 3D, on-rails factory shootout.</p>
+              <p class="game-card-modes">Single-player</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/dead-metal-jam/"
+                 aria-label="Launch game: Dead Metal Jam" aria-describedby="game-dead-metal-jam-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Arcade&quot;]" data-modes="solo local"
+                   aria-labelledby="game-triangle-rush">
+            <img class="game-card-art" src="/assets/img/games/triangle-rush.webp"
+                 alt="A glowing mint triangle numbered 1 leads two grey targets across diagonal blue and teal stripes." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-triangle-rush">Triangle Rush</h3>
+              <div class="game-card-tags">
+                <span class="tag">Arcade</span>
+              </div>
+              <p id="game-triangle-rush-description">Chase highlighted triangles. Hit the matching key or tap each target before time runs out.</p>
+              <p class="game-card-modes">Single-player &middot; Local multiplayer</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/triangle-rush/"
+                 aria-label="Launch game: Triangle Rush" aria-describedby="game-triangle-rush-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Arcade&quot;]" data-modes="solo local"
+                   aria-labelledby="game-desk-can-saw">
+            <img class="game-card-art" src="/assets/img/games/desk-can-saw.webp"
+                 alt="A blue toy chainsaw and tumbling cans on an orange and yellow hazard-striped cover." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-desk-can-saw">Desk-Can-Saw</h3>
+              <div class="game-card-tags">
+                <span class="tag">Arcade</span>
+              </div>
+              <p id="game-desk-can-saw-description">Steer a tiny electric chainsaw through falling cans and keep the sparks flying.</p>
+              <p class="game-card-modes">Single-player &middot; Local multiplayer</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/desk-can-saw/"
+                 aria-label="Launch game: Desk-Can-Saw" aria-describedby="game-desk-can-saw-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Arcade&quot;, &quot;Party&quot;]" data-modes="solo local"
+                   aria-labelledby="game-chicken-pit">
+            <img class="game-card-art" src="/assets/img/games/chicken-pit.webp"
+                 alt="Two toy chickens tug a rope above an open pit against a bright yellow sunburst." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-chicken-pit">Chicken Pit</h3>
+              <div class="game-card-tags">
+                <span class="tag">Arcade</span>
+                <span class="tag">Party</span>
+              </div>
+              <p id="game-chicken-pit-description">Pull for your coop in a 3D toy-farm tug-of-war, against a CPU or a friend.</p>
+              <p class="game-card-modes">Single-player &middot; Local multiplayer</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/chicken-pit/"
+                 aria-label="Launch game: Chicken Pit" aria-describedby="game-chicken-pit-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Memory&quot;]" data-modes="solo"
+                   aria-labelledby="game-lazer-nfc">
+            <img class="game-card-art" src="/assets/img/games/lazer-nfc.webp"
+                 alt="Three smiling toy robots in red, mint and yellow against a pale bubble pattern." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-lazer-nfc">LaZer NFC</h3>
+              <div class="game-card-tags">
+                <span class="tag">Memory</span>
+              </div>
+              <p id="game-lazer-nfc-description">Watch the toy robots play a melody, then repeat their colours to fire the laboratory laser.</p>
+              <p class="game-card-modes">Single-player</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/lazer-nfc/"
+                 aria-label="Launch game: LaZer NFC" aria-describedby="game-lazer-nfc-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Board&quot;, &quot;Strategy&quot;]" data-modes="solo local"
+                   aria-labelledby="game-anti-chess">
+            <img class="game-card-art" src="/assets/img/games/anti-chess.webp"
+                 alt="A dark knight and a white pawn flank a fallen white king on a cream chessboard." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-anti-chess">Anti-Chess</h3>
+              <div class="game-card-tags">
+                <span class="tag">Board</span>
+                <span class="tag">Strategy</span>
+              </div>
+              <p id="game-anti-chess-description">Give away every piece on a 3D chessboard. Captures are compulsory.</p>
+              <p class="game-card-modes">Single-player &middot; Local multiplayer</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/anti-chess/"
+                 aria-label="Launch game: Anti-Chess" aria-describedby="game-anti-chess-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Board&quot;, &quot;Strategy&quot;]" data-modes="solo local"
+                   aria-labelledby="game-anti-checkers">
+            <img class="game-card-art" src="/assets/img/games/anti-checkers.webp"
+                 alt="A crowned stack of red checkers and cream pieces stand out against a burgundy sunburst." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-anti-checkers">Anti Checkers</h3>
+              <div class="game-card-tags">
+                <span class="tag">Board</span>
+                <span class="tag">Strategy</span>
+              </div>
+              <p id="game-anti-checkers-description">Give your opponent every checker. Forced jumps turn familiar moves upside down.</p>
+              <p class="game-card-modes">Single-player &middot; Local multiplayer</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/anti-checkers/"
+                 aria-label="Launch game: Anti Checkers" aria-describedby="game-anti-checkers-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Puzzle&quot;]" data-modes="solo"
+                   aria-labelledby="game-creep-code">
+            <img class="game-card-art" src="/assets/img/games/creep-code.webp"
+                 alt="An owl-eyed keeper beside a stone portal and floating blue crystal against a star chart." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-creep-code">Creep Code</h3>
+              <div class="game-card-tags">
+                <span class="tag">Puzzle</span>
+              </div>
+              <p id="game-creep-code-description">Work six enchanted puzzle mechanisms on a shifting stone stage to light a constellation.</p>
+              <p class="game-card-modes">Single-player</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/creep-code/"
+                 aria-label="Launch game: Creep Code" aria-describedby="game-creep-code-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Driving&quot;]" data-modes="solo local"
+                   aria-labelledby="game-cube-trials">
+            <img class="game-card-art" src="/assets/img/games/cube-trials.webp"
+                 alt="A brown Nissan Cube on an orange-and-cream cover with green stripes and chequered blocks." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-cube-trials">Cube Trials</h3>
+              <div class="game-card-tags">
+                <span class="tag">Driving</span>
+              </div>
+              <p id="game-cube-trials-description">Deliver spark plugs across bumpy 3D trails, free stranded cars, and build a trail of your own.</p>
+              <p class="game-card-modes">Single-player &middot; Local multiplayer</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/cube-trials/"
+                 aria-label="Launch game: Cube Trials" aria-describedby="game-cube-trials-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Platformer&quot;]" data-modes="solo local"
+                   aria-labelledby="game-dolces-adventure">
+            <img class="game-card-art" src="/assets/img/games/dolces-adventure.webp"
+                 alt="A tan toy dog with a red collar faces a floating burger against a mint sky and yellow sun." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-dolces-adventure">Dolce&#x27;s Adventure</h3>
+              <div class="game-card-tags">
+                <span class="tag">Platformer</span>
+              </div>
+              <p id="game-dolces-adventure-description">Run a hungry little dog through toy-like worlds. Leap pits, collect burgers, and stomp pests.</p>
+              <p class="game-card-modes">Single-player &middot; Local multiplayer</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/dolces-adventure/"
+                 aria-label="Launch game: Dolce&#x27;s Adventure" aria-describedby="game-dolces-adventure-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Rhythm&quot;]" data-modes="solo local"
+                   aria-labelledby="game-tifo-beato">
+            <img class="game-card-art" src="/assets/img/games/tifo-beato.webp"
+                 alt="A yellow-clad capo with a megaphone leads a row of supporters on a striped navy cover." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-tifo-beato">Tifo Beato</h3>
+              <div class="game-card-tags">
+                <span class="tag">Rhythm</span>
+              </div>
+              <p id="game-tifo-beato-description">Lead a miniature football terrace through chants, held notes, and rival sing-offs.</p>
+              <p class="game-card-modes">Single-player &middot; Local multiplayer</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/tifo-beato/"
+                 aria-label="Launch game: Tifo Beato" aria-describedby="game-tifo-beato-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Rhythm&quot;]" data-modes="solo local"
+                   aria-labelledby="game-tuki-tuki">
+            <img class="game-card-art" src="/assets/img/games/tuki-tuki.webp"
+                 alt="A toy dancer in a rainbow-striped shirt is surrounded by bright directional arrows on a purple cover." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-tuki-tuki">Tuki Tuki</h3>
+              <div class="game-card-tags">
+                <span class="tag">Rhythm</span>
+              </div>
+              <p id="game-tuki-tuki-description">Follow the arrows through five original songs on a 3D dance stage, solo or with a friend.</p>
+              <p class="game-card-modes">Single-player &middot; Local multiplayer</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/tuki-tuki/"
+                 aria-label="Launch game: Tuki Tuki" aria-describedby="game-tuki-tuki-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Incremental&quot;]" data-modes="solo"
+                   aria-labelledby="game-yacomio">
+            <img class="game-card-art" src="/assets/img/games/yacomio.webp"
+                 alt="A mint-green toy microbe with colourful beads and a tiny companion against a pale bubble pattern." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-yacomio">YaComio!</h3>
+              <div class="game-card-tags">
+                <span class="tag">Incremental</span>
+              </div>
+              <p id="game-yacomio-description">Grow a 3D colony from a single microbe to civilization in an untimed evolution game.</p>
+              <p class="game-card-modes">Single-player</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/yacomio/"
+                 aria-label="Launch game: YaComio!" aria-describedby="game-yacomio-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Board&quot;, &quot;Party&quot;]" data-modes="solo local"
+                   aria-labelledby="game-florida-men">
+            <img class="game-card-art" src="/assets/img/games/florida-men.webp"
+                 alt="A green toy alligator, pink flamingo and blue ride-on mower against a mint confetti background." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-florida-men">Florida Men</h3>
+              <div class="game-card-tags">
+                <span class="tag">Board</span>
+                <span class="tag">Party</span>
+              </div>
+              <p id="game-florida-men-description">Roll into a four-player board party, then chase toy gators and tackle six 3D minigames.</p>
+              <p class="game-card-modes">Single-player &middot; Local multiplayer</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/florida-men/"
+                 aria-label="Launch game: Florida Men" aria-describedby="game-florida-men-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Sandbox&quot;]" data-modes="solo"
+                   aria-labelledby="game-rastro">
+            <img class="game-card-art" src="/assets/img/games/rastro.webp"
+                 alt="A turquoise Nissan Cube sits inside a blueprint-style frame on a dark teal cover." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-rastro">Rastro</h3>
+              <div class="game-card-tags">
+                <span class="tag">Sandbox</span>
+              </div>
+              <p id="game-rastro-description">Paint, fit, and fine-tune three everyday cars in a 3D garage. No races, no unlocks.</p>
+              <p class="game-card-modes">Single-player</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/rastro/"
+                 aria-label="Launch game: Rastro" aria-describedby="game-rastro-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Rhythm&quot;]" data-modes="solo local"
+                   aria-labelledby="game-sailor-man">
+            <img class="game-card-art" src="/assets/img/games/sailor-man.webp"
+                 alt="Blue P1 and red P2 toy launches on teal waves beneath a gold sun." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-sailor-man">Sailor Man</h3>
+              <div class="game-card-tags">
+                <span class="tag">Rhythm</span>
+              </div>
+              <p id="game-sailor-man-description">Trade musical calls in a toy-canal practice prototype, using buttons or an opt-in microphone.</p>
+              <p class="game-card-modes">Single-player &middot; Local multiplayer</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/sailor-man/"
+                 aria-label="Launch game: Sailor Man" aria-describedby="game-sailor-man-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Arcade&quot;]" data-modes="solo"
+                   aria-labelledby="game-capitans-walk">
+            <img class="game-card-art" src="/assets/img/games/capitans-walk.webp"
+                 alt="A walker and a black-and-white dog cross a green park with a long leash between them." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-capitans-walk">Capitan&#x27;s Walk</h3>
+              <div class="game-card-tags">
+                <span class="tag">Arcade</span>
+              </div>
+              <p id="game-capitans-walk-description">Balance a walker and an eager dog on a springy leash through a seeded park in this physics prototype.</p>
+              <p class="game-card-modes">Single-player</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/capitans-walk/"
+                 aria-label="Launch game: Capitan&#x27;s Walk" aria-describedby="game-capitans-walk-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Sandbox&quot;]" data-modes="solo"
+                   aria-labelledby="game-puppy-kraft">
+            <img class="game-card-art" src="/assets/img/games/puppy-kraft.webp"
+                 alt="A blocky tan-and-white puppy stands on a tiny grass-topped platform in warm sunlight." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-puppy-kraft">Puppy Kraft</h3>
+              <div class="game-card-tags">
+                <span class="tag">Sandbox</span>
+              </div>
+              <p id="game-puppy-kraft-description">Explore, sniff, dig and build as a tiny dog in a saved block-world prototype. Keyboard and mouse.</p>
+              <p class="game-card-modes">Single-player</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/puppy-kraft/"
+                 aria-label="Launch game: Puppy Kraft" aria-describedby="game-puppy-kraft-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <article class="card game-card" data-genres="[&quot;Arcade&quot;]" data-modes="solo"
+                   aria-labelledby="game-baloos-chase">
+            <img class="game-card-art" src="/assets/img/games/baloos-chase.webp"
+                 alt="A speckled white dog with dark ears and a red harness carries a golden ball against a sunny green garden." width="640" height="640" loading="lazy" decoding="async">
+            <div class="game-card-body">
+              <h3 id="game-baloos-chase">Baloo&#x27;s Chase</h3>
+              <div class="game-card-tags">
+                <span class="tag">Arcade</span>
+              </div>
+              <p id="game-baloos-chase-description">Throw a ball, then chase Baloo through three 3D courses. A solo prototype with bouncy throws, obstacles and recovery medals.</p>
+              <p class="game-card-modes">Single-player</p>
+            </div>
+            <div class="game-card-action">
+              <a class="btn game-card-launch" href="/play/baloos-chase/"
+                 aria-label="Launch game: Baloo&#x27;s Chase" aria-describedby="game-baloos-chase-description">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Launch game</span>
+              </a>
+            </div>
+          </article>
+          <!-- /generated:games -->
+        </div>
+        <p id="game-empty" class="well game-empty" hidden>
+          No games match these filters. Try another search, genre or play mode, or clear the filters.
+        </p>
+
+        <h3 class="mt-lg">Take the whole collection with you</h3>
+        <p>
+          Unzip it and run the file inside; keep the <code>.pck</code> next to it, which is where the games are.
+        </p>
+
+        <!-- One button per desktop build, from tools/catalog.py's DESKTOPS.
+             tools/export_games.py is what puts the files under /downloads/. -->
+        <!-- generated:downloads -->
+        <div class="actions">
+          <a class="btn btn-secondary" href="/downloads/DCSGames-windows-x86_64.zip" download aria-label="Download collection for Windows x86-64">
+            <svg class="icon-download" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"
+                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>
+            </svg>
+            Windows <span class="tag">x86-64</span>
+          </a>
+          <a class="btn btn-secondary" href="/downloads/DCSGames-windows-arm64.zip" download aria-label="Download collection for Windows ARM64">
+            <svg class="icon-download" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"
+                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>
+            </svg>
+            Windows <span class="tag">ARM64</span>
+          </a>
+          <a class="btn btn-secondary" href="/downloads/DCSGames-linux-x86_64.zip" download aria-label="Download collection for Linux x86-64">
+            <svg class="icon-download" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"
+                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>
+            </svg>
+            Linux <span class="tag">x86-64</span>
+          </a>
+          <a class="btn btn-secondary" href="/downloads/DCSGames-linux-arm64.zip" download aria-label="Download collection for Linux ARM64">
+            <svg class="icon-download" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"
+                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>
+            </svg>
+            Linux <span class="tag">ARM64</span>
+          </a>
+        </div>
+        <!-- /generated:downloads -->
+      </section>
+
+      <!-- ================================================================
+           Gamer Profile — body generated from content/site.json "profile"
+           ================================================================ -->
+      <section id="profile" class="band">
+        <p class="eyebrow">the shelf</p>
+        <h2>Gamer Profile</h2>
+        <div class="profile-content">
+          <!-- generated:profile -->
+          <div class="card profile-intro profile-intro-with-image">
+            <img class="profile-media profile-avatar" src="/assets/img/avatar.png" alt="The site&#x27;s blue turtle avatar wearing sunglasses." width="281" height="281" loading="lazy" decoding="async">
+            <p class="profile-lead">Glitch hunter, speedrunner, and professional fun-haver.</p>
+            <p>I live for the moment a game breaks in just the right way, whether I'm clipping through a wall to save three seconds or stumbling on a bug nobody's documented yet.</p>
+          </div>
+          <div class="profile-favorites">
+            <h3>Favorites</h3>
+            <p class="profile-section-note">The games that make my favorites list are the ones that hook me on the whole loop: the grinding, the progression, the discovery and the replayability.</p>
+            <ul class="grid grid-2 profile-favorite-list" role="list">
+              <li class="card profile-favorite">
+                <img class="profile-media profile-thumbnail" src="/assets/img/profile/ocarina.svg" alt="" width="512" height="512" loading="lazy" decoding="async">
+                <div class="profile-item-copy">
+                  <h4><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Ocarina_of_Time" rel="noopener">The Legend of Zelda: Ocarina of Time</a></h4>
+                  <span class="badge badge-neutral">Ship of Harkinian</span>
+                </div>
+              </li>
+              <li class="card profile-favorite">
+                <img class="profile-media profile-thumbnail" src="/assets/img/profile/round-star.svg" alt="" width="512" height="512" loading="lazy" decoding="async">
+                <div class="profile-item-copy">
+                  <h4><a href="https://en.wikipedia.org/wiki/Super_Mario_64" rel="noopener">Super Mario 64: 16 Stars</a></h4>
+                  <span class="badge badge-neutral">Emulation</span>
+                </div>
+              </li>
+              <li class="card profile-favorite">
+                <img class="profile-media profile-thumbnail" src="/assets/img/profile/brick-wall.svg" alt="" width="512" height="512" loading="lazy" decoding="async">
+                <div class="profile-item-copy">
+                  <h4><a href="https://en.wikipedia.org/wiki/Super_Mario_Bros." rel="noopener">Super Mario Bros.</a></h4>
+                  <span class="badge badge-neutral">Emulation</span>
+                </div>
+              </li>
+              <li class="card profile-favorite">
+                <img class="profile-media profile-thumbnail" src="/assets/img/profile/race-car.svg" alt="" width="512" height="512" loading="lazy" decoding="async">
+                <div class="profile-item-copy">
+                  <h4><a href="https://en.wikipedia.org/wiki/Rocket_League" rel="noopener">Rocket League</a></h4>
+                  <span class="badge badge-neutral">Epic Games</span>
+                </div>
+              </li>
+              <li class="card profile-favorite">
+                <img class="profile-media profile-thumbnail" src="/assets/img/profile/ray-gun.svg" alt="" width="512" height="512" loading="lazy" decoding="async">
+                <div class="profile-item-copy">
+                  <h4><a href="https://en.wikipedia.org/wiki/Phantasy_Star_Online" rel="noopener">Phantasy Star Online: Blue Burst</a></h4>
+                  <span class="badge badge-neutral">Ephinea</span>
+                </div>
+              </li>
+              <li class="card profile-favorite">
+                <img class="profile-media profile-thumbnail" src="/assets/img/profile/crossed-swords.svg" alt="" width="512" height="512" loading="lazy" decoding="async">
+                <div class="profile-item-copy">
+                  <h4><a href="https://en.wikipedia.org/wiki/Old_School_RuneScape" rel="noopener">Old School Runescape</a></h4>
+                  <span class="badge badge-neutral">Mobile</span>
+                </div>
+              </li>
+              <li class="card profile-favorite">
+                <img class="profile-media profile-thumbnail" src="/assets/img/profile/conversation.svg" alt="" width="512" height="512" loading="lazy" decoding="async">
+                <div class="profile-item-copy">
+                  <h4><a href="https://en.wikipedia.org/wiki/Duolingo" rel="noopener">Duolingo</a></h4>
+                  <span class="badge badge-neutral">Mobile</span>
+                </div>
+              </li>
+              <li class="card profile-favorite">
+                <img class="profile-media profile-thumbnail" src="/assets/img/profile/dna.svg" alt="" width="512" height="512" loading="lazy" decoding="async">
+                <div class="profile-item-copy">
+                  <h4><a href="https://en.wikipedia.org/wiki/Cell_to_Singularity" rel="noopener">Cells to Singularity</a></h4>
+                  <span class="badge badge-neutral">Mobile</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="card profile-setup">
+            <h3>What I play on</h3>
+            <p class="profile-section-note">Emulation and physical hardware.</p>
+            <ul class="grid grid-3 profile-device-list" role="list">
+              <li class="profile-device profile-device-with-image">
+                <img class="profile-media profile-hardware-image" src="/assets/img/profile/game-boy.webp" alt="An original gray Game Boy with its screen and controls visible." width="384" height="256" loading="lazy" decoding="async">
+                <div class="profile-item-copy">
+                  <h4>Game Boy</h4>
+                </div>
+              </li>
+              <li class="profile-device profile-device-with-image">
+                <img class="profile-media profile-hardware-image" src="/assets/img/profile/nintendo-ds.webp" alt="An open blue Nintendo DS showing both screens and its controls." width="384" height="256" loading="lazy" decoding="async">
+                <div class="profile-item-copy">
+                  <h4>Nintendo DS</h4>
+                </div>
+              </li>
+              <li class="profile-device profile-device-with-image">
+                <img class="profile-media profile-hardware-image" src="/assets/img/profile/nintendo-switch.webp" alt="A Nintendo Switch with blue and red Joy-Con controllers attached." width="384" height="256" loading="lazy" decoding="async">
+                <div class="profile-item-copy">
+                  <h4>Nintendo Switch</h4>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <details class="profile-image-credits">
+            <summary>Image credits</summary>
+            <ul>
+              <li><a href="https://game-icons.net/1x1/delapouite/ocarina.html" rel="noopener">Ocarina icon</a> by Delapouite; <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener">CC BY 3.0</a>. Recolored to the site palette; used as a thematic illustration.</li>
+              <li><a href="https://game-icons.net/1x1/delapouite/round-star.html" rel="noopener">Round star icon</a> by Delapouite; <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener">CC BY 3.0</a>. Recolored to the site palette; used as a thematic illustration.</li>
+              <li><a href="https://game-icons.net/1x1/delapouite/brick-wall.html" rel="noopener">Brick wall icon</a> by Delapouite; <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener">CC BY 3.0</a>. Recolored to the site palette; used as a thematic illustration.</li>
+              <li><a href="https://game-icons.net/1x1/skoll/race-car.html" rel="noopener">Race car icon</a> by Skoll; <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener">CC BY 3.0</a>. Recolored to the site palette; used as a thematic illustration.</li>
+              <li><a href="https://game-icons.net/1x1/lorc/ray-gun.html" rel="noopener">Ray gun icon</a> by Lorc; <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener">CC BY 3.0</a>. Recolored to the site palette; used as a thematic illustration.</li>
+              <li><a href="https://game-icons.net/1x1/lorc/crossed-swords.html" rel="noopener">Crossed swords icon</a> by Lorc; <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener">CC BY 3.0</a>. Recolored to the site palette; used as a thematic illustration.</li>
+              <li><a href="https://game-icons.net/1x1/lorc/conversation.html" rel="noopener">Conversation icon</a> by Lorc; <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener">CC BY 3.0</a>. Recolored to the site palette; used as a thematic illustration.</li>
+              <li><a href="https://game-icons.net/1x1/lorc/dna1.html" rel="noopener">DNA 1 icon</a> by Lorc; <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener">CC BY 3.0</a>. Recolored to the site palette; used as a thematic illustration.</li>
+              <li><a href="https://commons.wikimedia.org/wiki/File:Game-Boy-FL.png" rel="noopener">Game Boy photograph</a> by Evan-Amos (original photograph); <a href="https://commons.wikimedia.org/wiki/File:Game-Boy-FL.png#Licensing" rel="noopener">Public domain</a>. Transparent version from Wikimedia Commons; resized onto a transparent canvas and converted to WebP. Representative hardware photograph.</li>
+              <li><a href="https://commons.wikimedia.org/wiki/File:Nintendo-DS-Fat-Blue.png" rel="noopener">Nintendo DS photograph</a> by Evan-Amos; <a href="https://commons.wikimedia.org/wiki/File:Nintendo-DS-Fat-Blue.png#Licensing" rel="noopener">Public domain</a>. Resized onto a transparent canvas and converted to WebP. Representative hardware photograph.</li>
+              <li><a href="https://commons.wikimedia.org/wiki/File:Nintendo-Switch-wJoyCons-BlRd-Standing-FL.png" rel="noopener">Nintendo Switch photograph</a> by Evan-Amos, modified by Gunnar.offel; <a href="https://commons.wikimedia.org/wiki/File:Nintendo-Switch-wJoyCons-BlRd-Standing-FL.png#Licensing" rel="noopener">Public domain</a>. Resized onto a transparent canvas and converted to WebP. Representative hardware photograph.</li>
+            </ul>
+          </details>
+          <!-- /generated:profile -->
+        </div>
+      </section>
+
+      <!-- ================================================================
+           Emulators
+           ================================================================ -->
+      <section id="emulators" class="band">
+        <p class="eyebrow">old hardware, new tricks</p>
+        <h2>Emulators</h2>
+        <article class="card emulator-card" aria-labelledby="emulator-reactboy">
+          <img class="emulator-preview" src="/assets/img/emulators/reactboy.webp"
+               alt="ReactBoy's gray handheld interface with its welcome screen, D-pad, A/B buttons and Start/Select controls."
+               width="640" height="992" loading="lazy" decoding="async">
+          <div>
+            <h3 id="emulator-reactboy">ReactBoy</h3>
+            <p>
+              A Game Boy and Game Boy Color emulator I built with React and
+              TypeScript. Play in your browser with keyboard, gamepad or touch controls.
+            </p>
+            <p>
+              Bring your own <code>.gb</code> or <code>.gbc</code> ROMs.
+              Your games and saves stay on your device; no ROMs are included.
+            </p>
+            <div class="actions">
+              <a class="btn btn-primary" href="/reactboy/">Launch ReactBoy</a>
+              <a class="btn btn-ghost" href="https://github.com/jraleman/ReactBoy" rel="noopener">View source</a>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ================================================================
+           Files
+           ================================================================ -->
+      <section id="files" class="band">
+        <p class="eyebrow">the archive</p>
+        <h2>Files</h2>
+        <p>
+          Saves, tools, patches, romhacks and anything else I've made or collected
+          while tinkering with old games.
+        </p>
+
+        <!-- One .card per kind, from content/site.json's "files.kinds".
+             Edit them there, then run tools/build.py. -->
+        <div class="grid grid-3 mb-lg">
+          <!-- generated:file-kinds -->
+          <div class="card">
+            <h4>Save files</h4>
+            <p>Completed saves, useful mid-game states, testing saves.</p>
+          </div>
+          <div class="card">
+            <h4>Tools</h4>
+            <p>Small utilities for editing, extracting or converting game data.</p>
+          </div>
+          <div class="card">
+            <h4>Patches</h4>
+            <p>IPS/BPS patches. Patches only, never a patched ROM.</p>
+          </div>
+          <div class="card">
+            <h4>Romhacks</h4>
+            <p>My own hacks, and notes on hacks I like.</p>
+          </div>
+          <div class="card">
+            <h4>Notes</h4>
+            <p>Format documentation and teardowns from figuring the above out.</p>
+          </div>
+          <!-- /generated:file-kinds -->
+        </div>
+
+        <h3>Rules for this section</h3>
+        <!-- generated:file-rules -->
+        <div class="well">
+          <ol class="rules">
+            <li>No copyrighted ROMs or game assets. Patches and tools, bring your own copy.</li>
+            <li>Every file says what it's for, what it was made with, and what it runs on.</li>
+            <li>Nothing goes up untested. If it's known-broken, the page says so.</li>
+          </ol>
+        </div>
+        <!-- /generated:file-rules -->
+
+        <!-- TEMPLATE: one row per file. -->
+         <!--
+        <h3>Downloads</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">File</th><th scope="col">Kind</th>
+                <th scope="col">Runs on</th><th scope="col">Version</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>File name</td>
+                <td><span class="tag">patch</span></td>
+                <td>What it needs</td>
+                <td><span class="num">0.1</span></td>
+              </tr>
+              <tr>
+                <td>File name</td>
+                <td><span class="tag">tool</span></td>
+                <td>What it needs</td>
+                <td><span class="num">1.0</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      -->
+      </section>
+
+      <!-- ================================================================
+           Videos
+           ================================================================ -->
+      <section id="videos" class="band">
+        <p class="eyebrow">youtube</p>
+        <h2>Videos</h2>
+        <div class="actions mb-lg">
+          <a class="btn btn-secondary" href="https://youtube.com/@deskcansaw" rel="me noopener">
+            The channel on YouTube
+          </a>
+          <a class="btn btn-secondary" href="https://www.youtube.com/@DeskCanSaw/streams" rel="noopener">
+            Every stream on YouTube
+          </a>
+        </div>
+        <p>
+          Playthroughs, build logs from the games, and teardowns of the
+          files above.
+        </p>
+
+        <!-- One embed per video, from content/site.json's "videos.featured".
+             Edit them there, then run tools/build.py. -->
+        <div class="grid grid-2">
+          <!-- generated:videos -->
+          <figure class="frame">
+            <div class="ratio">
+              <iframe src="https://www.youtube-nocookie.com/embed/bISQqCFXA8k" title="Rendered Particles in SM64 Start Screen"
+                      allowfullscreen loading="lazy"></iframe>
+            </div>
+            <figcaption>The particles the Super Mario 64 start screen draws, pulled out and rendered on their own.</figcaption>
+          </figure>
+          <figure class="frame">
+            <div class="ratio">
+              <iframe src="https://www.youtube-nocookie.com/embed/WemABE-ne-w" title="Camera Glitch in Dire Dire Docks SM64"
+                      allowfullscreen loading="lazy"></iframe>
+            </div>
+            <figcaption>What the Dire Dire Docks camera does when you push it somewhere the game never meant it to go.</figcaption>
+          </figure>
+          <figure class="frame">
+            <div class="ratio">
+              <iframe src="https://www.youtube-nocookie.com/embed/QKwK-ZhTurg" title="Binary Finary - 1998 (Original Mix)"
+                      allowfullscreen loading="lazy"></iframe>
+            </div>
+            <figcaption>Binary Finary's 1998, the original mix. What a lot of the tinkering above gets done to.</figcaption>
+          </figure>
+          <figure class="frame">
+            <div class="ratio">
+              <iframe src="https://www.youtube-nocookie.com/embed/XrIFAR_aa44" title="My Wii Laptop/Portable - Wii Bawkz"
+                      allowfullscreen loading="lazy"></iframe>
+            </div>
+            <figcaption>The Wii Bawkz: my Wii rebuilt as a laptop-style portable. The channel's first video, from 2008.</figcaption>
+          </figure>
+          <!-- /generated:videos -->
+        </div>
+
+        <h3 class="mt-lg">Live streams</h3>
+        <p>
+          Everything the channel has streamed, by game, oldest first... long, unedited sessions, so they stay on YouTube rather than in a box here.
+        </p>
+
+        <!-- One card per game, from content/site.json's "videos.streams". -->
+        <div class="grid grid-2 grid-start">
+          <!-- generated:streams -->
+          <div class="card">
+            <div class="card-head">
+              <h4>Super Mario 64</h4>
+              <span class="meta">3 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=3lrC7QLznYA" rel="noopener">16 star practice</a><span class="meta">2022-06-30</span></li>
+              <li><a href="https://www.youtube.com/watch?v=aA7oYQ3BEEM" rel="noopener">16 star practice</a><span class="meta">2022-07-01</span></li>
+              <li><a href="https://www.youtube.com/watch?v=wgw-WxV31k0" rel="noopener">16 star practice</a><span class="meta">2022-07-02</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Super Mario All-Stars</h4>
+              <span class="meta">2 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=-mdgfUjhOJg" rel="noopener">SMB1 speedrun practice</a><span class="meta">2022-10-14</span></li>
+              <li><a href="https://www.youtube.com/watch?v=n3gvCRBEVJk" rel="noopener">SMB1 speedrun practice</a><span class="meta">2022-10-14</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>The Legend of Zelda: Ocarina of Time</h4>
+              <span class="meta">6 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=xBBdbX7MRnc" rel="noopener">Randomizer, seed 23403</a><span class="meta">2023-02-15</span></li>
+              <li><a href="https://www.youtube.com/watch?v=8Xg8Oa1a1hs" rel="noopener">Randomizer, seed 21223</a><span class="meta">2023-02-19</span></li>
+              <li><a href="https://www.youtube.com/watch?v=_iBPyIpICK8" rel="noopener">Randomizer, seed 15308</a><span class="meta">2023-02-20</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Hyr3I25SmCQ" rel="noopener">Randomizer, seed 22449</a><span class="meta">2023-02-23</span></li>
+              <li><a href="https://www.youtube.com/watch?v=aBPcP911bFE" rel="noopener">Randomizer, seed 12870</a><span class="meta">2023-02-24</span></li>
+              <li><a href="https://www.youtube.com/watch?v=WDuy7UidGiw" rel="noopener">Randomizer, seed 30083</a><span class="meta">2023-02-26</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Rocket League</h4>
+              <span class="meta">14 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=ozTR0HrCrh8" rel="noopener">Streaming test</a><span class="meta">2023-01-29</span></li>
+              <li><a href="https://www.youtube.com/watch?v=9ZZiw5ZxcKI" rel="noopener">Streaming test</a><span class="meta">2023-01-29</span></li>
+              <li><a href="https://www.youtube.com/watch?v=6gKQjp_h6As" rel="noopener">Streaming test</a><span class="meta">2023-01-29</span></li>
+              <li><a href="https://www.youtube.com/watch?v=G1M2OKUX2Bw" rel="noopener">Streaming test</a><span class="meta">2023-01-29</span></li>
+              <li><a href="https://www.youtube.com/watch?v=vlWfAtNu9F0" rel="noopener">Casual practice</a><span class="meta">2023-02-06</span></li>
+              <li><a href="https://www.youtube.com/watch?v=lf_gH2WMGy0" rel="noopener">Casual practice</a><span class="meta">2023-02-07</span></li>
+              <li><a href="https://www.youtube.com/watch?v=-LNLZGf-8SU" rel="noopener">Casual play</a><span class="meta">2023-02-09</span></li>
+              <li><a href="https://www.youtube.com/watch?v=i1t8iBXN7aE" rel="noopener">Casual play</a><span class="meta">2023-02-12</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Mm_ObDcTdj0" rel="noopener">Casual play</a><span class="meta">2023-02-14</span></li>
+              <li><a href="https://www.youtube.com/watch?v=IwtureOz06s" rel="noopener">Casual play</a><span class="meta">2023-02-15</span></li>
+              <li><a href="https://www.youtube.com/watch?v=rNJ7LrKE6Tg" rel="noopener">Casual play</a><span class="meta">2023-04-15</span></li>
+              <li><a href="https://www.youtube.com/watch?v=8O4TTvQaC34" rel="noopener">Casual play</a><span class="meta">2023-04-19</span></li>
+              <li><a href="https://www.youtube.com/watch?v=pX2GOwGDR0g" rel="noopener">Casual play</a><span class="meta">2023-04-19</span></li>
+              <li><a href="https://www.youtube.com/watch?v=ZndvJe8427M" rel="noopener">Casual play</a><span class="meta">2023-04-19</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Cat Quest</h4>
+              <span class="meta">19 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=mFA8ZhECckc" rel="noopener">Ep. 1</a><span class="meta">2023-02-05</span></li>
+              <li><a href="https://www.youtube.com/watch?v=VfCr0FB7oL8" rel="noopener">Ep. 2</a><span class="meta">2023-02-06</span></li>
+              <li><a href="https://www.youtube.com/watch?v=JP9uakwuYAw" rel="noopener">Ep. 3</a><span class="meta">2023-02-06</span></li>
+              <li><a href="https://www.youtube.com/watch?v=JF_06LKDizM" rel="noopener">Ep. 4</a><span class="meta">2023-02-07</span></li>
+              <li><a href="https://www.youtube.com/watch?v=DGVg4GnmUZ0" rel="noopener">Ep. 5</a><span class="meta">2023-02-08</span></li>
+              <li><a href="https://www.youtube.com/watch?v=6mQyrbS9l8k" rel="noopener">Ep. 6</a><span class="meta">2023-02-08</span></li>
+              <li><a href="https://www.youtube.com/watch?v=wE7p2nVI-8w" rel="noopener">Ep. 7</a><span class="meta">2023-02-09</span></li>
+              <li><a href="https://www.youtube.com/watch?v=mbLnp41VzMo" rel="noopener">Ep. 8</a><span class="meta">2023-02-08</span></li>
+              <li><a href="https://www.youtube.com/watch?v=mlKjw7cNzUQ" rel="noopener">Ep. 9, Mew Game</a><span class="meta">2023-02-11</span></li>
+              <li><a href="https://www.youtube.com/watch?v=_uGfknE4g4A" rel="noopener">Ep. 10, Mew Game 1</a><span class="meta">2023-02-11</span></li>
+              <li><a href="https://www.youtube.com/watch?v=V4JeYuE8XcU" rel="noopener">Ep. 11, Mew Game 1</a><span class="meta">2023-02-11</span></li>
+              <li><a href="https://www.youtube.com/watch?v=qnwU6RT2B4c" rel="noopener">Ep. 12, Mew Game 2</a><span class="meta">2023-02-11</span></li>
+              <li><a href="https://www.youtube.com/watch?v=cfof-iGezQU" rel="noopener">Ep. 13, Mew Game 2</a><span class="meta">2023-02-12</span></li>
+              <li><a href="https://www.youtube.com/watch?v=eMstMDdRg_E" rel="noopener">Ep. 14, Mew Game 2</a><span class="meta">2023-02-12</span></li>
+              <li><a href="https://www.youtube.com/watch?v=h4ODu5iHUcw" rel="noopener">Ep. 15, Mew Game 2</a><span class="meta">2023-02-12</span></li>
+              <li><a href="https://www.youtube.com/watch?v=4ZxmXRlXtW0" rel="noopener">Ep. 16, Mew Game 3</a><span class="meta">2023-02-12</span></li>
+              <li><a href="https://www.youtube.com/watch?v=816d_k5QOmM" rel="noopener">Ep. 17, Mew Game 3</a><span class="meta">2023-02-13</span></li>
+              <li><a href="https://www.youtube.com/watch?v=87HuSvdJXmM" rel="noopener">Ep. 18, Mew Game 3</a><span class="meta">2023-02-13</span></li>
+              <li><a href="https://www.youtube.com/watch?v=NAs-1GWZdXk" rel="noopener">Ep. 19, Mew Game 3</a><span class="meta">2023-02-14</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Cat Quest II</h4>
+              <span class="meta">11 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=Ph7jYw7gekE" rel="noopener">Ep. 1</a><span class="meta">2023-02-20</span></li>
+              <li><a href="https://www.youtube.com/watch?v=YTUkIt9OSvY" rel="noopener">Ep. 2</a><span class="meta">2023-02-21</span></li>
+              <li><a href="https://www.youtube.com/watch?v=AmatxA0mBOw" rel="noopener">Ep. 3</a><span class="meta">2023-02-22</span></li>
+              <li><a href="https://www.youtube.com/watch?v=4z7csweBEGg" rel="noopener">Ep. 4</a><span class="meta">2023-02-23</span></li>
+              <li><a href="https://www.youtube.com/watch?v=KWqrNPytEJI" rel="noopener">Ep. 5</a><span class="meta">2023-02-24</span></li>
+              <li><a href="https://www.youtube.com/watch?v=D1SPP7I8ha4" rel="noopener">Ep. 6</a><span class="meta">2023-03-17</span></li>
+              <li><a href="https://www.youtube.com/watch?v=yu-v-0I7E5E" rel="noopener">Ep. 7</a><span class="meta">2023-03-22</span></li>
+              <li><a href="https://www.youtube.com/watch?v=nvFZLHGLu5Q" rel="noopener">Ep. 8</a><span class="meta">2023-03-22</span></li>
+              <li><a href="https://www.youtube.com/watch?v=mmA5EkYG57E" rel="noopener">Ep. 9</a><span class="meta">2023-04-13</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Pwqy0-Y3G4A" rel="noopener">Ep. 10</a><span class="meta">2023-04-13</span></li>
+              <li><a href="https://www.youtube.com/watch?v=lEs-nrKhvXw" rel="noopener">Ep. 11</a><span class="meta">2023-04-13</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Stray</h4>
+              <span class="meta">4 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=LfYnXon52KY" rel="noopener">Blind playthrough</a><span class="meta">2022-07-27</span></li>
+              <li><a href="https://www.youtube.com/watch?v=ujmNjV8hiTE" rel="noopener">Ep. 2</a><span class="meta">2022-07-30</span></li>
+              <li><a href="https://www.youtube.com/watch?v=zo9MhJj9RVw" rel="noopener">Ep. 2</a><span class="meta">2022-07-31</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Z5IrIXWr1yY" rel="noopener">Ep. 2.1, welcome back</a><span class="meta">2023-02-03</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Dying Light</h4>
+              <span class="meta">3 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=EN4re9DVGks" rel="noopener">Ep. 1</a><span class="meta">2023-02-24</span></li>
+              <li><a href="https://www.youtube.com/watch?v=cUZ6_NOZwdo" rel="noopener">Ep. 1</a><span class="meta">2023-02-24</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Cc00uP7q5cg" rel="noopener">Ep. 2</a><span class="meta">2023-02-26</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Unravel Two</h4>
+              <span class="meta">1 stream</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=cqFnB5RH6GU" rel="noopener">Ep. 1</a><span class="meta">2023-02-26</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Doki Doki Literature Club</h4>
+              <span class="meta">1 stream</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=4XaQgcAj4J4" rel="noopener">Ep. 1</a><span class="meta">2023-04-13</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>New Super Mario Bros. U Deluxe</h4>
+              <span class="meta">5 streams</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=Bxl4OaZty00" rel="noopener">World 1</a><span class="meta">2023-04-15</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Y0L19oHlnvk" rel="noopener">World 2</a><span class="meta">2023-04-15</span></li>
+              <li><a href="https://www.youtube.com/watch?v=nPSC2AOWoTc" rel="noopener">World 3</a><span class="meta">2023-04-15</span></li>
+              <li><a href="https://www.youtube.com/watch?v=7tXJuMGWuPw" rel="noopener">World 4</a><span class="meta">2023-04-17</span></li>
+              <li><a href="https://www.youtube.com/watch?v=Zbs453qMBpI" rel="noopener">World 4</a><span class="meta">2023-04-18</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h4>Super Mario Bros.</h4>
+              <span class="meta">1 stream</span>
+            </div>
+            <ul class="linklist">
+              <li><a href="https://www.youtube.com/watch?v=5AQhrH6cULY" rel="noopener">Speedrun practice</a><span class="meta">2024-01-07</span></li>
+            </ul>
+          </div>
+          <!-- /generated:streams -->
+        </div>
+      </section>
+
+      <footer class="site-foot">
+        <p>deskcansaw.com — one person, some games, a lot of old cartridges.</p>
+        <p>
+          <a href="https://github.com/jraleman/DeskCanSaw.com" rel="noopener">source</a>
+        </p>
+      </footer>
+
+    </div>
+  </main>
+</div>
+
+<script src="/assets/js/color-scheme.js"></script>
+<script src="/assets/js/game-filters.js"></script>
+<script src="/assets/js/scroll-spy.js"></script>
+</body>
+</html>

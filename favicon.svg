@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="DeskCanSaw">
+  <title>DeskCanSaw</title>
+  <!-- The swept wing, traced from the shape at the top-left of assets/avatar.png.
+       Palette per style-guide.md §2.1: sky ground, slate body, cream facets.
+       Flat fills only, no gradient and no shadow (§4).
+
+       favicon.ico carries 16/32/48 rendered from this file, except the 16px
+       entry, which drops the middle facet and widens the remaining one to 9
+       units — three 1px bands turn to mush at that size. -->
+  <defs>
+    <path id="wing" d="M2 28 L26 33 L62 8 L58 54 L26 36 L11 55 Z"/>
+    <clipPath id="wing-clip"><use href="#wing"/></clipPath>
+  </defs>
+
+  <rect width="64" height="64" fill="#afdde9"/>
+
+  <g clip-path="url(#wing-clip)">
+    <use href="#wing" fill="#495663"/>
+    <g transform="rotate(17 32 32)" fill="#f4eed7">
+      <rect x="34" y="0" width="7" height="64"/>
+      <rect x="45" y="0" width="7" height="64"/>
+      <rect x="8"  y="0" width="7" height="64"/>
+    </g>
+  </g>
+</svg>
